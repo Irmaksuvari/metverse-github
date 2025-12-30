@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keşfet - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .kesfet-section {
+            background-color: rgb(4, 0, 29);
+            background-image: radial-gradient(circle, rgba(232, 133, 202, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            padding: 120px 1rem 4rem 1rem;
+            position: relative;
+        }
+
+        .kesfet-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.6s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .kesfet-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #fffffffe;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .kesfet-header h1 .highlight {
+            color: rgb(232, 133, 202);
+        }
+
+        .kesfet-header p {
+            font-size: 1.2rem;
+            color: #B0B0B0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .kesfet-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 2rem;
+            background: rgba(232, 133, 202, 0.1);
+            border: 2px solid rgba(232, 133, 202, 0.3);
+            border-radius: 8px;
+            color: #B0B0B0;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: rgba(232, 133, 202, 0.2);
+            border-color: rgb(232, 133, 202);
+            color: rgb(232, 133, 202);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            border-color: rgb(232, 133, 202);
+            color: #fffffffe;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .kesfet-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            background: rgba(232, 133, 202, 0.1);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            border-radius: 8px;
+            color: #B0B0B0;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: rgba(232, 133, 202, 0.2);
+            border-color: rgb(232, 133, 202);
+            color: rgb(232, 133, 202);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            border-color: rgb(232, 133, 202);
+            color: #fffffffe;
+        }
+
+        .kesfet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .kesfet-card {
+            background: rgba(30, 0, 34, 0.6);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: slideUp 0.4s ease;
+        }
+
+        .kesfet-card:hover {
+            background: rgba(30, 0, 34, 0.9);
+            border-color: rgba(232, 133, 202, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(232, 133, 202, 0.2);
+        }
+
+        .kesfet-card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.2), rgba(232, 133, 202, 0.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.2);
+        }
+
+        .kesfet-card-content {
+            padding: 1.5rem;
+        }
+
+        .kesfet-card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fffffffe;
+            margin-bottom: 0.5rem;
+        }
+
+        .kesfet-card-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(232, 133, 202, 0.15);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: rgb(232, 133, 202);
+            margin-bottom: 1rem;
+        }
+
+        .kesfet-card-desc {
+            font-size: 0.9rem;
+            color: #B0B0B0;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .kesfet-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .kesfet-card-followers {
+            font-size: 0.9rem;
+            color: rgb(232, 133, 202);
+            font-weight: 600;
+        }
+
+        .kesfet-card-btn {
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            border: none;
+            border-radius: 6px;
+            color: #fffffffe;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .kesfet-card-btn:hover {
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.9), rgb(232, 133, 202));
+            transform: scale(1.05);
+        }
+
+        .empty-kesfet {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(30, 0, 34, 0.5);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 15px;
+        }
+
+        .empty-kesfet-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-kesfet h2 {
+            font-size: 1.5rem;
+            color: #fffffffe;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-kesfet p {
+            color: #B0B0B0;
+            font-size: 1rem;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .kesfet-header h1 {
+                font-size: 2rem;
+            }
+
+            .kesfet-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kesfet-filters {
+                flex-direction: column;
+            }
+
+            .filter-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+
+    <section class="kesfet-section">
+        <div class="kesfet-header">
+            <h1>Kampanyaları <span class="highlight">Keşfet</span></h1>
+            <p>Senin için en uygun kampanyaları keşfet ve başvuru yap</p>
+        </div>
+
+        <div class="kesfet-container">
+            <!-- Filtreler -->
+            <div class="kesfet-filters">
+                <button class="filter-btn active" onclick="filterCampaigns('all')">🌟 Tümü</button>
+                <button class="filter-btn" onclick="filterCampaigns('fashion')">👗 Moda</button>
+                <button class="filter-btn" onclick="filterCampaigns('beauty')">💄 Güzellik</button>
+                <button class="filter-btn" onclick="filterCampaigns('tech')">📱 Teknoloji</button>
+                <button class="filter-btn" onclick="filterCampaigns('food')">🍔 Yiyecek</button>
+            </div>
+
+            <!-- Kampanyalar Grid'i -->
+            <div class="kesfet-grid" id="campaignGrid">
+                <!-- Kampanyalar burada listelenecek -->
+                <div class="empty-kesfet">
+                    <div class="empty-kesfet-icon">🔍</div>
+                    <h2>Kampanya yükleniyor...</h2>
+                    <p>Lütfen bekleyin, mevcut kampanyalar görüntülenecektir</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        let campaigns = [];
+
+        // Kategoriye göre mapping
+        const categoryMap = {
+            "Reels": "fashion",
+            "Post": "fashion",
+            "Video": "tech",
+            "Yazı Paylaşımı": "fashion",
+            "Eğitim Videosu": "tech",
+            "Perde Arkası": "fashion",
+            "Yarışma": "fashion",
+            "Etkinlik Kapsamı": "food",
+            "Dizi": "tech",
+            "Anket": "fashion",
+            "Challenge": "fashion",
+            "Savunuculuk": "tech",
+            "Webinar": "tech",
+            "Konferans": "tech",
+            "Moda Gösterisi": "fashion",
+            "Ürün Tanıtımı": "beauty",
+            "Açılış Etkinliği": "food",
+            "Eğitim Serisi": "tech",
+            "Sponsorluk": "food",
+            "Unboxing": "tech",
+            "Belgesel": "tech"
+        };
+
+        // Emoji mapping
+        const platformIcons = {
+            "Instagram": "📷",
+            "TikTok": "🎵",
+            "YouTube": "📺",
+            "LinkedIn": "💼",
+            "Pinterest": "📌",
+            "Twitter": "𝕏",
+            "Facebook": "📘",
+            "Diğer": "🌐"
+        };
+
+        // Kampanyaları JSON dosyasından yükle
+        async function loadCampaigns() {
+            try {
+                const response = await fetch('/data/eşleşmemiş_kampanyalarım.json');
+                const data = await response.json();
+                
+                campaigns = data.map((kamp, index) => ({
+                    id: kamp.kampanya_id,
+                    title: kamp.kampanya_adi,
+                    category: categoryMap[kamp.kampanya_turu] || "fashion",
+                    description: `${kamp.platform} platformunda ${kamp.kampanya_turu} kampanyası`,
+                    followers: `Bütçe: ₺${kamp.kampanya_butcesi_tl.toLocaleString('tr-TR')}`,
+                    icon: platformIcons[kamp.platform] || "🎯",
+                    platform: kamp.platform,
+                    type: kamp.kampanya_turu,
+                    budget: kamp.kampanya_butcesi_tl,
+                    startDate: kamp.kampanya_baslangic,
+                    endDate: kamp.kampanya_bitis,
+                    markaId: kamp.marka_id
+                }));
+                
+                displayCampaigns();
+                console.log('✅ Kampanyalar yüklendi:', campaigns.length, 'kampanya');
+            } catch (error) {
+                console.error('❌ Kampanya yükleme hatası:', error);
+                displayError();
+            }
+        }
+
+        function displayCampaigns(filter = 'all') {
+            const grid = document.getElementById('campaignGrid');
+            
+            let filtered = campaigns;
+            if (filter !== 'all') {
+                filtered = campaigns.filter(c => c.category === filter);
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-kesfet">
+                        <div class="empty-kesfet-icon">🔍</div>
+                        <h2>Kampanya bulunamadı</h2>
+                        <p>Seçtiğiniz kategoride kampanya bulunmamaktadır</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(campaign => `
+                <div class="kesfet-card">
+                    <div class="kesfet-card-image">${campaign.icon}</div>
+                    <div class="kesfet-card-content">
+                        <div class="kesfet-card-category">${campaign.category.toUpperCase()}</div>
+                        <h3 class="kesfet-card-title">${campaign.title}</h3>
+                        <p class="kesfet-card-desc">${campaign.description}</p>
+                        <div class="kesfet-card-footer">
+                            <span class="kesfet-card-followers">👥 ${campaign.followers}</span>
+                            <button class="kesfet-card-btn" onclick="applyCampaign('${campaign.id}')">Başvur</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterCampaigns(category) {
+            // Aktif button'ı güncelle
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Kampanyaları filtrele
+            displayCampaigns(category);
+            console.log('🔍 Kampanyalar filtrelendi:', category);
+        }
+
+        async function applyCampaign(campaignId) {
+            const campaign = campaigns.find(c => c.id === campaignId);
+            if (!campaign) return;
+
+            try {
+                // Giriş yapılı olan kullanıcı bilgisini localStorage'dan al
+                const user = JSON.parse(localStorage.getItem('user'));
+                if (!user || !user.id) {
+                    alert('❌ Lütfen giriş yapınız!');
+                    return;
+                }
+
+                const basvuru = {
+                    basvuru_id: `BSV${Date.now()}`,
+                    inf_id: user.id,
+                    inf_adi: user.ad,
+                    inf_soyadi: user.soyad,
+                    kampanya_id: campaign.id,
+                    kampanya_adi: campaign.title,
+                    marka_id: campaign.markaId,
+                    platform: campaign.platform,
+                    kampanya_turu: campaign.type,
+                    kampanya_bitis: campaign.endDate,
+                    kampanya_butcesi_tl: campaign.budget,
+                    basvuru_tarihi: new Date().toISOString(),
+                    basvuru_durumu: "Beklemede"
+                };
+
+                console.log('📝 Gönderilen başvuru:', basvuru);
+
+                const response = await fetch('/api/basvuru-ekle', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(basvuru)
+                });
+
+                console.log('📨 Sunucu yanıt kodu:', response.status);
+                const result = await response.json();
+                console.log('📨 Sunucu yanıtı:', result);
+
+                if (response.ok) {
+                    alert(`✅ "${campaign.title}" kampanyasına başvuru yapıldı!`);
+                } else {
+                    alert('❌ Hata: ' + (result.message || 'Başvuru kaydedilirken bir hata oluştu.'));
+                }
+            } catch (error) {
+                alert('❌ Başvuru kaydedilirken hata oluştu: ' + error.message);
+                console.error('❌ Hata:', error);
+            }
+        }
+
+        function displayError() {
+            const grid = document.getElementById('campaignGrid');
+            grid.innerHTML = `
+                <div class="empty-kesfet">
+                    <div class="empty-kesfet-icon">⚠️</div>
+                    <h2>Hata oluştu</h2>
+                    <p>Kampanyalar yüklenirken bir sorun meydana geldi. Lütfen sayfayı yenileyin.</p>
+                </div>
+            `;
+        }
+
+        // Sayfa yüklendiğinde kampanyaları yükle
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCampaigns();
+        });
+
+        // Scroll event for header background color change
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (nav) {
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keşfet - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .kesfet-section {
+            background-color: rgb(4, 0, 29);
+            background-image: radial-gradient(circle, rgba(232, 133, 202, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            padding: 120px 1rem 4rem 1rem;
+            position: relative;
+        }
+
+        .kesfet-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.6s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .kesfet-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #fffffffe;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .kesfet-header h1 .highlight {
+            color: rgb(232, 133, 202);
+        }
+
+        .kesfet-header p {
+            font-size: 1.2rem;
+            color: #B0B0B0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .kesfet-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 2rem;
+            background: rgba(232, 133, 202, 0.1);
+            border: 2px solid rgba(232, 133, 202, 0.3);
+            border-radius: 8px;
+            color: #B0B0B0;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: rgba(232, 133, 202, 0.2);
+            border-color: rgb(232, 133, 202);
+            color: rgb(232, 133, 202);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            border-color: rgb(232, 133, 202);
+            color: #fffffffe;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .kesfet-search {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.9rem 1.2rem 0.9rem 2.8rem;
+            background: rgba(232, 133, 202, 0.1);
+            border: 2px solid rgba(232, 133, 202, 0.3);
+            border-radius: 8px;
+            color: #fffffffe;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .search-input::placeholder {
+            color: #B0B0B0;
+        }
+
+        .search-input:focus {
+            outline: none;
+            background: rgba(232, 133, 202, 0.15);
+            border-color: rgb(232, 133, 202);
+            box-shadow: 0 0 15px rgba(232, 133, 202, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgb(232, 133, 202);
+            font-size: 1.1rem;
+        }
+
+        .kesfet-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            background: rgba(232, 133, 202, 0.1);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            border-radius: 8px;
+            color: #B0B0B0;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: rgba(232, 133, 202, 0.2);
+            border-color: rgb(232, 133, 202);
+            color: rgb(232, 133, 202);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            border-color: rgb(232, 133, 202);
+            color: #fffffffe;
+        }
+
+        .kesfet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .kesfet-card {
+            background: rgba(30, 0, 34, 0.6);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: slideUp 0.4s ease;
+        }
+
+        .kesfet-card:hover {
+            background: rgba(30, 0, 34, 0.9);
+            border-color: rgba(232, 133, 202, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(232, 133, 202, 0.2);
+        }
+
+        .kesfet-card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.2), rgba(232, 133, 202, 0.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.2);
+        }
+
+        .kesfet-card-content {
+            padding: 1.5rem;
+        }
+
+        .kesfet-card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fffffffe;
+            margin-bottom: 0.5rem;
+        }
+
+        .kesfet-card-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(232, 133, 202, 0.15);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: rgb(232, 133, 202);
+            margin-bottom: 1rem;
+        }
+
+        .kesfet-card-desc {
+            font-size: 0.9rem;
+            color: #B0B0B0;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .kesfet-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .kesfet-card-followers {
+            font-size: 0.9rem;
+            color: rgb(232, 133, 202);
+            font-weight: 600;
+        }
+
+        .kesfet-card-btn {
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            border: none;
+            border-radius: 6px;
+            color: #fffffffe;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .kesfet-card-btn:hover {
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.9), rgb(232, 133, 202));
+            transform: scale(1.05);
+        }
+
+        .empty-kesfet {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(30, 0, 34, 0.5);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 15px;
+        }
+
+        .empty-kesfet-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-kesfet h2 {
+            font-size: 1.5rem;
+            color: #fffffffe;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-kesfet p {
+            color: #B0B0B0;
+            font-size: 1rem;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .kesfet-header h1 {
+                font-size: 2rem;
+            }
+
+            .kesfet-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kesfet-filters {
+                flex-direction: column;
+            }
+
+            .filter-btn {
+                width: 100%;
+            }
+        }
+
+        /* Mesajlaşma Modal Stilleri */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(20, 0, 25, 0.95), rgba(30, 0, 34, 0.95));
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            border-radius: 20px 20px 0 0;
+            width: 100%;
+            max-width: 500px;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+            animation: slideUp 0.3s ease;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            color: #fffffffe;
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        .modal-brand-info {
+            color: #B0B0B0;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        .close-btn {
+            background: rgba(232, 133, 202, 0.1);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            color: rgb(232, 133, 202);
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(232, 133, 202, 0.2);
+            border-color: rgb(232, 133, 202);
+        }
+
+        .modal-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            word-wrap: break-word;
+            max-width: 80%;
+            font-size: 0.9rem;
+        }
+
+        .message.sent {
+            align-self: flex-end;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            color: #fffffffe;
+            border-radius: 12px 0 12px 12px;
+        }
+
+        .message.received {
+            align-self: flex-start;
+            background: rgba(50, 20, 50, 0.8);
+            color: #B0B0B0;
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 0 12px 12px 12px;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 0.3rem;
+        }
+
+        .modal-input-area {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid rgba(232, 133, 202, 0.2);
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            background: rgba(232, 133, 202, 0.1);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            border-radius: 8px;
+            color: #fffffffe;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .message-input::placeholder {
+            color: #B0B0B0;
+        }
+
+        .message-input:focus {
+            outline: none;
+            background: rgba(232, 133, 202, 0.15);
+            border-color: rgb(232, 133, 202);
+            box-shadow: 0 0 10px rgba(232, 133, 202, 0.2);
+        }
+
+        .send-btn {
+            padding: 0.8rem 1.2rem;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            border: none;
+            border-radius: 8px;
+            color: #fffffffe;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.9), rgb(232, 133, 202));
+            transform: scale(1.05);
+        }
+
+        .send-btn:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .modal-content {
+                max-width: 100%;
+                border-radius: 15px 15px 0 0;
+            }
+        }
+
+        /* Marka Profil Modal Stilleri */
+        .brand-profile-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .brand-profile-modal.active {
+            display: flex;
+        }
+
+        .brand-profile-modal-content {
+            background: linear-gradient(135deg, rgba(20, 0, 25, 0.95), rgba(30, 0, 34, 0.95));
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        .brand-profile-header {
+            padding: 2rem 1.5rem 1.5rem;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .brand-profile-avatar-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .brand-profile-avatar {
+            font-size: 4rem;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(232, 133, 202, 0.1);
+            border: 2px solid rgba(232, 133, 202, 0.3);
+            border-radius: 15px;
+        }
+
+        .brand-profile-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fffffffe;
+            text-align: center;
+            margin: 0;
+        }
+
+        .brand-profile-handle {
+            font-size: 0.9rem;
+            color: rgb(232, 133, 202);
+            text-align: center;
+        }
+
+        .brand-profile-close {
+            background: rgba(232, 133, 202, 0.2);
+            border: none;
+            color: #fffffffe;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .brand-profile-close:hover {
+            background: rgba(232, 133, 202, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .brand-profile-details {
+            padding: 2rem 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .brand-profile-stat {
+            background: rgba(232, 133, 202, 0.1);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .brand-profile-stat:hover {
+            background: rgba(232, 133, 202, 0.15);
+            border-color: rgba(232, 133, 202, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .brand-profile-stat-label {
+            font-size: 0.85rem;
+            color: #B0B0B0;
+            margin-bottom: 0.5rem;
+        }
+
+        .brand-profile-stat-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: rgb(232, 133, 202);
+        }
+
+        .brand-profile-info-box {
+            background: rgba(232, 133, 202, 0.08);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            grid-column: 1 / -1;
+        }
+
+        .brand-profile-info-box-label {
+            font-size: 0.85rem;
+            color: #B0B0B0;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .brand-profile-info-box-value {
+            color: #fffffffe;
+            font-size: 0.95rem;
+            word-break: break-word;
+        }
+
+        .brand-profile-action-buttons {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            border-top: 1px solid rgba(232, 133, 202, 0.2);
+            grid-column: 1 / -1;
+        }
+
+        .brand-profile-action-btn {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .brand-profile-action-btn:first-child {
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            color: #fffffffe;
+        }
+
+        .brand-profile-action-btn:first-child:hover {
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.9), rgb(232, 133, 202));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(232, 133, 202, 0.3);
+        }
+
+        .brand-profile-action-btn:last-child {
+            background: rgba(232, 133, 202, 0.15);
+            color: rgb(232, 133, 202);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+        }
+
+        .brand-profile-action-btn:last-child:hover {
+            background: rgba(232, 133, 202, 0.25);
+            border-color: rgba(232, 133, 202, 0.5);
+        }
+    
+
+    </style>
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+
+    <section class="kesfet-section">
+        <div class="kesfet-header">
+            <h1><span id="headerTitle">Kampanyaları</span> <span class="highlight">Keşfet</span></h1>
+            <p id="headerSubtitle">Senin için en uygun kampanyaları keşfet ve başvuru yap</p>
+        </div>
+
+        <div class="kesfet-container">
+            <!-- Tab Butonları -->
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="switchTab('campaigns')">🎯 Kampanyalar</button>
+                <button class="tab-btn" onclick="switchTab('brands')">🏢 Markalar</button>
+            </div>
+
+            <!-- Kampanyalar Tab'ı -->
+            <div id="campaigns-tab" class="tab-content active">
+                <!-- Arama Çubuğu -->
+                <div class="kesfet-search">
+                    <div class="search-container">
+                        <span class="search-icon">🔍</span>
+                        <input 
+                            type="text" 
+                            class="search-input" 
+                            id="campaignSearchInput" 
+                            placeholder="Kampanya adı, türü, platform arayın..."
+                            onkeyup="handleCampaignSearch()"
+                        >
+                    </div>
+                </div>
+
+                <!-- Kampanya Filtreler -->
+                <div class="kesfet-filters">
+                    <button class="filter-btn active" onclick="filterCampaigns('all')">🌟 Tümü</button>
+                    <button class="filter-btn" onclick="filterCampaigns('fashion')">👗 Moda</button>
+                    <button class="filter-btn" onclick="filterCampaigns('beauty')">💄 Güzellik</button>
+                    <button class="filter-btn" onclick="filterCampaigns('tech')">📱 Teknoloji</button>
+                    <button class="filter-btn" onclick="filterCampaigns('food')">🍔 Yiyecek</button>
+                </div>
+
+                <!-- Kampanyalar Grid'i -->
+                <div class="kesfet-grid" id="campaignGrid">
+                    <!-- Kampanyalar burada listelenecek -->
+                    <div class="empty-kesfet">
+                        <div class="empty-kesfet-icon">🔍</div>
+                        <h2>Kampanya yükleniyor...</h2>
+                        <p>Lütfen bekleyin, mevcut kampanyalar görüntülenecektir</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Markalar Tab'ı -->
+            <div id="brands-tab" class="tab-content">
+                <!-- Arama Çubuğu -->
+                <div class="kesfet-search">
+                    <div class="search-container">
+                        <span class="search-icon">🔍</span>
+                        <input 
+                            type="text" 
+                            class="search-input" 
+                            id="brandSearchInput" 
+                            placeholder="Marka adı, şirket adı, sorumlu arayın..."
+                            onkeyup="handleBrandSearch()"
+                        >
+                    </div>
+                </div>
+
+                <!-- Marka Filtreler -->
+                <div class="kesfet-filters">
+                    <button class="filter-btn active" onclick="filterBrands('all')">🌟 Tümü</button>
+                    <button class="filter-btn" onclick="filterBrands('fashion')">👗 Moda</button>
+                    <button class="filter-btn" onclick="filterBrands('beauty')">💄 Güzellik</button>
+                    <button class="filter-btn" onclick="filterBrands('tech')">📱 Teknoloji</button>
+                    <button class="filter-btn" onclick="filterBrands('other')">🎯 Diğer</button>
+                </div>
+
+                <!-- Markalar Grid'i -->
+                <div class="kesfet-grid" id="brandGrid">
+                    <!-- Markalar burada listelenecek -->
+                    <div class="empty-kesfet">
+                        <div class="empty-kesfet-icon">🔍</div>
+                        <h2>Marka yükleniyor...</h2>
+                        <p>Lütfen bekleyin, mevcut markalar görüntülenecektir</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mesajlaşma Modal'ı -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 id="modalBrandName">Marka Adı</h2>
+                    <div class="modal-brand-info" id="modalBrandInfo">Şirket Adı</div>
+                </div>
+                <button class="close-btn" onclick="closeMessageModal()">✕</button>
+            </div>
+            <div class="modal-messages" id="messagesList"></div>
+            <div class="modal-input-area">
+                <input 
+                    type="text" 
+                    class="message-input" 
+                    id="messageInput" 
+                    placeholder="Mesaj yazın..."
+                    onkeypress="handleMessageKeyPress(event)"
+                >
+                <button class="send-btn" onclick="sendMessage()">Gönder</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let campaigns = [];
+        let brands = [];
+        let currentBrandFilter = 'all';
+        let currentCampaignFilter = 'all';
+        let currentCampaignSearchQuery = '';
+        let currentBrandSearchQuery = '';
+        let currentChatBrand = null;
+        let chatMessages = [];
+
+        // Tab Değiştirme Fonksiyonu
+        function switchTab(tabName) {
+            // İçeriği gizle/göster
+            document.getElementById('campaigns-tab').classList.remove('active');
+            document.getElementById('brands-tab').classList.remove('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            // Buton stillerini güncelle
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Başlığı güncelle
+            const headerTitle = document.getElementById('headerTitle');
+            const headerSubtitle = document.getElementById('headerSubtitle');
+            
+            if (tabName === 'campaigns') {
+                headerTitle.textContent = 'Kampanyaları';
+                headerSubtitle.textContent = 'Senin için en uygun kampanyaları keşfet ve başvuru yap';
+                document.getElementById('campaignSearchInput').value = '';
+                currentCampaignSearchQuery = '';
+            } else if (tabName === 'brands') {
+                headerTitle.textContent = 'Markaları';
+                headerSubtitle.textContent = 'İşbirliği yapabileceğin markaları keşfet ve iletişime geç';
+                document.getElementById('brandSearchInput').value = '';
+                currentBrandSearchQuery = '';
+                loadBrands();
+            }
+        }
+
+        // Kategoriye göre mapping
+        const categoryMap = {
+            "Reels": "fashion",
+            "Post": "fashion",
+            "Video": "tech",
+            "Yazı Paylaşımı": "fashion",
+            "Eğitim Videosu": "tech",
+            "Perde Arkası": "fashion",
+            "Yarışma": "fashion",
+            "Etkinlik Kapsamı": "food",
+            "Dizi": "tech",
+            "Anket": "fashion",
+            "Challenge": "fashion",
+            "Savunuculuk": "tech",
+            "Webinar": "tech",
+            "Konferans": "tech",
+            "Moda Gösterisi": "fashion",
+            "Ürün Tanıtımı": "beauty",
+            "Açılış Etkinliği": "food",
+            "Eğitim Serisi": "tech",
+            "Sponsorluk": "food",
+            "Unboxing": "tech",
+            "Belgesel": "tech"
+        };
+
+        // Emoji mapping
+        const platformIcons = {
+            "Instagram": "📷",
+            "TikTok": "🎵",
+            "YouTube": "📺",
+            "LinkedIn": "💼",
+            "Pinterest": "📌",
+            "Twitter": "𝕏",
+            "Facebook": "📘",
+            "Diğer": "🌐"
+        };
+
+        // Marka kategori mapping
+        const brandCategoryMap = {
+            "Moda": "fashion",
+            "Güzellik": "beauty",
+            "Kozmetik": "beauty",
+            "Teknoloji": "tech",
+            "Gıda": "food",
+            "Yiyecek": "food",
+            "Diğer": "other"
+        };
+
+        // Kampanyaları JSON dosyasından yükle
+        async function loadCampaigns() {
+            try {
+                const response = await fetch('/data/eşleşmemiş_kampanyalarım.json');
+                const data = await response.json();
+                
+                campaigns = data.map((kamp, index) => ({
+                    id: kamp.kampanya_id,
+                    title: kamp.kampanya_adi,
+                    category: categoryMap[kamp.kampanya_turu] || "fashion",
+                    description: `${kamp.platform} platformunda ${kamp.kampanya_turu} kampanyası`,
+                    followers: `Bütçe: ₺${kamp.kampanya_butcesi_tl.toLocaleString('tr-TR')}`,
+                    icon: platformIcons[kamp.platform] || "🎯",
+                    platform: kamp.platform,
+                    type: kamp.kampanya_turu,
+                    budget: kamp.kampanya_butcesi_tl,
+                    startDate: kamp.kampanya_baslangic,
+                    endDate: kamp.kampanya_bitis,
+                    markaId: kamp.marka_id
+                }));
+                
+                displayCampaigns();
+                console.log('✅ Kampanyalar yüklendi:', campaigns.length, 'kampanya');
+            } catch (error) {
+                console.error('❌ Kampanya yükleme hatası:', error);
+                displayError();
+            }
+        }
+
+        // Markaları JSON dosyasından yükle
+        async function loadBrands() {
+            try {
+                const response = await fetch('/data/markalar.json');
+                const data = await response.json();
+                
+                brands = data.map((marka, index) => ({
+                    id: marka.id,
+                    name: marka.markaAdi || marka.sirketAdi || 'Bilinmeyen Marka',
+                    category: 'other',
+                    description: 'Profesyonel Marka',
+                    location: 'Türkiye',
+                    icon: '🏢',
+                    website: '#',
+                    email: marka.email || '',
+                    phone: marka.sorumluTelefon || '',
+                    followers: `Sorumlu: ${marka.Sorumlu_ad} ${marka.Sorumlu_Soyad}`,
+                    instagramHandle: '',
+                    category_display: 'Kurumsal',
+                    companyName: marka.sirketAdi,
+                    responsible: `${marka.Sorumlu_ad} ${marka.Sorumlu_Soyad}`,
+                    position: marka.sorumlu_pozisyon || ''
+                }));
+                
+                displayBrands();
+                console.log('✅ Markalar yüklendi:', brands.length, 'marka');
+            } catch (error) {
+                console.error('❌ Marka yükleme hatası:', error);
+                displayBrandError();
+            }
+        }
+
+        function displayCampaigns(filter = 'all') {
+            const grid = document.getElementById('campaignGrid');
+            
+            let filtered = campaigns;
+            
+            // Kategori filtresini uygula
+            if (filter !== 'all') {
+                filtered = filtered.filter(c => c.category === filter);
+            }
+
+            // Arama filtresini uygula
+            if (currentCampaignSearchQuery) {
+                filtered = filtered.filter(campaign => {
+                    const searchableText = `
+                        ${campaign.title.toLowerCase()}
+                        ${campaign.type.toLowerCase()}
+                        ${campaign.platform.toLowerCase()}
+                        ${campaign.description.toLowerCase()}
+                    `;
+                    return searchableText.includes(currentCampaignSearchQuery);
+                });
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-kesfet">
+                        <div class="empty-kesfet-icon">🔍</div>
+                        <h2>Kampanya bulunamadı</h2>
+                        <p>${currentCampaignSearchQuery ? 'Arama kriterinize uygun kampanya bulunmamaktadır' : 'Seçtiğiniz kategoride kampanya bulunmamaktadır'}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(campaign => `
+                <div class="kesfet-card">
+                    <div class="kesfet-card-image">${campaign.icon}</div>
+                    <div class="kesfet-card-content">
+                        <div class="kesfet-card-category">${campaign.category.toUpperCase()}</div>
+                        <h3 class="kesfet-card-title">${campaign.title}</h3>
+                        <p class="kesfet-card-desc">${campaign.description}</p>
+                        <div class="kesfet-card-footer">
+                            <span class="kesfet-card-followers">👥 ${campaign.followers}</span>
+                            <button class="kesfet-card-btn" onclick="applyCampaign('${campaign.id}')">Başvur</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function displayBrands(filter = 'all') {
+            const grid = document.getElementById('brandGrid');
+            
+            let filtered = brands;
+            
+            // Kategori filtresini uygula
+            if (filter !== 'all') {
+                filtered = filtered.filter(b => b.category === filter);
+            }
+
+            // Arama filtresini uygula
+            if (currentBrandSearchQuery) {
+                filtered = filtered.filter(brand => {
+                    const searchableText = `
+                        ${brand.name.toLowerCase()}
+                        ${brand.companyName.toLowerCase()}
+                        ${brand.responsible.toLowerCase()}
+                        ${brand.position.toLowerCase()}
+                    `;
+                    return searchableText.includes(currentBrandSearchQuery);
+                });
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-kesfet">
+                        <div class="empty-kesfet-icon">🔍</div>
+                        <h2>Marka bulunamadı</h2>
+                        <p>${currentBrandSearchQuery ? 'Arama kriterinize uygun marka bulunmamaktadır' : 'Seçtiğiniz kategoride marka bulunmamaktadır'}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(brand => `
+                <div class="kesfet-card">
+                    <div class="kesfet-card-image">${brand.icon}</div>
+                    <div class="kesfet-card-content">
+                        <div class="kesfet-card-category">${brand.category_display.toUpperCase()}</div>
+                        <h3 class="kesfet-card-title">${brand.name}</h3>
+                        <p class="kesfet-card-desc">
+                            🏢 ${brand.companyName}<br>
+                            👤 ${brand.responsible}<br>
+                            💼 ${brand.position}
+                        </p>
+                        <div class="kesfet-card-footer">
+                            <span class="kesfet-card-followers">${brand.followers}</span>
+                            <button class="kesfet-card-btn" onclick="viewBrandProfile('${brand.id}')">👁️ Profil</button>
+                            <button class="kesfet-card-btn" onclick="contactBrand('${brand.id}')">💬 İletişim</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterCampaigns(category) {
+            currentCampaignFilter = category;
+            // Aktif button'ı güncelle
+            document.querySelectorAll('#campaigns-tab .filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Kampanyaları filtrele
+            displayCampaigns(category);
+            console.log('🔍 Kampanyalar filtrelendi:', category);
+        }
+
+        function filterBrands(category) {
+            currentBrandFilter = category;
+            // Aktif button'ı güncelle
+            document.querySelectorAll('#brands-tab .filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Markaları filtrele
+            displayBrands(category);
+            console.log('🔍 Markalar filtrelendi:', category);
+        }
+
+        function handleCampaignSearch() {
+            const searchInput = document.getElementById('campaignSearchInput');
+            currentCampaignSearchQuery = searchInput.value.toLowerCase().trim();
+            displayCampaigns(currentCampaignFilter);
+        }
+
+        function handleBrandSearch() {
+            const searchInput = document.getElementById('brandSearchInput');
+            currentBrandSearchQuery = searchInput.value.toLowerCase().trim();
+            displayBrands(currentBrandFilter);
+        }
+
+        async function applyCampaign(campaignId) {
+            const campaign = campaigns.find(c => c.id === campaignId);
+            if (!campaign) return;
+
+            try {
+                // Giriş yapılı olan kullanıcı bilgisini localStorage'dan al
+                const user = JSON.parse(localStorage.getItem('user'));
+                if (!user || !user.id) {
+                    alert('❌ Lütfen giriş yapınız!');
+                    return;
+                }
+
+                const basvuru = {
+                    basvuru_id: `BSV${Date.now()}`,
+                    inf_id: user.id,
+                    inf_adi: user.ad,
+                    inf_soyadi: user.soyad,
+                    kampanya_id: campaign.id,
+                    kampanya_adi: campaign.title,
+                    marka_id: campaign.markaId,
+                    platform: campaign.platform,
+                    kampanya_turu: campaign.type,
+                    kampanya_bitis: campaign.endDate,
+                    kampanya_butcesi_tl: campaign.budget,
+                    basvuru_tarihi: new Date().toISOString(),
+                    basvuru_durumu: "Beklemede"
+                };
+
+                console.log('📝 Gönderilen başvuru:', basvuru);
+
+                const response = await fetch('/api/basvuru-ekle', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(basvuru)
+                });
+
+                console.log('📨 Sunucu yanıt kodu:', response.status);
+                const result = await response.json();
+                console.log('📨 Sunucu yanıtı:', result);
+
+                if (response.ok) {
+                    alert(`✅ "${campaign.title}" kampanyasına başvuru yapıldı!`);
+                } else {
+                    alert('❌ Hata: ' + (result.message || 'Başvuru kaydedilirken bir hata oluştu.'));
+                }
+            } catch (error) {
+                alert('❌ Başvuru kaydedilirken hata oluştu: ' + error.message);
+                console.error('❌ Hata:', error);
+            }
+        }
+
+        function contactBrand(brandId) {
+            const brand = brands.find(b => b.id == brandId);
+            if (!brand) return;
+
+            try {
+                const user = JSON.parse(localStorage.getItem('user'));
+                if (!user || !user.id) {
+                    alert('❌ Lütfen giriş yapınız!');
+                    return;
+                }
+
+                // Modal'ı aç
+                currentChatBrand = brand;
+                chatMessages = [
+                    {
+                        type: 'received',
+                        text: `Merhaba ${user.ad}! ${brand.name} markasıyla iletişime hoş geldiniz. Size nasıl yardımcı olabiliriz?`,
+                        time: new Date().toLocaleTimeString('tr-TR', {hour: '2-digit', minute: '2-digit'})
+                    }
+                ];
+
+                document.getElementById('modalBrandName').textContent = brand.name;
+                document.getElementById('modalBrandInfo').textContent = `${brand.companyName} • ${brand.responsible}`;
+                document.getElementById('messageModal').classList.add('active');
+                document.getElementById('messageInput').focus();
+                displayMessages();
+
+                console.log('📧 Marka ile mesajlaşma başladı:', brand.name);
+            } catch (error) {
+                alert('❌ Bir hata oluştu: ' + error.message);
+                console.error('❌ Hata:', error);
+            }
+        }
+
+        function closeMessageModal() {
+            document.getElementById('messageModal').classList.remove('active');
+            document.getElementById('messageInput').value = '';
+            currentChatBrand = null;
+            chatMessages = [];
+        }
+
+        function handleMessageKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const messageText = input.value.trim();
+
+            if (!messageText) return;
+
+            // Kullanıcı mesajını ekle
+            chatMessages.push({
+                type: 'sent',
+                text: messageText,
+                time: new Date().toLocaleTimeString('tr-TR', {hour: '2-digit', minute: '2-digit'})
+            });
+
+            input.value = '';
+            displayMessages();
+
+            // Otomatik cevap (simülasyon)
+            setTimeout(() => {
+                const responses = [
+                    "Teşekkür ederiz! Mesajınızı aldık. 😊",
+                    "Mükemmel bir soru! Size en kısa zamanda dönüş yapacağız. 👍",
+                    "İlginiz için teşekkür ederiz! Detaylı bilgi için e-posta atabilirsiniz.",
+                    "Harika! Sizi en yakın zamanda arayabiliriz.",
+                    "Mesajınız başarıyla kaydedildi. Çok yakında cevap vereceğiz! 📧"
+                ];
+
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                chatMessages.push({
+                    type: 'received',
+                    text: randomResponse,
+                    time: new Date().toLocaleTimeString('tr-TR', {hour: '2-digit', minute: '2-digit'})
+                });
+
+                displayMessages();
+            }, 1000);
+        }
+
+        function displayMessages() {
+            const messagesList = document.getElementById('messagesList');
+            messagesList.innerHTML = chatMessages.map((msg, index) => `
+                <div class="message ${msg.type}">
+                    ${msg.text}
+                    <div class="message-time">${msg.time}</div>
+                </div>
+            `).join('');
+
+            // En son mesaja kaydır
+            messagesList.scrollTop = messagesList.scrollHeight;
+        }
+
+        function displayError() {
+            const grid = document.getElementById('campaignGrid');
+            grid.innerHTML = `
+                <div class="empty-kesfet">
+                    <div class="empty-kesfet-icon">⚠️</div>
+                    <h2>Hata oluştu</h2>
+                    <p>Kampanyalar yüklenirken bir sorun meydana geldi. Lütfen sayfayı yenileyin.</p>
+                </div>
+            `;
+        }
+
+        function displayBrandError() {
+            const grid = document.getElementById('brandGrid');
+            grid.innerHTML = `
+                <div class="empty-kesfet">
+                    <div class="empty-kesfet-icon">⚠️</div>
+                    <h2>Hata oluştu</h2>
+                    <p>Markalar yüklenirken bir sorun meydana geldi. Lütfen sayfayı yenileyin.</p>
+                </div>
+            `;
+        }
+
+        // Sayfa yüklendiğinde kampanyaları yükle
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCampaigns();
+
+            // Modal dışına tıklanınca kapat
+            document.getElementById('messageModal').addEventListener('click', (e) => {
+                if (e.target.id === 'messageModal') {
+                    closeMessageModal();
+                }
+            });
+        });
+
+        // Scroll event for header background color change
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (nav) {
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

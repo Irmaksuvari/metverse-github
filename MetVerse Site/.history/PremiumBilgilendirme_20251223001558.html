@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Bilgilendirme - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .premium-section {
+            background-color: rgb(4, 0, 29);
+            background-image: radial-gradient(circle, rgba(232, 133, 202, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            padding: 120px 1rem 4rem 1rem;
+            position: relative;
+        }
+
+        .premium-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.6s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .premium-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #fffffffe;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .premium-header h1 .highlight {
+            color: rgb(232, 133, 202);
+        }
+
+        .premium-header p {
+            font-size: 1.2rem;
+            color: #B0B0B0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .premium-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Tablo Stilleri */
+        .features-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .features-table thead {
+            background: linear-gradient(90deg, rgba(232, 133, 202, 0.2) 0%, rgba(232, 133, 202, 0.1) 100%);
+        }
+
+        .features-table th {
+            padding: 1.5rem;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: rgb(232, 133, 202);
+            border-bottom: 2px solid rgba(232, 133, 202, 0.3);
+        }
+
+        .features-table th:last-child {
+            position: relative;
+            border: 2px solid rgb(232, 133, 202);
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.1), rgba(100, 255, 218, 0.05));
+            box-shadow: 0 0 15px rgba(232, 133, 202, 0.6), 
+                        0 0 30px rgba(100, 255, 218, 0.3),
+                        0 0 45px rgba(255, 100, 200, 0.2),
+                        inset 0 0 20px rgba(232, 133, 202, 0.2);
+            animation: colorfulGlow 2s ease-in-out infinite, backgroundGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes backgroundGlow {
+            0%, 100% {
+                background: linear-gradient(135deg, rgba(232, 133, 202, 0.15), rgba(100, 255, 218, 0.08));
+            }
+            50% {
+                background: linear-gradient(135deg, rgba(232, 133, 202, 0.25), rgba(100, 255, 218, 0.15));
+            }
+        }
+
+        .features-table th:last-child::after {
+            content: "★";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: -25px;
+            font-size: 1.8rem;
+            background: rgb(4, 0, 29);
+            padding: 0 2px;
+            background: linear-gradient(135deg, 
+                        #ff0000 0%,
+                        #ff7f00 16.66%,
+                        #ffff00 33.33%,
+                        #00ff00 50%,
+                        #0000ff 66.66%,
+                        #4b0082 83.33%,
+                        #9400d3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 3px rgba(255, 0, 0, 0.8))
+                    drop-shadow(0 0 8px rgba(255, 127, 0, 0.7))
+                    drop-shadow(0 0 12px rgba(0, 255, 0, 0.7))
+                    drop-shadow(0 0 15px rgba(0, 0, 255, 0.8))
+                    drop-shadow(0 0 20px rgba(148, 0, 211, 0.8));
+            animation: rainbowGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes rainbowGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 3px rgba(255, 0, 0, 0.8))
+                        drop-shadow(0 0 8px rgba(255, 127, 0, 0.7))
+                        drop-shadow(0 0 12px rgba(0, 255, 0, 0.7))
+                        drop-shadow(0 0 15px rgba(0, 0, 255, 0.8))
+                        drop-shadow(0 0 20px rgba(148, 0, 211, 0.8));
+            }
+            50% {
+                filter: drop-shadow(0 0 8px rgba(255, 0, 0, 1))
+                        drop-shadow(0 0 15px rgba(255, 127, 0, 1))
+                        drop-shadow(0 0 20px rgba(0, 255, 0, 1))
+                        drop-shadow(0 0 25px rgba(0, 0, 255, 1))
+                        drop-shadow(0 0 30px rgba(148, 0, 211, 1));
+            }
+        }
+
+        @keyframes colorfulGlow {
+            0%, 100% {
+                box-shadow: 0 0 15px rgba(232, 133, 202, 0.6), 
+                            0 0 30px rgba(100, 255, 218, 0.3),
+                            0 0 45px rgba(255, 100, 200, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 25px rgba(232, 133, 202, 0.8), 
+                            0 0 40px rgba(100, 255, 218, 0.5),
+                            0 0 55px rgba(255, 100, 200, 0.4);
+            }
+        }
+
+        @keyframes starGlow {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(232, 133, 202, 0.8),
+                             0 0 20px rgba(100, 255, 218, 0.5),
+                             0 0 30px rgba(255, 100, 200, 0.4);
+            }
+            50% {
+                text-shadow: 0 0 15px rgba(232, 133, 202, 1),
+                             0 0 30px rgba(100, 255, 218, 0.7),
+                             0 0 40px rgba(255, 100, 200, 0.6);
+            }
+        }
+
+        .features-table td {
+            padding: 1.2rem 1.5rem;
+            font-size: 1rem;
+            color: #D0D0D0;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.1);
+        }
+
+        .features-table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        .features-table tbody tr:hover {
+            background-color: rgba(232, 133, 202, 0.08);
+        }
+
+        .features-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .feature-name {
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .feature-free {
+            color: #B0B0B0;
+        }
+
+        .feature-premium {
+            color: rgb(232, 133, 202);
+            font-weight: 600;
+        }
+
+        .feature-highlight {
+            display: inline-block;
+            background: rgba(232, 133, 202, 0.2);
+            color: rgb(232, 133, 202);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-left: 0.5rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .premium-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .features-table th,
+            .features-table td {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .feature-highlight {
+                display: block;
+                margin-top: 0.5rem;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="premium-section">
+        <div class="premium-header">
+            <h1>Premium <span class="highlight">Planları</span></h1>
+            <p>MetVerse'de sizin için uygun planı seçin ve işinizi büyütün</p>
+        </div>
+
+        <div class="premium-container">
+            <table class="features-table">
+                <thead>
+                    <tr>
+                        <th>Özellik</th>
+                        <th>Ücretsiz (Standart)</th>
+                        <th><span>Premium (AI Destekli)</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="feature-name">Kampanya Yönetimi</td>
+                        <td class="feature-free">Aktif</td>
+                        <td class="feature-premium">Aktif</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Güvenli Ödeme (Escrow)</td>
+                        <td class="feature-free">Mevcut</td>
+                        <td class="feature-premium">Mevcut</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Mesajlaşma & İletişim</td>
+                        <td class="feature-free">Sınırsız</td>
+                        <td class="feature-premium">Sınırsız</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">AI Eşleştirme</td>
+                        <td class="feature-free">Kapalı</td>
+                        <td class="feature-premium">Açık</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">NLP Yorum Analizi</td>
+                        <td class="feature-free">Kapalı</td>
+                        <td class="feature-premium">Açık</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Sahte Takipçi Denetimi</td>
+                        <td class="feature-free">Kapalı</td>
+                        <td class="feature-premium">Açık</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Erişim Bazlı ER Raporu</td>
+                        <td class="feature-free">Standart Veri</td>
+                        <td class="feature-premium">Doğrulanmış Garanti</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

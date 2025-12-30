@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+
+    <!-- Giriş Seçim Section -->
+    <section class="section-choice">
+        <div class="choice-container">
+            <div class="choice-header">
+                <h1>MetVerse'e <span class="highlight">Hoş Geldiniz</span></h1>
+                <p>Giriş yapmak için bir seçenek seçin</p>
+            </div>
+
+            <div class="choice-grid">
+                <!-- Marka Girişi -->
+                <div class="choice-card">
+                    <div class="choice-icon">🏢</div>
+                    <h2>Marka Olarak Giriş Yap</h2>
+                    <p>Markalar için kampanya yönetim aracına erişin</p>
+                    <form class="choice-form">
+                        <div class="form-group">
+                            <label for="brand-email">E-posta Adresi</label>
+                            <input type="email" id="brand-email" placeholder="E-posta adresinizi girin" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="brand-password">Şifre</label>
+                            <input type="password" id="brand-password" placeholder="Şifrenizi girin" required>
+                        </div>
+                        <button type="submit" class="form-button">Giriş Yap</button>
+                    </form>
+                </div>
+
+                <!-- Influencer Girişi -->
+                <div class="choice-card">
+                    <div class="choice-icon">🤳</div>
+                    <h2>Influencer Olarak Giriş Yap</h2>
+                    <p>Influencer platformuna erişin ve kampanyalara başvurun</p>
+                    <form class="choice-form">
+                        <div class="form-group">
+                            <label for="influencer-email">E-posta Adresi</label>
+                            <input type="email" id="influencer-email" placeholder="E-posta adresinizi girin" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="influencer-password">Şifre</label>
+                            <input type="password" id="influencer-password" placeholder="Şifrenizi girin" required>
+                        </div>
+                        <button type="submit" class="form-button">Giriş Yap</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ============================================
+        // GİRİŞ SAYFASI SCRIPT'İ
+        // ============================================
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('📄 Giriş Sayfası Yüklendi');
+            
+            // Menu Toggle
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            const navOverlay = document.getElementById('navOverlay');
+            const body = document.body;
+
+            if (menuToggle && navMenu && navOverlay) {
+                menuToggle.addEventListener('click', () => {
+                    menuToggle.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                    navOverlay.classList.toggle('active');
+                    body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+                });
+
+                navOverlay.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    navOverlay.classList.remove('active');
+                    body.style.overflow = 'auto';
+                });
+
+                // Menu items click handler
+                document.querySelectorAll('.nav-menu-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        menuToggle.classList.remove('active');
+                        navMenu.classList.remove('active');
+                        navOverlay.classList.remove('active');
+                        body.style.overflow = 'auto';
+                    });
+                });
+            }
+
+            // Form submission handlers - MARKA FORMU
+            const allForms = document.querySelectorAll('.choice-form');
+            console.log('📋 Bulundu form sayısı:', allForms.length);
+            
+            if (allForms.length >= 1) {
+                const brandForm = allForms[0];
+                console.log('✅ Marka form bağlandı');
+                brandForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    console.log('🔄 Marka giriş formu gönderiliyor...');
+                    
+                    const email = document.getElementById('brand-email').value.trim();
+                    const sifre = document.getElementById('brand-password').value;
+
+                    // Validasyon
+                    if (!email) {
+                        console.warn('⚠️ E-posta boş');
+                        alert('❌ Lütfen E-posta giriniz!');
+                        return;
+                    }
+
+                    try {
+                        console.log('📤 POST /api/marka-login gönderiliyor...');
+                        const response = await fetch('/api/marka-login', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                email: email || null,
+                                sifre: sifre
+                            })
+                        });
+
+                        const data = await response.json();
+                        console.log('📍 Backend Cevabı:', data);
+
+                        if (data.success) {
+                            console.log('✅ Giriş Başarılı!');
+                            // Token'ı localStorage'a kaydet
+                            localStorage.setItem('token', data.token);
+                            localStorage.setItem('user', JSON.stringify(data.user));
+                            
+                            console.log('📌 Yönlendir:', data.redirectUrl);
+                            // Direkt yönlendir
+                            window.location.href = data.redirectUrl;
+                        } else {
+                            alert('❌ ' + data.message);
+                        }
+                    } catch (error) {
+                        console.error('❌ Giriş hatası:', error);
+                        alert('❌ Bir hata oluştu. Lütfen tekrar deneyin.');
+                    }
+                });
+            } else {
+                console.error('❌ Marka form bulunamadı!');
+            }
+
+            // Form submission handlers - INFLUENCER FORMU
+            if (allForms.length >= 2) {
+                const influencerForm = allForms[1];
+                console.log('✅ Influencer form bağlandı');
+                influencerForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    console.log('🔄 Influencer giriş formu gönderiliyor...');
+                    
+                    const email = document.getElementById('influencer-email').value.trim();
+                    const sifre = document.getElementById('influencer-password').value;
+
+                    console.log('📝 Giriş verileri:', { adSoyad, email, sifre: '***' });
+
+                    // Validasyon
+                    if (!email) {
+                        console.warn('⚠️ E-posta boş');
+                        alert('❌ Lütfen E-posta giriniz!');
+                        return;
+                    }
+                    if (!sifre) {
+                        console.warn('⚠️ Şifre boş');
+                        alert('❌ Lütfen şifre giriniz!');
+                        return;
+                    }
+
+                    try {
+                        console.log('📤 POST /api/influencer-login gönderiliyor...');
+                        const response = await fetch('/api/influencer-login', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                adSoyad: adSoyad || null,
+                                email: email || null,
+                                sifre: sifre
+                            })
+                        });
+
+                        console.log('📨 Response Status:', response.status, response.statusText);
+                        console.log('📨 Response OK:', response.ok);
+
+                        let data;
+                        try {
+                            data = await response.json();
+                            console.log('📍 JSON Parsed:', JSON.stringify(data, null, 2));
+                            console.log('📍 Object Keys:', Object.keys(data));
+                            console.log('📍 token field:', data.token);
+                            console.log('📍 success field:', data.success);
+                        } catch (jsonError) {
+                            console.error('❌ JSON parse error:', jsonError);
+                            alert('❌ Sunucu yanıtı hatalı formatta.');
+                            return;
+                        }
+
+                        if (data && data.success === true) {
+                            console.log('✅ Giriş Başarılı!');
+                            console.log('🔑 Token:', data.token ? '✅ VAR' : '❌ YOK');
+                            console.log('👤 User:', data.user ? '✅ VAR' : '❌ YOK');
+                            console.log('📌 Redirect URL:', data.redirectUrl);
+                            
+                            // Token'ı localStorage'a kaydet
+                            try {
+                                localStorage.setItem('token', data.token);
+                                localStorage.setItem('user', JSON.stringify(data.user));
+                                console.log('💾 localStorage güncellendi');
+                            } catch (storageError) {
+                                console.error('❌ localStorage yazma hatası:', storageError);
+                            }
+                            
+                            // Yönlendir
+                            const redirectUrl = data.redirectUrl || '/influencer-anasayfa';
+                            console.log('🚀 Yönlendir:', redirectUrl);
+                            
+                            // Biraz bekle sonra yönlendir
+                            setTimeout(() => {
+                                console.log('🔄 window.location.href yapılıyor:', redirectUrl);
+                                window.location.href = redirectUrl;
+                            }, 100);
+                        } else {
+                            console.error('❌ Giriş Başarısız - success !== true');
+                            console.error('📌 Response:', data);
+                            alert('❌ ' + (data?.message || 'Giriş başarısız'));
+                        }
+                    } catch (error) {
+                        console.error('❌ Fetch hatası:', error);
+                        console.error('❌ Error type:', error.constructor.name);
+                        console.error('❌ Error message:', error.message);
+                        alert('❌ Bir hata oluştu. Lütfen tekrar deneyin: ' + error.message);
+                    }
+                });
+            } else {
+                console.error('❌ Influencer form bulunamadı!');
+            }
+
+            // Scroll event for header background color change
+            window.addEventListener('scroll', () => {
+                const nav = document.querySelector('nav');
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

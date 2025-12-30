@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marka Ana Sayfa - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        @font-face {
+            font-family: 'Sekuya';
+            src: url('/fonts/Sekuya.ttf') format('truetype');
+        }
+
+        .marka-main {
+            background-color: rgb(4, 0, 29);
+            background-image: radial-gradient(circle, rgba(232, 133, 202, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            padding-top: 120px;
+        }
+
+        .marka-content {
+            padding: 0 1rem 2rem 1rem;
+        }
+
+        /* Hoşgeldiniz Başlığı */
+        .welcome-title {
+            font-family: 'Sekuya', sans-serif;
+            font-size: 2.5rem;
+            color: white;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 1rem 1rem 1rem 3rem;
+            position: relative;
+            top: -100px;
+            z-index: 10;
+        }
+
+        .today-date {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-weight: 500;
+            padding: 0 1rem 0 3rem;
+            position: relative;
+            top: -100px;
+            z-index: 10;
+        }
+
+        .today-date span {
+            color: var(--text-primary);
+        }
+
+        /* Profil Başlık Bölümü */
+        .profile-header {
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.15), rgba(220, 100, 180, 0.1));
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            backdrop-filter: blur(10px);
+            position: relative;
+            top: -70px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgb(220, 100, 180));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            flex-shrink: 0;
+        }
+
+        .profile-info h1 {
+            font-size: 2rem;
+            color: rgb(232, 133, 202);
+            margin: 0 0 0.5rem 0;
+            font-weight: 700;
+        }
+
+        .profile-info p {
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .profile-info .category {
+            display: inline-block;
+            margin-top: 0.8rem;
+            padding: 0.4rem 1rem;
+            background: rgba(232, 133, 202, 0.2);
+            border: 1px solid rgba(232, 133, 202, 0.5);
+            border-radius: 20px;
+            color: rgb(232, 133, 202);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* İstatistikler */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.1), rgba(220, 100, 180, 0.05));
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(232, 133, 202, 0.5);
+            background: rgba(232, 133, 202, 0.15);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            color: rgb(232, 133, 202);
+            font-weight: 700;
+        }
+
+        /* Hızlı Erişim Butonları */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-btn {
+            padding: 1.2rem;
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.2), rgba(220, 100, 180, 0.1));
+            border: 1px solid rgba(232, 133, 202, 0.4);
+            border-radius: 10px;
+            color: rgb(232, 133, 202);
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(232, 133, 202, 0.3);
+        }
+
+        /* İçerik Bölümleri */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .content-card {
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.1), rgba(220, 100, 180, 0.05));
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .content-card h3 {
+            font-size: 1.2rem;
+            color: rgb(232, 133, 202);
+            margin: 0 0 1.5rem 0;
+            font-weight: 700;
+        }
+
+        /* Kampanya Özeti */
+        .campaign-item {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 3px solid rgb(232, 133, 202);
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .campaign-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .campaign-name {
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.3rem;
+        }
+
+        .campaign-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .campaign-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        .status-active {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .status-paused {
+            background: rgba(168, 85, 247, 0.2);
+            color: #a855f7;
+        }
+
+        .status-completed {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+
+        /* İşbirliği Aktivitesi */
+        .activity-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .activity-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .activity-icon {
+            font-size: 1.5rem;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.3rem;
+        }
+
+        .activity-time {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Boş Durum */
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .empty-state-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state-text {
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-info h1 {
+                font-size: 1.5rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+
+    <main class="marka-main">
+        <!-- Hoşgeldiniz Başlığı -->
+        <h2 class="welcome-title">Hoşgeldiniz</h2>
+        <p class="today-date">Bugün, <span id="todayDate"></span></p>
+
+        <div class="container">
+            <section class="marka-content">
+                <!-- Profil Başlığı -->
+                <div class="profile-header">
+                    <div class="profile-avatar">🏢</div>
+                    <div class="profile-info">
+                        <h1 id="markaAdi">TechStyle Marka</h1>
+                        <p id="markaDesc">Teknoloji ve moda deneyimlerini bir araya getiren innovative brand</p>
+                        <div class="category">Moda & Teknoloji</div>
+                    </div>
+                </div>
+
+                <!-- Dönem Seçimi -->
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+                    <button class="period-btn period-btn-active" onclick="updateStatCardsPeriod('daily')">📅 Günlük</button>
+                    <button class="period-btn" onclick="updateStatCardsPeriod('weekly')">📊 Haftalık</button>
+                    <button class="period-btn" onclick="updateStatCardsPeriod('monthly')">📈 Aylık</button>
+                    <button class="period-btn" onclick="updateStatCardsPeriod('quarterly')">📉 3 Aylık</button>
+                    <button class="period-btn" onclick="updateStatCardsPeriod('yearly')">📋 Yıllık</button>
+                </div>
+
+                <!-- İstatistikler -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-label">Tamamlanan Kampanyalar</div>
+                        <div class="stat-value" id="activeCampaigns">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🤝</div>
+                        <div class="stat-label">İşbirliği Sayısı</div>
+                        <div class="stat-value" id="collaborations">3</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-label">Toplam Bütçe</div>
+                        <div class="stat-value" id="totalBudget">₺45K</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-label">Memnuniyet Puanı</div>
+                        <div class="stat-value" id="satisfactionScore">4.2/5</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🛡️</div>
+                        <div class="stat-label">Güven Durumu</div>
+                        <div class="stat-value" id="trustStatus">-</div>
+                    </div>
+                </div>
+
+                <!-- Hızlı Erişim -->
+                <div class="quick-actions">
+                    <button class="action-btn" onclick="window.location.href='/kampanyalarim'">➕ Yeni Kampanya</button>
+                    <button class="action-btn" onclick="window.location.href='/kesfet-marka'">🔍 İnfluencer Keşfet</button>
+                    <button class="action-btn" onclick="window.location.href='/isbirlikleri'">🤝 İşbirlikleri</button>
+                    <button class="action-btn" onclick="alert('Analitik sayfasına yönlendirileceksiniz')">📊 Analizler</button>
+                </div>
+
+                <!-- İçerik Grid'i -->
+                <div class="content-grid">
+                    <!-- Kampanyalar Özeti -->
+                    <div class="content-card">
+                        <h3>🎯 Aktif Kampanyalar</h3>
+                        <div id="campaignList">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">⏳</div>
+                                <div class="empty-state-text">Kampanya verileri yükleniyor...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- İşbirliği Aktivitesi -->
+                    <div class="content-card">
+                        <h3>💬 Son İşbirlik Aktiviteleri</h3>
+                        <div id="activityList">
+                            <div class="activity-item">
+                                <div class="activity-icon">✅</div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Deniz Kaya ile iş birliği başlandı</div>
+                                    <div class="activity-time">2 saat önce</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">💬</div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Mert Yılmaz mesaj gönderdi</div>
+                                    <div class="activity-time">5 saat önce</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">🎉</div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Kampanya "Yaz Koleksiyonu" başarıyla başladı</div>
+                                    <div class="activity-time">1 gün önce</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performans Özeti -->
+                    <div class="content-card">
+                        <h3>📈 Performans Özeti</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div style="padding: 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 6px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="color: rgba(255, 255, 255, 0.7);">Ortalama Etkileşim</span>
+                                    <span style="color: rgb(232, 133, 202); font-weight: 700;">8.2%</span>
+                                </div>
+                                <div style="background: rgba(100, 100, 100, 0.3); height: 6px; border-radius: 3px; overflow: hidden;">
+                                    <div style="background: linear-gradient(90deg, rgb(232, 133, 202), rgb(220, 100, 180)); height: 100%; width: 82%;"></div>
+                                </div>
+                            </div>
+                            <div style="padding: 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 6px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="color: rgba(255, 255, 255, 0.7);">Kampanya Tamamlama</span>
+                                    <span style="color: rgb(232, 133, 202); font-weight: 700;">75%</span>
+                                </div>
+                                <div style="background: rgba(100, 100, 100, 0.3); height: 6px; border-radius: 3px; overflow: hidden;">
+                                    <div style="background: linear-gradient(90deg, rgb(232, 133, 202), rgb(220, 100, 180)); height: 100%; width: 75%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Dinamik Footer Bileşeni -->
+    <div id="footer-container"></div>
+    <script src="js/footer.js"></script>
+
+    <script src="script.js"></script>
+    <script>
+        // Bugünün tarihini göster
+        const todayDate = document.getElementById('todayDate');
+        if (todayDate) {
+            const today = new Date();
+            const day = today.getDate();
+            const month = today.toLocaleDateString('tr-TR', { month: 'long' });
+            const year = today.getFullYear();
+            todayDate.textContent = `${day} ${month} ${year}`;
+        }
+
+        // Profil kartını dinamik yapı
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // localStorage'dan oturum açılı kullanıcı bilgisini al
+                const userDataStr = localStorage.getItem('user');
+                
+                if (!userDataStr) {
+                    console.error('Kullanıcı oturumu bulunamadı');
+                    return;
+                }
+
+                const userData = JSON.parse(userDataStr);
+                const userId = userData.id;
+
+                // markalar.json dosyasından tüm markaları al
+                const response = await fetch('/data/markalar.json');
+                const markalar = await response.json();
+
+                // Giriş yapılı markaya ait bilgileri bul
+                const markaData = markalar.find(m => m.id === userId);
+
+                if (!markaData) {
+                    console.error('Marka bilgileri bulunamadı');
+                    return;
+                }
+
+                // Profil kartını doldur
+                const markaAdiEl = document.getElementById('markaAdi');
+                const markaDescEl = document.getElementById('markaDesc');
+                const categoryEl = document.querySelector('.profile-info .category');
+
+                if (markaAdiEl) {
+                    markaAdiEl.textContent = markaData.markaAdi || markaData.sirketAdi || 'Marka Adı';
+                }
+
+                if (markaDescEl) {
+                    // Açıklama oluştur
+                    const aciklama = markaData.aciklama || `${markaData.sirketAdi || markaData.markaAdi} ile işbirliği yap ve hedefinize ulaş`;
+                    markaDescEl.textContent = aciklama;
+                }
+
+                if (categoryEl && markaData.kategori) {
+                    categoryEl.textContent = markaData.kategori;
+                } else if (categoryEl) {
+                    categoryEl.textContent = 'Moda & Teknoloji';
+                }
+
+                console.log('✅ Marka profil kartı yüklendi:', markaData.markaAdi);
+
+                // Aktif kampanyaları yükle
+                loadActiveCampaigns(userId);
+
+            } catch (error) {
+                console.error('❌ Profil kartı yüklenirken hata:', error);
+            }
+        });
+
+        // Tamamlanan kampanyaları yükle (eşleşmemiş_kampanyalarım.json'dan)
+        async function loadActiveCampaigns(userId) {
+            try {
+                const [campaignsRes, trustRes] = await Promise.all([
+                    fetch('/data/eşleşmemiş_kampanyalarım.json'),
+                    fetch('/data/marka_trust.json')
+                ]);
+
+                const campaigns = await campaignsRes.json();
+                const trustData = await trustRes.json();
+
+                // Giriş yapılı markanın güven verilerini bul
+                const markaGuven = trustData.find(trust => trust.marka_id === userId);
+
+                if (!markaGuven) {
+                    // İstatistikleri boş göster
+                    document.getElementById('activeCampaigns').textContent = '0';
+                    document.getElementById('satisfactionScore').textContent = '-';
+                    document.getElementById('trustStatus').textContent = '-';
+                    
+                    const campaignList = document.getElementById('campaignList');
+                    campaignList.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">⚠️</div>
+                            <div class="empty-state-text">Marka verileri bulunamadı</div>
+                        </div>
+                    `;
+                    console.log('⚠️ Bu marka için güven verileri bulunamadı');
+                    return;
+                }
+
+                // Memnuniyet puanı ve güven durumunu istatistiklere yükle
+                document.getElementById('satisfactionScore').textContent = markaGuven.ortalama_memnuniyet_puani.toFixed(1) + '/5';
+                document.getElementById('trustStatus').textContent = markaGuven.marka_guven_durumu;
+                document.getElementById('activeCampaigns').textContent = markaGuven.tamamlanan_kampanya_sayisi;
+                console.log('✅ Marka güven verileri yüklendi:', markaGuven);
+
+                // Giriş yapılı markanın kampanyalarını filtrele
+                const userCampaigns = campaigns.filter(camp => camp.marka_id === userId);
+                const campaignList = document.getElementById('campaignList');
+                
+                if (userCampaigns.length === 0) {
+                    campaignList.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">🎯</div>
+                            <div class="empty-state-text">Henüz kampanyanız yok</div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Kampanyaları HTML'e dönüştür
+                campaignList.innerHTML = userCampaigns.map(camp => {
+                    const budget = (camp.kampanya_butcesi_tl / 1000).toFixed(0);
+
+                    return `
+                        <div class="campaign-item">
+                            <div class="campaign-name">${camp.kampanya_adi}</div>
+                            <div class="campaign-meta">
+                                <span>Budget: ₺${budget}K</span>
+                                <span class="campaign-status status-paused">⏳ EŞLEŞMEMİŞ</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                console.log('✅ Kampanyalar yüklendi:', userCampaigns.length);
+
+            } catch (error) {
+                console.error('❌ Kampanya verileri yüklenirken hata:', error);
+                
+                // İstatistikleri boş göster
+                document.getElementById('activeCampaigns').textContent = '0';
+                document.getElementById('satisfactionScore').textContent = '-';
+                document.getElementById('trustStatus').textContent = '-';
+                
+                const campaignList = document.getElementById('campaignList');
+                campaignList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">⚠️</div>
+                        <div class="empty-state-text">Veriler yüklenirken bir hata oluştu</div>
+                    </div>
+                `;
+            }
+        }
+    </script>
+
+    <!-- Header Manager Script - Body sonunda yükle -->
+    <script src="js/header.js"></script>
+</body>
+</html>
+

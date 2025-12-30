@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1734253847124,
+    "sirketAdi": "TechVerse Solutions",
+    "markaAdi": "TechVerse",
+    "email": "contact@techverse.com",
+    "sifre": "$2b$10$JpG.YxurwtusB6BTwHSZWufuBMGA8Fn7DJUCQOjTAGLcjVGEyDeCi",
+    "Sorumlu_ad": "Mehmet",
+    "Sorumlu_Soyad": "Kara",
+    "sorumlu_pozisyon": "İcra Kurulu Başkanı",
+    "sorumluTelefon": "+90 532 987 6543",
+    "kosullarKabul": 1,
+    "createdAt": "2025-12-15T10:30:47.124Z",
+    "updatedAt": "2025-12-15T10:30:47.124Z"
+  },
+  {
+    "id": 1734253847125,
+    "sirketAdi": "Digital Marketing Pro",
+    "markaAdi": "DMP Brand",
+    "email": "info@dmpbrand.com",
+    "sifre": "$2b$10$Uck1KagvqTg.bMhS0Gvb7uQRLg01.tn19A/2PuOB7eX/qNpMRe1/y",
+    "Sorumlu_ad": "Ayşe",
+    "Sorumlu_Soyad": "Yıldız",
+    "sorumlu_pozisyon": "Pazarlama Müdürü",
+    "sorumluTelefon": "+90 554 234 5678",
+    "kosullarKabul": 1,
+    "createdAt": "2025-12-15T10:35:22.125Z",
+    "updatedAt": "2025-12-15T10:35:22.125Z"
+  },
+  {
+    "id": 1734253847126,
+    "sirketAdi": "Creative Agency Istanbul",
+    "markaAdi": "CAI Creative",
+    "email": "hello@caicreative.com",
+    "sifre": "$2b$10$zBayemDRPolFuKUvjbfI4O7Dp41TGSAmGatoXH.TrsKoi5cdJ41Je",
+    "Sorumlu_ad": "Fatih",
+    "Sorumlu_Soyad": "Demir",
+    "sorumlu_pozisyon": "Kreatif Direktör",
+    "sorumluTelefon": "+90 555 123 4567",
+    "kosullarKabul": 1,
+    "createdAt": "2025-12-15T10:40:15.126Z",
+    "updatedAt": "2025-12-15T10:40:15.126Z"
+  }
+]

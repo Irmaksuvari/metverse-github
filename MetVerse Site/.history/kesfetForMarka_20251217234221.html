@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İnfluencer Keşfet - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .kesfet-section {
+            background-color: rgb(4, 0, 29);
+            background-image: radial-gradient(circle, rgba(232, 133, 202, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            padding: 120px 1rem 4rem 1rem;
+            position: relative;
+        }
+
+        .kesfet-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.6s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .kesfet-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #fffffffe;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .kesfet-header h1 .highlight {
+            color: rgb(232, 133, 202);
+        }
+
+        .kesfet-header p {
+            font-size: 1.2rem;
+            color: #B0B0B0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .kesfet-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .kesfet-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            background: rgba(232, 133, 202, 0.1);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            border-radius: 8px;
+            color: #B0B0B0;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: rgba(232, 133, 202, 0.2);
+            border-color: rgb(232, 133, 202);
+            color: rgb(232, 133, 202);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            border-color: rgb(232, 133, 202);
+            color: #fffffffe;
+        }
+
+        .kesfet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .kesfet-card {
+            background: rgba(30, 0, 34, 0.6);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: slideUp 0.4s ease;
+        }
+
+        .kesfet-card:hover {
+            background: rgba(30, 0, 34, 0.9);
+            border-color: rgba(232, 133, 202, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(232, 133, 202, 0.2);
+        }
+
+        .kesfet-card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.2), rgba(232, 133, 202, 0.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.2);
+        }
+
+        .kesfet-card-content {
+            padding: 1.5rem;
+        }
+
+        .kesfet-card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fffffffe;
+            margin-bottom: 0.5rem;
+        }
+
+        .kesfet-card-handle {
+            font-size: 0.9rem;
+            color: rgb(232, 133, 202);
+            margin-bottom: 1rem;
+        }
+
+        .kesfet-card-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(232, 133, 202, 0.15);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: rgb(232, 133, 202);
+            margin-bottom: 1rem;
+        }
+
+        .kesfet-card-desc {
+            font-size: 0.9rem;
+            color: #B0B0B0;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .influencer-stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.2);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #B0B0B0;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .stat-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: rgb(232, 133, 202);
+        }
+
+        .kesfet-card-footer {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .kesfet-card-btn {
+            flex: 1;
+            padding: 0.6rem 1rem;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            border: none;
+            border-radius: 6px;
+            color: #fffffffe;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .kesfet-card-btn:hover {
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.9), rgb(232, 133, 202));
+            transform: scale(1.05);
+        }
+
+        .kesfet-card-btn-secondary {
+            flex: 1;
+            padding: 0.6rem 1rem;
+            background: transparent;
+            border: 1px solid rgba(232, 133, 202, 0.5);
+            border-radius: 6px;
+            color: rgb(232, 133, 202);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .kesfet-card-btn-secondary:hover {
+            background: rgba(232, 133, 202, 0.1);
+            border-color: rgb(232, 133, 202);
+        }
+
+        .empty-kesfet {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(30, 0, 34, 0.5);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 15px;
+        }
+
+        .empty-kesfet-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-kesfet h2 {
+            font-size: 1.5rem;
+            color: #fffffffe;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-kesfet p {
+            color: #B0B0B0;
+            font-size: 1rem;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .kesfet-header h1 {
+                font-size: 2rem;
+            }
+
+            .kesfet-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kesfet-filters {
+                flex-direction: column;
+            }
+
+            .filter-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+
+    <section class="kesfet-section">
+        <div class="kesfet-header">
+            <h1>İnfluencer'ları <span class="highlight">Keşfet</span></h1>
+            <p>Kampanyalarınıza uygun influencer'ları keşfet ve iş birliği başlat</p>
+        </div>
+
+        <div class="kesfet-container">
+            <!-- Filtreler -->
+            <div class="kesfet-filters">
+                <button class="filter-btn active" onclick="filterInfluencers('all')">🌟 Tümü</button>
+                <button class="filter-btn" onclick="filterInfluencers('fashion')">👗 Moda</button>
+                <button class="filter-btn" onclick="filterInfluencers('beauty')">💄 Güzellik</button>
+                <button class="filter-btn" onclick="filterInfluencers('lifestyle')">🌿 Yaşam Tarzı</button>
+                <button class="filter-btn" onclick="filterInfluencers('tech')">📱 Teknoloji</button>
+            </div>
+
+            <!-- İnfluencer'lar Grid'i -->
+            <div class="kesfet-grid" id="influencerGrid">
+                <!-- İnfluencer'lar burada listelenecek -->
+                <div class="empty-kesfet">
+                    <div class="empty-kesfet-icon">🔍</div>
+                    <h2>İnfluencer yükleniyor...</h2>
+                    <p>Lütfen bekleyin, mevcut influencer'lar görüntülenecektir</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Örnek influencer verisi
+        const influencers = [
+            {
+                id: 1,
+                name: "Deniz Kaya",
+                handle: "@denizkaya",
+                category: "fashion",
+                bio: "Moda ve stil tutkunu | Trendleri takip eden fashion blogger",
+                followers: "245K",
+                engagement: "8.5%",
+                price: "₺18.500",
+                icon: "👩‍🎨",
+                platforms: ["Instagram", "TikTok"]
+            },
+            {
+                id: 2,
+                name: "Mert Yılmaz",
+                handle: "@mertyilmaz",
+                category: "tech",
+                bio: "Teknoloji meraklısı | Gadget review ve unboxing",
+                followers: "189K",
+                engagement: "7.2%",
+                price: "₺15.200",
+                icon: "👨‍💻",
+                platforms: ["YouTube", "Instagram"]
+            },
+            {
+                id: 3,
+                name: "Ayşe Demir",
+                handle: "@aysedemir",
+                category: "beauty",
+                bio: "Güzellik ve cilt bakım danışmanı | Doğal kozmetik sevgilisi",
+                followers: "156K",
+                engagement: "9.1%",
+                price: "₺12.800",
+                icon: "💄",
+                platforms: ["Instagram", "TikTok", "YouTube"]
+            },
+            {
+                id: 4,
+                name: "Burak Kara",
+                handle: "@burakkara",
+                category: "lifestyle",
+                bio: "Fitness ve sağlıklı yaşam | Motivasyon ve beslenme",
+                followers: "312K",
+                engagement: "6.8%",
+                price: "₺22.500",
+                icon: "💪",
+                platforms: ["Instagram", "TikTok"]
+            },
+            {
+                id: 5,
+                name: "Selin Çetin",
+                handle: "@selincetin",
+                category: "fashion",
+                bio: "Streetwear ve casual tarz | Moda deneyleri ve lookbook",
+                followers: "198K",
+                engagement: "8.9%",
+                price: "₺16.500",
+                icon: "👩",
+                platforms: ["Instagram", "Pinterest"]
+            },
+            {
+                id: 6,
+                name: "Can Yıldız",
+                handle: "@canyildiz",
+                category: "tech",
+                bio: "Yazılım geliştirici ve teknoloji yazarı | Reviews ve tutorials",
+                followers: "127K",
+                engagement: "7.5%",
+                price: "₺10.800",
+                icon: "👨‍💼",
+                platforms: ["YouTube", "Twitter"]
+            },
+            {
+                id: 7,
+                name: "Zeynep Özkan",
+                handle: "@zeynepoznkan",
+                category: "beauty",
+                bio: "Makyöz ve cilt bakım uzmanı | Tutorial ve ürün incelemesi",
+                followers: "276K",
+                engagement: "8.7%",
+                price: "₺19.500",
+                icon: "💅",
+                platforms: ["Instagram", "TikTok", "YouTube"]
+            },
+            {
+                id: 8,
+                name: "İbrahim Şahin",
+                handle: "@ibrahimşahin",
+                category: "lifestyle",
+                bio: "Seyahat ve macera | Başka kültürler ve deneyimler",
+                followers: "234K",
+                engagement: "8.2%",
+                price: "₺17.200",
+                icon: "✈️",
+                platforms: ["Instagram", "YouTube"]
+            }
+        ];
+
+        function displayInfluencers(filter = 'all') {
+            const grid = document.getElementById('influencerGrid');
+            
+            let filtered = influencers;
+            if (filter !== 'all') {
+                filtered = influencers.filter(i => i.category === filter);
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-kesfet">
+                        <div class="empty-kesfet-icon">🔍</div>
+                        <h2>İnfluencer bulunamadı</h2>
+                        <p>Seçtiğiniz kategoride influencer bulunmamaktadır</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(influencer => `
+                <div class="kesfet-card">
+                    <div class="kesfet-card-image">${influencer.icon}</div>
+                    <div class="kesfet-card-content">
+                        <h3 class="kesfet-card-title">${influencer.name}</h3>
+                        <p class="kesfet-card-handle">${influencer.handle}</p>
+                        <div class="kesfet-card-category">${influencer.category.toUpperCase()}</div>
+                        <p class="kesfet-card-desc">${influencer.bio}</p>
+                        
+                        <div class="influencer-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Takipçi</span>
+                                <span class="stat-value">${influencer.followers}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Etkileşim</span>
+                                <span class="stat-value">${influencer.engagement}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Ücret</span>
+                                <span class="stat-value">${influencer.price}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="kesfet-card-footer">
+                            <button class="kesfet-card-btn" onclick="contactInfluencer(${influencer.id})">📩 İletişim Kur</button>
+                            <button class="kesfet-card-btn-secondary" onclick="viewProfile(${influencer.id})">👁️ Profil</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterInfluencers(category) {
+            // Aktif button'ı güncelle
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // İnfluencer'ları filtrele
+            displayInfluencers(category);
+            console.log('🔍 İnfluencer\'lar filtrelendi:', category);
+        }
+
+        function contactInfluencer(influencerId) {
+            const influencer = influencers.find(i => i.id === influencerId);
+            console.log('📩 İnfluencer ile iletişim:', influencer.name);
+            alert(`✅ ${influencer.name} ile iletişim sayfasına yönlendiriliyorsunuz...`);
+            // Mesajlaşma sayfasına yönlendir
+        }
+
+        function viewProfile(influencerId) {
+            const influencer = influencers.find(i => i.id === influencerId);
+            console.log('👁️ Profil görüntüle:', influencer.name);
+            alert(`Profil sayfası: ${influencer.name}`);
+            // Profil sayfasına yönlendir
+        }
+
+        // Sayfa yüklendiğinde influencer'ları göster
+        document.addEventListener('DOMContentLoaded', () => {
+            displayInfluencers();
+        });
+
+        // Scroll event for header background color change
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (nav) {
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

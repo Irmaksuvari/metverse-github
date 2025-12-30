@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Influencer Kayıt - MetVerse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .form-section {
+            background: rgb(4, 0, 29);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .form-container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(232, 133, 202, 0.05);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            padding: 2.5rem;
+            border-radius: 0.75rem;
+            animation: slideUp 0.6s ease;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-title h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #fffffffe;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-title p {
+            color: #B0B0B0;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #fffffffe;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 0.5rem;
+            color: #fffffffe;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group select option {
+            background: rgb(4, 0, 29);
+            color: #fffffffe;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgb(232, 133, 202);
+            box-shadow: 0 0 10px rgba(232, 133, 202, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .plan-selector {
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-selector h3 {
+            color: #fffffffe;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .plan-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-card {
+            padding: 1.25rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(232, 133, 202, 0.2);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .plan-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgb(232, 133, 202);
+        }
+
+        .plan-card.selected {
+            background: rgba(232, 133, 202, 0.15);
+            border-color: rgb(232, 133, 202);
+            box-shadow: 0 0 15px rgba(232, 133, 202, 0.3);
+        }
+
+        .plan-card h4 {
+            color: #fffffffe;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .plan-price {
+            color: rgb(232, 133, 202);
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-card p {
+            color: #B0B0B0;
+            font-size: 0.85rem;
+        }
+
+        .payment-section {
+            background: rgba(232, 133, 202, 0.05);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .payment-section.active {
+            display: block;
+            max-height: 1000px;
+        }
+
+        .payment-section h3 {
+            color: #fffffffe;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .payment-warning {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 3px solid #FFC107;
+            padding: 1rem;
+            border-radius: 0.35rem;
+            color: #FFD54F;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 0.75rem;
+            cursor: pointer;
+            accent-color: rgb(232, 133, 202);
+        }
+
+        .checkbox-group label {
+            color: #B0B0B0;
+            margin: 0;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .form-button {
+            width: 100%;
+            padding: 0.85rem;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            color: #fffffffe;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        .form-button:hover {
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.9), rgb(232, 133, 202));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(232, 133, 202, 0.3);
+        }
+
+        .form-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #B0B0B0;
+            font-size: 0.9rem;
+        }
+
+        .form-link a {
+            color: rgb(232, 133, 202);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .form-link a:hover {
+            color: rgba(232, 133, 202, 0.8);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 2rem;
+            }
+
+            .form-title h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .form-title h1 {
+                font-size: 1.25rem;
+            }
+
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+
+    <section class="form-section">
+        <div class="form-container">
+            <div class="form-title">
+                <h1>🤳 Influencer Kayıt</h1>
+                <p>MetVerse topluluğuna katılın</p>
+            </div>
+
+            <form id="influencerForm" method="POST" action="/api/kayit">
+                <input type="hidden" name="tumKayit" value="influencer">
+                <input type="hidden" id="selectedPlan" name="selectedPlan" value="ucretsiz">
+
+                <!-- Plan Seçimi -->
+                <div class="plan-selector">
+                    <h3>📊 Planınızı Seçin</h3>
+                    <div class="plan-cards">
+                        <div class="plan-card selected" onclick="selectPlan('ucretsiz', this)">
+                            <input type="radio" name="plan" value="ucretsiz" checked style="display: none;">
+                            <h4>Standart (Ücretsiz)</h4>
+                            <p class="plan-price">₺0 / Ay</p>
+                            <p>Temel özellikler</p>
+                        </div>
+                        <div class="plan-card" onclick="selectPlan('premium', this)">
+                            <input type="radio" name="plan" value="premium" style="display: none;">
+                            <h4>💰 Premium</h4>
+                            <p class="plan-price">₺650 / Ay</p>
+                            <p>Gelişmiş özellikler</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Section (Hidden until Premium is selected) -->
+                <div id="paymentSection" class="payment-section">
+                    <h3>💳 Ödeme Bilgileri</h3>
+                    <div class="payment-warning">
+                        ⚠️ Lütfen ödeme bilgilerinizi dikkatli bir şekilde giriniz. İşlem geri alınamaz.
+                    </div>
+
+                    <div class="form-group">
+                        <label for="kartAdi">Kart Sahibi Adı *</label>
+                        <input 
+                            type="text" 
+                            id="kartAdi" 
+                            name="kartAdi" 
+                            placeholder="Kartınız üzerinde yazılı isim"
+                        >
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="kartNumarasi">Kart Numarası *</label>
+                            <input 
+                                type="text" 
+                                id="kartNumarasi" 
+                                name="kartNumarasi" 
+                                placeholder="1234 5678 9012 3456"
+                                maxlength="19"
+                            >
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="cvv">CVV *</label>
+                            <input 
+                                type="text" 
+                                id="cvv" 
+                                name="cvv" 
+                                placeholder="123"
+                                maxlength="4"
+                            >
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="kartAy">Ay *</label>
+                            <input 
+                                type="text" 
+                                id="kartAy" 
+                                name="kartAy" 
+                                placeholder="01"
+                                maxlength="2"
+                            >
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="kartYil">Yıl *</label>
+                            <input 
+                                type="text" 
+                                id="kartYil" 
+                                name="kartYil" 
+                                placeholder="2025"
+                                maxlength="4"
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="ad">Ad *</label>
+                        <input 
+                            type="text" 
+                            id="ad" 
+                            name="ad" 
+                            placeholder="Adınız"
+                            required
+                        >
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="soyad">Soyad *</label>
+                        <input 
+                            type="text" 
+                            id="soyad" 
+                            name="soyad" 
+                            placeholder="Soyadınız"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-posta Adresi *</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="ornek@email.com"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="telefon">Telefon Numarası *</label>
+                    <input 
+                        type="tel" 
+                        id="telefon" 
+                        name="telefon" 
+                        placeholder="+90 (555) 123-4567"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="sifre">Şifre *</label>
+                    <input 
+                        type="password" 
+                        id="sifre" 
+                        name="sifre" 
+                        placeholder="En az 6 karakter"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="sifreTekrar">Şifre Tekrar *</label>
+                    <input 
+                        type="password" 
+                        id="sifreTekrar" 
+                        name="sifreTekrar" 
+                        placeholder="Şifrenizi tekrar giriniz"
+                        required
+                    >
+                </div>
+
+                <div class="checkbox-group">
+                    <input 
+                        type="checkbox" 
+                        id="kosullar" 
+                        name="kosullar" 
+                        required
+                    >
+                    <label for="kosullar">
+                        <a href="#" style="color: rgb(255, 223, 152); text-decoration: none;">Kullanım Koşulları</a>'nı kabul ediyorum
+                    </label>
+                </div>
+
+                <button type="submit" class="form-button">Kaydı Tamamla</button>
+
+                <div class="form-link">
+                    Zaten hesabınız mı var? <a href="#">Giriş Yapın</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // Form submit handler
+        document.getElementById('influencerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // FRONTEND DOĞRULAMA
+            const ad = document.getElementById('ad').value.trim();
+            const soyad = document.getElementById('soyad').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const telefon = document.getElementById('telefon').value.trim();
+            const sifre = document.getElementById('sifre').value;
+            const sifreTekrar = document.getElementById('sifreTekrar').value;
+            const kosullar = document.getElementById('kosullar').checked;
+
+            // Zorunlu alanlar kontrolü
+            if (!ad || !soyad || !email || !telefon || !sifre || !sifreTekrar) {
+                alert('❌ Lütfen tüm zorunlu alanları doldurunuz!');
+                return;
+            }
+
+            // Email formatı kontrolü
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('❌ Lütfen geçerli bir e-posta adresi giriniz!');
+                return;
+            }
+
+            // Telefon formatı kontrolü
+            const telefonRegex = /^[0-9\s\-\+\(\)]{10,}$/;
+            if (!telefonRegex.test(telefon)) {
+                alert('❌ Lütfen geçerli bir telefon numarası giriniz!');
+                return;
+            }
+
+            // Şifre uzunluğu kontrolü
+            if (sifre.length < 6) {
+                alert('❌ Şifre minimum 6 karakter olmalıdır!');
+                return;
+            }
+
+            // Şifre eşleşme kontrolü
+            if (sifre !== sifreTekrar) {
+                alert('❌ Şifreler eşleşmiyor!');
+                return;
+            }
+
+            // Kullanım koşulları kontrolü
+            if (!kosullar) {
+                alert('❌ Kullanım koşullarını kabul etmelisiniz!');
+                return;
+            }
+
+            // Ön uç doğrulaması başarıysa arka uca gönder
+            try {
+                const response = await fetch('/api/kayit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        tumKayit: 'influencer',
+                        ad,
+                        soyad,
+                        email,
+                        telefon,
+                        sifre,
+                        sifreTekrar,
+                        kosullar
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert(result.message);
+                    window.location.href = result.redirectUrl || '/influencer-anasayfa';
+                } else {
+                    alert('❌ ' + result.message);
+                }
+            } catch (error) {
+                console.error('Form gönderme hatası:', error);
+                alert('❌ Bir hata oluştu. Lütfen tekrar deneyin.');
+            }
+        });
+    </script>
+</body>
+</html>

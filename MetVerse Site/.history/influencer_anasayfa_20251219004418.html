@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İnfluencer Ana Sayfa - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+
+    <main class="influencer-main">
+        <div class="container">
+            <section class="influencer-content">
+                <h1>Hoşgeldin <span id="welcomeUserName">Kullanıcı</span></h1>
+                <p class="today-date">Bugün, <span id="todayDate"></span></p>
+            </section>
+
+            <!-- Dashboard Section -->
+            <section class="dashboard-section">
+                <!-- İstatistik Kartları -->
+                <!-- Dönem Seçimi Butonları -->
+                <div class="period-selector">
+                    <button class="period-btn period-btn-active" data-period="daily">Günlük</button>
+                    <button class="period-btn" data-period="monthly">Aylık</button>
+                    <button class="period-btn" data-period="quarterly">3 Aylık</button>
+                    <button class="period-btn" data-period="yearly">Yıllık</button>
+                </div>
+
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-label">Tamamlanan Kampanyalar</div>
+                        <div class="stat-value" data-stat="campaigns">12</div>
+                        <div class="stat-progress-container">
+                            <div class="stat-progress-bar" style="background: linear-gradient(90deg, #00f0ff, #00d4ff);" data-progress="campaigns-bar"></div>
+                            <span class="stat-trend stat-trend-blue" data-trend="campaigns-trend">+12%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Toplam Kazanç</div>
+                        <div class="stat-value stat-amount" data-stat="earnings">₺25,450</div>
+                        <div class="stat-progress-container">
+                            <div class="stat-progress-bar" style="background: linear-gradient(90deg, #f9f506, #ffeb3b);" data-progress="earnings-bar"></div>
+                            <span class="stat-trend stat-trend-yellow" data-trend="earnings-trend">+8%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Ortalama ER</div>
+                        <div class="stat-value" data-stat="engagement">4.8%</div>
+                        <div class="stat-progress-container">
+                            <div class="stat-progress-bar" style="background: linear-gradient(90deg, #bc13fe, #d946ef);" data-progress="engagement-bar"></div>
+                            <span class="stat-trend stat-trend-purple" data-trend="engagement-trend">+1.2%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Profil Görüntülenmeleri</div>
+                        <div class="stat-value" data-stat="views">18,200</div>
+                        <div class="stat-progress-container">
+                            <div class="stat-progress-bar" style="background: linear-gradient(90deg, #ff0055, #ff3366);" data-progress="views-bar"></div>
+                            <span class="stat-trend stat-trend-magenta" data-trend="views-trend">+24%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gelen Teklifler ve Mesajlar Container -->
+                <div class="offers-message-container">
+                    <!-- Kampanya Durumları Başlığı -->
+                    <div>
+                        <h3 class="section-title">Kampanya Durumları</h3>
+                        <!-- Kampanya Durumları Tablosu -->
+                        <div class="offers-section">
+                            <table class="offers-table">
+                            <thead>
+                                <tr>
+                                    <th>Marka</th>
+                                    <th>Kampanya Adı</th>
+                                    <th>Bütçe (₺)</th>
+                                    <th>Durum</th>
+                                    <th>Tarih</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="brand-avatar"></div>
+                                        <strong>Trendyol</strong>
+                                    </td>
+                                    <td>Yaz Koleksiyonu</td>
+                                    <td>₺15.000</td>
+                                    <td><span class="status-badge status-pending">Beklemede</span></td>
+                                    <td>12 Mayıs</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="brand-avatar"></div>
+                                        <strong>Nike</strong>
+                                    </td>
+                                    <td>Air Max Tanıtımı</td>
+                                    <td>₺22.500</td>
+                                    <td><span class="status-badge status-reviewing">İnceleniyor</span></td>
+                                    <td>10 Mayıs</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="brand-avatar"></div>
+                                        <strong>L'Oreal</strong>
+                                    </td>
+                                    <td>Cilt Bakım Serisi</td>
+                                    <td>₺8.000</td>
+                                    <td><span class="status-badge status-new">Yeni</span></td>
+                                    <td>09 Mayıs</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="brand-avatar"></div>
+                                        <strong>Samsung</strong>
+                                    </td>
+                                    <td>Galaxy Z Flip5</td>
+                                    <td>₺35.000</td>
+                                    <td><span class="status-badge status-approved">Onaylandı</span></td>
+                                    <td>08 Mayıs</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="brand-avatar"></div>
+                                        <strong>Adidas</strong>
+                                    </td>
+                                    <td>Spor Kolekyonu</td>
+                                    <td>₺18.500</td>
+                                    <td><span class="status-badge status-pending">Beklemede</span></td>
+                                    <td>05 Mayıs</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+
+                    <!-- Mesajlar Kutusu -->
+                    <div>
+                        <h3 class="section-title">💬 Mesajlar</h3>
+                        <div class="messaging-container">
+                            <!-- Mesaj Listesi -->
+                            <div class="messaging-list" id="messagingList">
+                                <div class="messaging-item active" onclick="openChat(1, 'ModaMarka')">
+                                    <div class="messaging-item-avatar">👗</div>
+                                    <div class="messaging-item-info">
+                                        <h4>ModaMarka</h4>
+                                        <p>Yeni sezon koleksiyonu için...</p>
+                                    </div>
+                                </div>
+                                <div class="messaging-item" onclick="openChat(2, 'TeknoTrend')">
+                                    <div class="messaging-item-avatar">📱</div>
+                                    <div class="messaging-item-info">
+                                        <h4>TeknoTrend</h4>
+                                        <p>Ürün lansmanı için detayları...</p>
+                                    </div>
+                                </div>
+                                <div class="messaging-item" onclick="openChat(3, 'GourmetLezzetler')">
+                                    <div class="messaging-item-avatar">🍽️</div>
+                                    <div class="messaging-item-info">
+                                        <h4>GourmetLezzetler</h4>
+                                        <p>Tarif videomuz için bütçe...</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Chat Alanı -->
+                            <div class="messaging-chat" id="chatArea">
+                                <div class="empty-messaging">
+                                    <div>
+                                        <div style="font-size: 48px; margin-bottom: 15px;">💬</div>
+                                        <p>Bir marka seç</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Ürün</h4>
+                    <ul>
+                        <li><a href="#features">Özellikler</a></li>
+                        <li><a href="#">Fiyatlandırma</a></li>
+                        <li><a href="#">Güvenlik</a></li>
+                        <li><a href="#">Güncellemeler</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Şirket</h4>
+                    <ul>
+                        <li><a href="#">Hakkımızda</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Kariyer</a></li>
+                        <li><a href="#">Basın</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Yasal</h4>
+                    <ul>
+                        <li><a href="#">Gizlilik Politikası</a></li>
+                        <li><a href="#">Hizmet Şartları</a></li>
+                        <li><a href="#">Çerez Politikası</a></li>
+                        <li><a href="#">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Bağlan</h4>
+                    <ul>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Discord</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MetVerse. Tüm hakları saklıdır.</p>
+                <p>Influencer-marka ortaklıklarında güven ve adilliği yeniden tanımlama.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================
+        // İNFLUENCER ANASAYFA KÜSÜLÜRİ
+        // ============================================
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('📄 [İnfluencer Anasayfa] Sayfa DOMContentLoaded');
+            
+            // Token Doğrulaması - Sayfa yüklendiğinde
+            async function checkTokenAndLoadUser() {
+                const token = localStorage.getItem('token');
+                console.log('🔍 [İnfluencer Anasayfa] Token kontrolü başladı');
+                console.log('🔑 localStorage.token:', token ? 'VAR ✅' : 'YOK ❌');
+                
+                if (!token) {
+                    console.log('❌ Token bulunamadı, giriş seçim sayfasına yönlendir');
+                    window.location.href = '/giris-secim';
+                    return;
+                }
+
+                try {
+                    console.log('🔐 Token gönderiliyor /api/verify-token\'e');
+                    const response = await fetch('/api/verify-token', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    console.log('📨 Response Status:', response.status);
+
+                    if (!response.ok) {
+                        console.error('❌ Token doğrulama başarısız, status:', response.status);
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('user');
+                        window.location.href = '/giris-secim';
+                        return;
+                    }
+
+                    const data = await response.json();
+                    console.log('✅ Kullanıcı doğrulandı:', data.user.adSoyad);
+
+                } catch (error) {
+                    console.error('❌ Token doğrulama hatası:', error);
+                    localStorage.clear();
+                    window.location.href = '/giris-secim';
+                }
+            }
+
+            // Bugünün tarihini göster
+            const todayDate = document.getElementById('todayDate');
+            if (todayDate) {
+                const today = new Date();
+                const day = today.getDate();
+                const month = today.toLocaleDateString('tr-TR', { month: 'long' });
+                const year = today.getFullYear();
+                todayDate.textContent = `${day} ${month} ${year}`;
+            }
+
+            // Hoşgeldin kısmında kullanıcı adını göster
+            const welcomeUserName = document.getElementById('welcomeUserName');
+            const user = localStorage.getItem('user');
+            if (welcomeUserName && user) {
+                try {
+                    const userData = JSON.parse(user);
+                    welcomeUserName.textContent = userData.adSoyad || 'Kullanıcı';
+                } catch (error) {
+                    console.warn('User bilgisi parse hatası:', error);
+                }
+            }
+
+            // Dönem seçim fonksiyonalitesi
+            const periodData = {
+                daily: {
+                    campaigns: 2,
+                    earnings: 3250,
+                    engagement: 5.2,
+                    views: 2400,
+                    campaignsTrend: '+8%',
+                    earningsTrend: '+12%',
+                    engagementTrend: '+2.1%',
+                    viewsTrend: '+18%'
+                },
+                monthly: {
+                    campaigns: 12,
+                    earnings: 45600,
+                    engagement: 4.8,
+                    views: 18200,
+                    campaignsTrend: '+12%',
+                    earningsTrend: '+8%',
+                    engagementTrend: '+1.2%',
+                    viewsTrend: '+24%'
+                },
+                quarterly: {
+                    campaigns: 38,
+                    earnings: 138500,
+                    engagement: 4.5,
+                    views: 52800,
+                    campaignsTrend: '+15%',
+                    earningsTrend: '+10%',
+                    engagementTrend: '+0.8%',
+                    viewsTrend: '+31%'
+                },
+                yearly: {
+                    campaigns: 145,
+                    earnings: 520000,
+                    engagement: 4.2,
+                    views: 215000,
+                    campaignsTrend: '+22%',
+                    earningsTrend: '+18%',
+                    engagementTrend: '+0.5%',
+                    viewsTrend: '+42%'
+                }
+            };
+
+            function updateStatCards(period) {
+                const data = periodData[period];
+                
+                // Kampanyalar
+                const campaignsValue = document.querySelector('[data-stat="campaigns"]');
+                const campaignsBar = document.querySelector('[data-progress="campaigns-bar"]');
+                const campaignsTrend = document.querySelector('[data-trend="campaigns-trend"]');
+                if (campaignsValue) {
+                    campaignsValue.textContent = data.campaigns;
+                    const width = Math.min((data.campaigns / 150) * 100, 100);
+                    if (campaignsBar) campaignsBar.style.width = width + '%';
+                    if (campaignsTrend) campaignsTrend.textContent = data.campaignsTrend;
+                }
+
+                // Kazanç
+                const earningsValue = document.querySelector('[data-stat="earnings"]');
+                const earningsBar = document.querySelector('[data-progress="earnings-bar"]');
+                const earningsTrend = document.querySelector('[data-trend="earnings-trend"]');
+                if (earningsValue) {
+                    earningsValue.textContent = '₺' + data.earnings.toLocaleString('tr-TR');
+                    const width = Math.min((data.earnings / 600000) * 100, 100);
+                    if (earningsBar) earningsBar.style.width = width + '%';
+                    if (earningsTrend) earningsTrend.textContent = data.earningsTrend;
+                }
+
+                // Katılım Oranı
+                const engagementValue = document.querySelector('[data-stat="engagement"]');
+                const engagementBar = document.querySelector('[data-progress="engagement-bar"]');
+                const engagementTrend = document.querySelector('[data-trend="engagement-trend"]');
+                if (engagementValue) {
+                    engagementValue.textContent = data.engagement.toFixed(1) + '%';
+                    const width = Math.min((data.engagement / 10) * 100, 100);
+                    if (engagementBar) engagementBar.style.width = width + '%';
+                    if (engagementTrend) engagementTrend.textContent = data.engagementTrend;
+                }
+
+                // Görüntülenmeler
+                const viewsValue = document.querySelector('[data-stat="views"]');
+                const viewsBar = document.querySelector('[data-progress="views-bar"]');
+                const viewsTrend = document.querySelector('[data-trend="views-trend"]');
+                if (viewsValue) {
+                    viewsValue.textContent = data.views.toLocaleString('tr-TR');
+                    const width = Math.min((data.views / 250000) * 100, 100);
+                    if (viewsBar) viewsBar.style.width = width + '%';
+                    if (viewsTrend) viewsTrend.textContent = data.viewsTrend;
+                }
+            }
+
+            // Dönem buton tıklama olayları
+            const periodBtns = document.querySelectorAll('.period-btn');
+            periodBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Aktif sınıfını kaldır
+                    periodBtns.forEach(b => b.classList.remove('period-btn-active'));
+                    // Yeni aktif sınıfını ekle
+                    btn.classList.add('period-btn-active');
+                    // Verileri güncelle
+                    updateStatCards(btn.dataset.period);
+                });
+            });
+
+            // Token kontrolünü hemen çalıştır
+            console.log('🚀 checkTokenAndLoadUser çalıştırılıyor');
+            checkTokenAndLoadUser();
+        });
+    </script>
+</body>
+</html>

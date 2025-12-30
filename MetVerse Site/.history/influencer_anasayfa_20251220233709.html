@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İnfluencer Ana Sayfa - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Mesajlaşma Bölümü */
+        .messaging-container {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 20px;
+            max-height: 650px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .messaging-list {
+            background: rgba(0, 0, 0, 0.3);
+            border-right: 1px solid rgba(232, 133, 202, 0.2);
+            overflow-y: auto;
+        }
+
+        .messaging-item {
+            padding: 15px;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .messaging-item:hover {
+            background: rgba(232, 133, 202, 0.15);
+        }
+
+        .messaging-item.active {
+            background: rgba(232, 133, 202, 0.2);
+            border-left: 3px solid rgb(232, 133, 202);
+        }
+
+        .messaging-item-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgb(220, 100, 180));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .messaging-item-info h4 {
+            margin: 0;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .messaging-item-info p {
+            margin: 3px 0 0 0;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .messaging-chat {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .messaging-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .message.sent {
+            justify-content: flex-end;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: rgba(232, 133, 202, 0.2);
+            border: 1px solid rgba(232, 133, 202, 0.4);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .message.sent .message-bubble {
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.4), rgba(220, 100, 180, 0.3));
+            border-color: rgba(232, 133, 202, 0.6);
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 5px;
+        }
+
+        .messaging-input-group {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 0 0 15px 0;
+        }
+
+        .messaging-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: inherit;
+        }
+
+        .messaging-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .messaging-input:focus {
+            outline: none;
+            border-color: rgb(232, 133, 202);
+            background: rgba(232, 133, 202, 0.1);
+        }
+
+        .messaging-send-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgb(220, 100, 180));
+            border: none;
+            color: white;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .messaging-send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(232, 133, 202, 0.3);
+        }
+
+        .empty-messaging {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: rgba(255, 255, 255, 0.4);
+            text-align: center;
+        }
+
+        /* Mesaj Bölümünü Full Width Yap */
+        .offers-message-container > div:last-child {
+            grid-column: 1 / -1;
+            margin-top: 40px;
+        }
+
+        .offers-message-container {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        /* Yan Panel Stilleri */
+        .side-panel {
+            position: fixed;
+            right: -450px;
+            top: 0;
+            width: 450px;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(10, 0, 24, 0.98), rgba(30, 0, 34, 0.95));
+            border-left: 2px solid rgba(232, 133, 202, 0.4);
+            z-index: 1000;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            box-shadow: -10px 0 40px rgba(232, 133, 202, 0.2);
+        }
+
+        .side-panel.active {
+            right: 0;
+        }
+
+        .side-panel-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: rgba(10, 0, 24, 0.99);
+        }
+
+        .side-panel-header h2 {
+            margin: 0;
+            color: rgb(232, 133, 202);
+            font-size: 1.5rem;
+        }
+
+        .side-panel-close {
+            background: rgba(232, 133, 202, 0.2);
+            border: 1px solid rgba(232, 133, 202, 0.4);
+            color: rgb(232, 133, 202);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .side-panel-close:hover {
+            background: rgba(232, 133, 202, 0.4);
+            border-color: rgb(232, 133, 202);
+        }
+
+        .side-panel-content {
+            padding: 20px;
+        }
+
+        .panel-section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.2);
+        }
+
+        .panel-section:last-child {
+            border-bottom: none;
+        }
+
+        .panel-section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: rgb(232, 133, 202);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .panel-info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.1);
+        }
+
+        .panel-info-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .panel-info-value {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fffffffe;
+        }
+
+        .escrow-status {
+            background: rgba(232, 133, 202, 0.15);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .escrow-status.released {
+            background: rgba(76, 175, 80, 0.15);
+            border-color: rgba(76, 175, 80, 0.4);
+        }
+
+        .escrow-status.pending {
+            background: rgba(255, 193, 7, 0.15);
+            border-color: rgba(255, 193, 7, 0.4);
+        }
+
+        .escrow-status.held {
+            background: rgba(244, 67, 54, 0.15);
+            border-color: rgba(244, 67, 54, 0.4);
+        }
+
+        .escrow-status-badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .escrow-status.released .escrow-status-badge {
+            background: rgba(76, 175, 80, 0.3);
+            color: rgb(76, 175, 80);
+        }
+
+        .escrow-status.pending .escrow-status-badge {
+            background: rgba(255, 193, 7, 0.3);
+            color: rgb(255, 193, 7);
+        }
+
+        .escrow-status.held .escrow-status-badge {
+            background: rgba(244, 67, 54, 0.3);
+            color: rgb(244, 67, 54);
+        }
+
+        .cargo-tracking {
+            background: rgba(232, 133, 202, 0.1);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .cargo-status-line {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .cargo-status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 12px;
+            background: rgba(232, 133, 202, 0.5);
+        }
+
+        .cargo-status-indicator.completed {
+            background: rgb(76, 175, 80);
+        }
+
+        .cargo-status-indicator.current {
+            background: rgb(232, 133, 202);
+            box-shadow: 0 0 10px rgba(232, 133, 202, 0.5);
+        }
+
+        .panel-backdrop {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .panel-backdrop.active {
+            display: block;
+        }
+
+        /* Stat Cards - BasvuruVeteklifler.html ile aynı stil */
+        .stat-card {
+            background: rgba(30, 0, 34, 0.6);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            background: rgba(30, 0, 34, 0.9);
+            border-color: rgba(232, 133, 202, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(232, 133, 202, 0.2);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: rgba(232, 133, 202, 0.8);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            color: #fffffffe;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-progress-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .stat-progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(232, 133, 202, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .stat-trend {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .stat-trend-blue {
+            color: #00f0ff;
+        }
+
+        .stat-trend-yellow {
+            color: #ffeb3b;
+        }
+
+        .stat-trend-purple {
+            color: #d946ef;
+        }
+
+        .stat-trend-magenta {
+            color: #ff3366;
+        }
+
+        /* Dashboard Stats Grid */
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Period Selector */
+        .period-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .period-btn {
+            padding: 0.6rem 1.2rem;
+            background: rgba(30, 0, 34, 0.6);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            border-radius: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .period-btn:hover {
+            background: rgba(30, 0, 34, 0.9);
+            border-color: rgba(232, 133, 202, 0.5);
+            color: rgb(232, 133, 202);
+        }
+
+        .period-btn-active {
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            color: white;
+            border-color: rgb(232, 133, 202);
+        }
+
+        /* Influencer Main */
+        .influencer-main {
+            background-color: rgb(4, 0, 29);
+            background-image: radial-gradient(circle, rgba(232, 133, 202, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            padding-top: 120px;
+        }
+
+        .influencer-content {
+            padding: 0 1rem 0 1rem;
+        }
+
+        .influencer-content h1 {
+            font-size: 2rem;
+            color: white;
+            margin: 0;
+            font-weight: 700;
+            padding: 1rem 1rem 0.5rem 3rem;
+            position: relative;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* API Doğrulama Badge */
+        .api-verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(76, 175, 80, 0.1));
+            border: 1px solid rgba(76, 175, 80, 0.4);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: rgb(76, 175, 80);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .api-verified-badge::before {
+            content: '✓';
+            display: inline-block;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .today-date {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 1rem;
+            font-weight: 500;
+            padding: 0 1rem 0 3rem;
+            position: relative;
+            top: 0;
+            z-index: 10;
+        }
+
+        .today-date span {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .dashboard-section {
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            color: rgb(232, 133, 202);
+            margin: 0 0 1.5rem 0;
+            font-weight: 700;
+        }
+
+        /* Offers Section */
+        .offers-section {
+            background: rgba(30, 0, 34, 0.6);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: 500px;
+        }
+
+        /* Scrollbar Stil */
+        .offers-section::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .offers-section::-webkit-scrollbar-track {
+            background: rgba(232, 133, 202, 0.1);
+            border-radius: 10px;
+        }
+
+        .offers-section::-webkit-scrollbar-thumb {
+            background: rgba(232, 133, 202, 0.5);
+            border-radius: 10px;
+        }
+
+        .offers-section::-webkit-scrollbar-thumb:hover {
+            background: rgba(232, 133, 202, 0.8);
+        }
+
+        .offers-table {
+            width: 100%;
+            border-collapse: collapse;
+            color: white;
+            table-layout: auto;
+        }
+
+        .offers-table tbody {
+            display: block;
+            max-height: 350px;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        .offers-table tbody tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .offers-table thead {
+            border-bottom: 1px solid rgba(232, 133, 202, 0.2);
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        /* Scrollbar Stil Tablo İçin */
+        .offers-table tbody::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .offers-table tbody::-webkit-scrollbar-track {
+            background: rgba(232, 133, 202, 0.1);
+            border-radius: 10px;
+        }
+
+        .offers-table tbody::-webkit-scrollbar-thumb {
+            background: rgba(232, 133, 202, 0.5);
+            border-radius: 10px;
+        }
+
+        .offers-table tbody::-webkit-scrollbar-thumb:hover {
+            background: rgba(232, 133, 202, 0.8);
+        }
+
+        .offers-table th {
+            padding: 0.75rem 0.5rem;
+            text-align: left;
+            font-weight: 600;
+            color: rgba(232, 133, 202, 0.8);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .offers-table td {
+            padding: 0.75rem 0.5rem;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.1);
+            color: #fffffffe;
+            font-size: 0.9rem;
+            word-break: break-word;
+        }
+
+        .offers-table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        .offers-table tbody tr:hover {
+            background: rgba(232, 133, 202, 0.1);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .status-new {
+            background: rgba(168, 85, 247, 0.2);
+            color: #a855f7;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+        }
+
+        .status-reviewing {
+            background: rgba(255, 193, 7, 0.2);
+            color: rgb(255, 193, 7);
+            border: 1px solid rgba(255, 193, 7, 0.4);
+        }
+
+        .status-approved {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.4);
+        }
+
+        .status-pending {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+        }
+
+        .brand-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgb(220, 100, 180));
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        /* Offers Message Container */
+        .offers-message-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .offers-message-container > div:last-child {
+            grid-column: 1 / -1;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+
+    <main class="influencer-main">
+        <div class="container">
+            <section class="influencer-content">
+                <h1>Hoşgeldin <span id="welcomeUserName">Kullanıcı</span><span id="apiVerifiedBadge" style="display: none;" class="api-verified-badge">API Doğrulandı</span></h1>
+                <p class="today-date">Bugün, <span id="todayDate"></span></p>
+            </section>
+
+            <!-- Dashboard Section -->
+            <section class="dashboard-section">
+                <!-- İstatistik Kartları -->
+                <!-- Dönem Seçimi Dropdown Menüsü -->
+                <div class="period-selector-dropdown">
+                    <button class="period-dropdown-toggle" id="periodDropdownToggle">
+                        <span id="selectedPeriod">Günlük</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="period-dropdown-menu" id="periodDropdownMenu">
+                        <button class="period-option period-option-active" data-period="daily">Günlük</button>
+                        <button class="period-option" data-period="monthly">Aylık</button>
+                        <button class="period-option" data-period="quarterly">3 Aylık</button>
+                        <button class="period-option" data-period="yearly">Yıllık</button>
+                    </div>
+                </div>
+
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-label">Tamamlanan Kampanyalar</div>
+                        <div class="stat-value" data-stat="campaigns">12</div>
+                        <div class="stat-progress-container">
+                            <div class="stat-progress-bar" style="background: linear-gradient(90deg, #00f0ff, #00d4ff);" data-progress="campaigns-bar"></div>
+                            <span class="stat-trend stat-trend-blue" data-trend="campaigns-trend">+12%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Toplam Kazanç</div>
+                        <div class="stat-value stat-amount" data-stat="earnings">₺25,450</div>
+                        <div class="stat-progress-container">
+                            <div class="stat-progress-bar" style="background: linear-gradient(90deg, #f9f506, #ffeb3b);" data-progress="earnings-bar"></div>
+                            <span class="stat-trend stat-trend-yellow" data-trend="earnings-trend">+8%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Ortalama İtibar Puanı-İtibar durumu</div>
+                        <div class="stat-value" data-stat="engagement">4.8%</div>
+                        <div class="stat-progress-container">
+                            <div class="stat-progress-bar" style="background: linear-gradient(90deg, #bc13fe, #d946ef);" data-progress="engagement-bar"></div>
+                            <span class="stat-trend stat-trend-purple" data-trend="engagement-trend">+1.2%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Profil Görüntülenmeleri</div>
+                        <div class="stat-value" data-stat="views">18,200</div>
+                        <div class="stat-progress-container">
+                            <div class="stat-progress-bar" style="background: linear-gradient(90deg, #ff0055, #ff3366);" data-progress="views-bar"></div>
+                            <span class="stat-trend stat-trend-magenta" data-trend="views-trend">+24%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gelen Teklifler ve Mesajlar Container -->
+                <div class="offers-message-container">
+                    <!-- Kampanya Durumları Başlığı -->
+                    <div>
+                        <h3 class="section-title">Kampanya Durumları</h3>
+                        <!-- Kampanya Durumları Tablosu -->
+                        <div class="offers-section">
+                            <table class="offers-table">
+                            <thead>
+                                <tr>
+                                    <th>Marka</th>
+                                    <th>Kampanya Adı</th>
+                                    <th>Bütçe (₺)</th>
+                                    <th>Durum</th>
+                                    <th>Tarih</th>
+                                </tr>
+                            </thead>
+                            <tbody id="kampanyaTablosu">
+                                <!-- Dinamik olarak doldurulacak -->
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+
+                    <!-- Mesajlar Kutusu -->
+                    <div>
+                        <h3 class="section-title">💬 Mesajlar</h3>
+                        <div class="messaging-container">
+                            <!-- Mesaj Listesi -->
+                            <div class="messaging-list" id="messagingList">
+                                <div class="messaging-item active" onclick="openChat(1, 'ModaMarka')">
+                                    <div class="messaging-item-avatar">👗</div>
+                                    <div class="messaging-item-info">
+                                        <h4>ModaMarka</h4>
+                                        <p>Yeni sezon koleksiyonu için...</p>
+                                    </div>
+                                </div>
+                                <div class="messaging-item" onclick="openChat(2, 'TeknoTrend')">
+                                    <div class="messaging-item-avatar">📱</div>
+                                    <div class="messaging-item-info">
+                                        <h4>TeknoTrend</h4>
+                                        <p>Ürün lansmanı için detayları...</p>
+                                    </div>
+                                </div>
+                                <div class="messaging-item" onclick="openChat(3, 'GourmetLezzetler')">
+                                    <div class="messaging-item-avatar">🍽️</div>
+                                    <div class="messaging-item-info">
+                                        <h4>GourmetLezzetler</h4>
+                                        <p>Tarif videomuz için bütçe...</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Chat Alanı -->
+                            <div class="messaging-chat" id="chatArea">
+                                <div class="empty-messaging">
+                                    <div>
+                                        <div style="font-size: 48px; margin-bottom: 15px;">💬</div>
+                                        <p>Bir marka seç</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Yan Panel -->
+    <div class="panel-backdrop" id="panelBackdrop"></div>
+    <div class="side-panel" id="sidePanel">
+        <div class="side-panel-header">
+            <h2 id="panelTitle">Kampanya Detayları</h2>
+            <button class="side-panel-close" onclick="closeSidePanel()">✕</button>
+        </div>
+        <div class="side-panel-content" id="panelContent">
+            <!-- Dinamik olarak doldurulacak -->
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Ürün</h4>
+                    <ul>
+                        <li><a href="#features">Özellikler</a></li>
+                        <li><a href="#">Fiyatlandırma</a></li>
+                        <li><a href="#">Güvenlik</a></li>
+                        <li><a href="#">Güncellemeler</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Şirket</h4>
+                    <ul>
+                        <li><a href="#">Hakkımızda</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Kariyer</a></li>
+                        <li><a href="#">Basın</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Yasal</h4>
+                    <ul>
+                        <li><a href="#">Gizlilik Politikası</a></li>
+                        <li><a href="#">Hizmet Şartları</a></li>
+                        <li><a href="#">Çerez Politikası</a></li>
+                        <li><a href="#">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Bağlan</h4>
+                    <ul>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Discord</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MetVerse. Tüm hakları saklıdır.</p>
+                <p>Influencer-marka ortaklıklarında güven ve adilliği yeniden tanımlama.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================
+        // YAN PANEL FONKSİYONLARI (Global Scope)
+        // ============================================
+
+        // Yan paneli aç
+        function openSidePanel(kampanya, markaAdi) {
+            const panel = document.getElementById('sidePanel');
+            const backdrop = document.getElementById('panelBackdrop');
+            const panelTitle = document.getElementById('panelTitle');
+            const panelContent = document.getElementById('panelContent');
+
+            panelTitle.textContent = kampanya.kampanya_adi;
+
+            // Paneli doldur
+            loadPanelContent(kampanya, markaAdi, panelContent);
+
+            // Paneli aç
+            panel.classList.add('active');
+            backdrop.classList.add('active');
+
+            // Backdrop tıklanırsa kapat
+            backdrop.onclick = function() {
+                closeSidePanel();
+            };
+        }
+
+        // Yan paneli kapat
+        function closeSidePanel() {
+            const panel = document.getElementById('sidePanel');
+            const backdrop = document.getElementById('panelBackdrop');
+
+            panel.classList.remove('active');
+            backdrop.classList.remove('active');
+        }
+
+        // Panel içeriğini yükle
+        async function loadPanelContent(kampanya, markaAdi, container) {
+            try {
+                // Escrow bilgisini oluştur (demo data)
+                const escrowStatus = determineEscrowStatus(kampanya.kampanya_durumu);
+                
+                // Kargo bilgisini oluştur (demo data)
+                const cargoStatus = determineCargoStatus(kampanya.kampanya_durumu);
+
+                let html = `
+                    <!-- Kampanya Bilgileri -->
+                    <div class="panel-section">
+                        <h3 class="panel-section-title">📋 Kampanya Bilgileri</h3>
+                        <div class="panel-info-item">
+                            <span class="panel-info-label">Marka</span>
+                            <span class="panel-info-value">${markaAdi}</span>
+                        </div>
+                        <div class="panel-info-item">
+                            <span class="panel-info-label">Kampanya Adı</span>
+                            <span class="panel-info-value">${kampanya.kampanya_adi}</span>
+                        </div>
+                        <div class="panel-info-item">
+                            <span class="panel-info-label">Bütçe</span>
+                            <span class="panel-info-value">₺${kampanya.kampanya_butcesi_tl?.toLocaleString('tr-TR') || '0'}</span>
+                        </div>
+                        <div class="panel-info-item">
+                            <span class="panel-info-label">Platform</span>
+                            <span class="panel-info-value">${kampanya.platform || 'Belirtilmemiş'}</span>
+                        </div>
+                        <div class="panel-info-item">
+                            <span class="panel-info-label">Başlangıç</span>
+                            <span class="panel-info-value">${new Date(kampanya.kampanya_baslangic).toLocaleDateString('tr-TR')}</span>
+                        </div>
+                        <div class="panel-info-item">
+                            <span class="panel-info-label">Bitiş</span>
+                            <span class="panel-info-value">${new Date(kampanya.kampanya_bitis).toLocaleDateString('tr-TR')}</span>
+                        </div>
+                    </div>
+
+                    <!-- Escrow Ödeme Durumu -->
+                    <div class="panel-section">
+                        <h3 class="panel-section-title">💰 Escrow Ödeme Durumu</h3>
+                        <div class="escrow-status ${escrowStatus.class}">
+                            <div style="color: rgba(255,255,255,0.8); font-size: 0.95rem; margin-bottom: 8px;">
+                                <strong>Durum:</strong> ${escrowStatus.label}
+                            </div>
+                            <div style="color: rgba(255,255,255,0.7); font-size: 0.85rem; margin-bottom: 8px;">
+                                ${escrowStatus.description}
+                            </div>
+                            <span class="escrow-status-badge">${escrowStatus.badge}</span>
+                        </div>
+                        <div class="panel-info-item">
+                            <span class="panel-info-label">Tutar</span>
+                            <span class="panel-info-value">₺${kampanya.kampanya_butcesi_tl?.toLocaleString('tr-TR') || '0'}</span>
+                        </div>
+                        <div class="panel-info-item">
+                            <span class="panel-info-label">Beklenen Serbest Bırakılma</span>
+                            <span class="panel-info-value">${escrowStatus.releaseDate}</span>
+                        </div>
+                    </div>
+
+                    <!-- Kargo Takibi (eğer ürün gönderildiyse) -->
+                    <div class="panel-section">
+                        <h3 class="panel-section-title">📦 Kargo Takibi</h3>
+                `;
+
+                if (cargoStatus.sent) {
+                    html += `
+                        <div class="cargo-tracking">
+                            <div style="margin-bottom: 15px;">
+                                <div style="color: rgba(255,255,255,0.8); font-weight: 600; margin-bottom: 5px;">
+                                    ${cargoStatus.trackingNumber}
+                                </div>
+                                <div style="color: rgba(255,255,255,0.6); font-size: 0.85rem;">
+                                    ${cargoStatus.carrier}
+                                </div>
+                            </div>
+                            <div style="border-top: 1px solid rgba(232, 133, 202, 0.2); padding-top: 15px;">
+                    `;
+
+                    cargoStatus.steps.forEach((step, index) => {
+                        const isCompleted = index < cargoStatus.currentStep;
+                        const isCurrent = index === cargoStatus.currentStep;
+                        html += `
+                            <div class="cargo-status-line">
+                                <div class="cargo-status-indicator ${isCompleted ? 'completed' : ''} ${isCurrent ? 'current' : ''}"></div>
+                                <div>
+                                    <div style="color: rgba(255,255,255,0.9); font-size: 0.9rem; font-weight: 500;">
+                                        ${step.label}
+                                    </div>
+                                    <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">
+                                        ${step.date}
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div style="padding: 20px; background: rgba(232, 133, 202, 0.1); border-radius: 8px; text-align: center; color: rgba(255,255,255,0.6);">
+                            📦 Henüz ürün gönderilmemiş
+                        </div>
+                    `;
+                }
+
+                html += `</div>`;
+
+                container.innerHTML = html;
+            } catch (error) {
+                console.error('❌ Panel içeriği yükleme hatası:', error);
+                container.innerHTML = '<p style="color: red;">Hata oluştu</p>';
+            }
+        }
+
+        // Escrow durumunu belirle
+        function determineEscrowStatus(kampanyaDurumu) {
+            const statuses = {
+                'Tamamlandı': {
+                    class: 'released',
+                    label: 'Serbest Bırakıldı ✅',
+                    description: 'Ödeme başarıyla tamamlandı ve hesabınıza aktarıldı.',
+                    badge: 'Hesabınızda',
+                    releaseDate: new Date().toLocaleDateString('tr-TR')
+                },
+                'Devam Ediyor': {
+                    class: 'pending',
+                    label: 'Beklemede ⏳',
+                    description: 'Kampanya devam ediyor. Tamamlandıktan sonra ödeme serbest bırakılacak.',
+                    badge: 'Bekleniyor',
+                    releaseDate: 'Kampanya bitişinden sonra'
+                },
+                'Planlandı': {
+                    class: 'held',
+                    label: 'Tutuluyor 🔒',
+                    description: 'Kampanya henüz başlamamıştır. Ödeme escrow\'da güvende tutulmaktadır.',
+                    badge: 'Tutuluyor',
+                    releaseDate: 'Kampanya bitişinde'
+                }
+            };
+
+            return statuses[kampanyaDurumu] || statuses['Planlandı'];
+        }
+
+        // Kargo durumunu belirle
+        function determineCargoStatus(kampanyaDurumu) {
+            const statuses = {
+                'Tamamlandı': {
+                    sent: true,
+                    trackingNumber: 'TRK2024001245',
+                    carrier: 'Kargo Şirketi: FedEx Express',
+                    currentStep: 4,
+                    steps: [
+                        { label: 'Teslim Alındı', date: '18.12.2025' },
+                        { label: 'Kargo Merkezinde', date: '19.12.2025' },
+                        { label: 'Yolda', date: '20.12.2025' },
+                        { label: 'Dağıtım Noktasında', date: '20.12.2025' },
+                        { label: 'Teslim Edildi', date: '21.12.2025' }
+                    ]
+                },
+                'Devam Ediyor': {
+                    sent: true,
+                    trackingNumber: 'TRK2024001244',
+                    carrier: 'Kargo Şirketi: UPS',
+                    currentStep: 2,
+                    steps: [
+                        { label: 'Teslim Alındı', date: '19.12.2025' },
+                        { label: 'Kargo Merkezinde', date: '19.12.2025' },
+                        { label: 'Yolda', date: '20.12.2025 Saat: 14:30' },
+                        { label: 'Dağıtım Noktasında', date: 'Yakında' },
+                        { label: 'Teslim Edildi', date: 'Bekleniyor' }
+                    ]
+                },
+                'Planlandı': {
+                    sent: false
+                }
+            };
+
+            return statuses[kampanyaDurumu] || statuses['Planlandı'];
+        }
+
+        // ============================================
+        // İNFLUENCER ANASAYFA KÜSÜLÜRİ
+        // ============================================
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('📄 [İnfluencer Anasayfa] Sayfa DOMContentLoaded');
+            
+            // Token Doğrulaması - Sayfa yüklendiğinde
+            async function checkTokenAndLoadUser() {
+                const token = localStorage.getItem('token');
+                console.log('🔍 [İnfluencer Anasayfa] Token kontrolü başladı');
+                console.log('🔑 localStorage.token:', token ? 'VAR ✅' : 'YOK ❌');
+                
+                if (!token) {
+                    console.log('❌ Token bulunamadı, giriş seçim sayfasına yönlendir');
+                    window.location.href = '/giris-secim';
+                    return;
+                }
+
+                try {
+                    console.log('🔐 Token gönderiliyor /api/verify-token\'e');
+                    const response = await fetch('/api/verify-token', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    console.log('📨 Response Status:', response.status);
+
+                    if (!response.ok) {
+                        console.error('❌ Token doğrulama başarısız, status:', response.status);
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('user');
+                        window.location.href = '/giris-secim';
+                        return;
+                    }
+
+                    const data = await response.json();
+                    console.log('✅ Kullanıcı doğrulandı:', data.user.adSoyad);
+                    
+                    // Kampanyaları yükle
+                    await loadKampanyalar(data.user.id);
+
+                } catch (error) {
+                    console.error('❌ Token doğrulama hatası:', error);
+                    localStorage.clear();
+                    window.location.href = '/giris-secim';
+                }
+            }
+
+            // İtibar verilerini yükle
+            async function loadReputationData(userId) {
+                try {
+                    console.log('⭐ İtibar verileri yükleniyor, User ID:', userId);
+                    
+                    const reputationRes = await fetch('/data/influencer_reputation.json');
+                    const reputations = await reputationRes.json();
+                    
+                    // Kullanıcının itibar verilerini bul
+                    const userReputation = reputations.find(r => r.influencer_id === userId);
+                    
+                    if (userReputation) {
+                        console.log('✅ İtibar verileri bulundu:', userReputation);
+                        
+                        // Stat card'ı güncelle
+                        const engagementValue = document.querySelector('[data-stat="engagement"]');
+                        const engagementBar = document.querySelector('[data-progress="engagement-bar"]');
+                        const engagementLabel = document.querySelector('[data-stat="engagement"]').parentElement.querySelector('.stat-label');
+                        
+                        if (engagementValue) {
+                            // Ortalama itibar puanını göster
+                            engagementValue.textContent = userReputation.ortalama_itibar_puani.toFixed(1);
+                            
+                            // İtibar durumunu label'a ekle
+                            if (engagementLabel) {
+                                engagementLabel.textContent = `Ortalama İtibar Puanı - ${userReputation.itibar_durumu}`;
+                            }
+                            
+                            // Progress bar'ı güncelle (5.0 üzerinden)
+                            if (engagementBar) {
+                                const width = Math.min((userReputation.ortalama_itibar_puani / 5.0) * 100, 100);
+                                engagementBar.style.width = width + '%';
+                            }
+                        }
+                    } else {
+                        console.warn('⚠️ Kullanıcının itibar verisi bulunamadı');
+                    }
+                } catch (error) {
+                    console.error('❌ İtibar verileri yükleme hatası:', error);
+                }
+            }
+
+            // Kampanyaları yükle ve tabloyu doldur
+            async function loadKampanyalar(userId) {
+                try {
+                    console.log('📊 Kampanyalar yükleniyor, User ID:', userId);
+                    
+                    // İtibar verilerini yükle
+                    await loadReputationData(userId);
+                    
+                    // Kampanyaları fetch et
+                    const kampanyalarRes = await fetch('/data/kampanyalar.json');
+                    const kampanyalar = await kampanyalarRes.json();
+                    
+                    // Markaları fetch et
+                    const markaRes = await fetch('/data/markalar.json');
+                    const markalar = await markaRes.json();
+                    
+                    // Kullanıcının kampanyalarını filtrele
+                    const userKampanyalar = kampanyalar.filter(k => k.influencer_id === userId);
+                    console.log('🎯 Kullanıcının kampanya sayısı:', userKampanyalar.length);
+                    
+                    // Tamamlanan kampanyaları say
+                    const completedKampanyalar = userKampanyalar.filter(k => k.kampanya_durumu === 'Tamamlandı');
+                    const completedCount = completedKampanyalar.length;
+                    console.log('✅ Tamamlanan kampanya sayısı:', completedCount);
+                    
+                    // İlk stat card'ı (Tamamlanan Kampanyalar) dinamik olarak güncelle
+                    const campaignsValue = document.querySelector('[data-stat="campaigns"]');
+                    const campaignsBar = document.querySelector('[data-progress="campaigns-bar"]');
+                    if (campaignsValue) {
+                        campaignsValue.textContent = completedCount;
+                        const width = Math.min((completedCount / 150) * 100, 100);
+                        if (campaignsBar) campaignsBar.style.width = width + '%';
+                        console.log('📊 Tamamlanan kampanyalar stat card\'ı güncellendi:', completedCount);
+                    }
+                    
+                    // Tabloyu doldur
+                    const tbody = document.getElementById('kampanyaTablosu');
+                    tbody.innerHTML = '';
+                    
+                    if (userKampanyalar.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: rgba(255,255,255,0.5);">Henüz kampanya bulunmamaktadır</td></tr>';
+                        return;
+                    }
+                    
+                    userKampanyalar.forEach(kampanya => {
+                        // Marka bilgisini bul
+                        const marka = markalar.find(m => m.id === kampanya.marka_id);
+                        const markaAdi = marka ? marka.markaAdi : 'Bilinmiyen Marka';
+                        
+                        // Durum badge'inin CSS sınıfını belirle
+                        let statusClass = 'status-pending';
+                        if (kampanya.kampanya_durumu === 'Tamamlandı') {
+                            statusClass = 'status-approved';
+                        } else if (kampanya.kampanya_durumu === 'Devam Ediyor') {
+                            statusClass = 'status-reviewing';
+                        } else if (kampanya.kampanya_durumu === 'Planlandı') {
+                            statusClass = 'status-new';
+                        }
+                        
+                        // Tarih formatla (kampanya_baslangic'ten gün-ay)
+                        const startDate = new Date(kampanya.kampanya_baslangic);
+                        const day = startDate.getDate();
+                        const month = startDate.toLocaleDateString('tr-TR', { month: 'long' });
+                        const formattedDate = `${day} ${month}`;
+                        
+                        const row = document.createElement('tr');
+                        row.style.cursor = 'pointer';
+                        row.innerHTML = `
+                            <td>
+                                <div class="brand-avatar"></div>
+                                <strong>${markaAdi}</strong>
+                            </td>
+                            <td>${kampanya.kampanya_adi}</td>
+                            <td>₺${kampanya.kampanya_butcesi_tl?.toLocaleString('tr-TR') || '0'}</td>
+                            <td><span class="status-badge ${statusClass}">${kampanya.kampanya_durumu}</span></td>
+                            <td>${formattedDate}</td>
+                        `;
+                        
+                        // Satıra click event ekle
+                        row.addEventListener('click', () => {
+                            console.log('📋 Kampanya satırı tıklandı:', kampanya.kampanya_adi);
+                            openSidePanel(kampanya, markaAdi);
+                        });
+                        
+                        tbody.appendChild(row);
+                    });
+                    
+                    // Instagram platformu kontrolü ve badge göster
+                    checkAndShowInstagramBadge(userId);
+                    
+                } catch (error) {
+                    console.error('❌ Kampanyalar yükleme hatası:', error);
+                    const tbody = document.getElementById('kampanyaTablosu');
+                    if (tbody) {
+                        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: rgba(255,255,255,0.5);">Kampanyalar yüklenirken hata oluştu</td></tr>';
+                    }
+                }
+            }
+
+            // Instagram Badge Kontrol ve Göster
+            async function checkAndShowInstagramBadge(userId) {
+                try {
+                    const response = await fetch('/data/influencers_csv.json');
+                    if (!response.ok) throw new Error('influencers_csv.json yüklenemedi');
+                    
+                    const influencersData = await response.json();
+                    const influencerRecord = influencersData.find(inf => inf.influencer_id === userId);
+                    
+                    if (influencerRecord && influencerRecord.influencer_platform === 'Instagram') {
+                        console.log('✅ Instagram hesabı algılandı - Badge gösteriliyor');
+                        const badge = document.getElementById('apiVerifiedBadge');
+                        if (badge) {
+                            badge.style.display = 'inline-flex';
+                        }
+                    }
+                } catch (error) {
+                    console.error('❌ Instagram kontrolü hatası:', error);
+                }
+            }
+
+            // Bugünün tarihini göster
+            const todayDate = document.getElementById('todayDate');
+            if (todayDate) {
+                const today = new Date();
+                const day = today.getDate();
+                const month = today.toLocaleDateString('tr-TR', { month: 'long' });
+                const year = today.getFullYear();
+                todayDate.textContent = `${day} ${month} ${year}`;
+            }
+
+            // Hoşgeldin kısmında kullanıcı adını göster
+            const welcomeUserName = document.getElementById('welcomeUserName');
+            const user = localStorage.getItem('user');
+            if (welcomeUserName && user) {
+                try {
+                    const userData = JSON.parse(user);
+                    welcomeUserName.textContent = userData.adSoyad || 'Kullanıcı';
+                } catch (error) {
+                    console.warn('User bilgisi parse hatası:', error);
+                }
+            }
+
+            // Dönem seçim fonksiyonalitesi
+            const periodData = {
+                daily: {
+                    campaigns: 2,
+                    earnings: 3250,
+                    engagement: 5.2,
+                    views: 2400,
+                    campaignsTrend: '+8%',
+                    earningsTrend: '+12%',
+                    engagementTrend: '+2.1%',
+                    viewsTrend: '+18%'
+                },
+                monthly: {
+                    campaigns: 12,
+                    earnings: 45600,
+                    engagement: 4.8,
+                    views: 18200,
+                    campaignsTrend: '+12%',
+                    earningsTrend: '+8%',
+                    engagementTrend: '+1.2%',
+                    viewsTrend: '+24%'
+                },
+                quarterly: {
+                    campaigns: 38,
+                    earnings: 138500,
+                    engagement: 4.5,
+                    views: 52800,
+                    campaignsTrend: '+15%',
+                    earningsTrend: '+10%',
+                    engagementTrend: '+0.8%',
+                    viewsTrend: '+31%'
+                },
+                yearly: {
+                    campaigns: 145,
+                    earnings: 520000,
+                    engagement: 4.2,
+                    views: 215000,
+                    campaignsTrend: '+22%',
+                    earningsTrend: '+18%',
+                    engagementTrend: '+0.5%',
+                    viewsTrend: '+42%'
+                }
+            };
+
+            function updateStatCards(period) {
+                const data = periodData[period];
+                
+                // Kampanyalar
+                const campaignsValue = document.querySelector('[data-stat="campaigns"]');
+                const campaignsBar = document.querySelector('[data-progress="campaigns-bar"]');
+                const campaignsTrend = document.querySelector('[data-trend="campaigns-trend"]');
+                if (campaignsValue) {
+                    campaignsValue.textContent = data.campaigns;
+                    const width = Math.min((data.campaigns / 150) * 100, 100);
+                    if (campaignsBar) campaignsBar.style.width = width + '%';
+                    if (campaignsTrend) campaignsTrend.textContent = data.campaignsTrend;
+                }
+
+                // Kazanç
+                const earningsValue = document.querySelector('[data-stat="earnings"]');
+                const earningsBar = document.querySelector('[data-progress="earnings-bar"]');
+                const earningsTrend = document.querySelector('[data-trend="earnings-trend"]');
+                if (earningsValue) {
+                    earningsValue.textContent = '₺' + data.earnings.toLocaleString('tr-TR');
+                    const width = Math.min((data.earnings / 600000) * 100, 100);
+                    if (earningsBar) earningsBar.style.width = width + '%';
+                    if (earningsTrend) earningsTrend.textContent = data.earningsTrend;
+                }
+
+                // İtibar Puanı - REPUTATİON DATASI KORUNUR, GÜNCELLENMEZ
+                // Engagement card, dönem seçimi sırasında değiştirilmez çünkü itibar puanı tüm dönemler için aynıdır
+                console.log('ℹ️ İtibar puanı alanı korunuyor (dönem değişimi sırasında güncellenmez)');
+
+                // Görüntülenmeler
+                const viewsValue = document.querySelector('[data-stat="views"]');
+                const viewsBar = document.querySelector('[data-progress="views-bar"]');
+                const viewsTrend = document.querySelector('[data-trend="views-trend"]');
+                if (viewsValue) {
+                    viewsValue.textContent = data.views.toLocaleString('tr-TR');
+                    const width = Math.min((data.views / 250000) * 100, 100);
+                    if (viewsBar) viewsBar.style.width = width + '%';
+                    if (viewsTrend) viewsTrend.textContent = data.viewsTrend;
+                }
+            }
+
+            // Dönem dropdown menüsü işlevselliği
+            const periodDropdownToggle = document.getElementById('periodDropdownToggle');
+            const periodDropdownMenu = document.getElementById('periodDropdownMenu');
+            const selectedPeriodSpan = document.getElementById('selectedPeriod');
+            const periodOptions = document.querySelectorAll('.period-option');
+
+            // Dropdown menüsünü aç/kapat
+            periodDropdownToggle.addEventListener('click', () => {
+                periodDropdownMenu.classList.toggle('open');
+                periodDropdownToggle.classList.toggle('active');
+            });
+
+            // Dışarıya tıklandığında menüyü kapat
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.period-selector-dropdown')) {
+                    periodDropdownMenu.classList.remove('open');
+                    periodDropdownToggle.classList.remove('active');
+                }
+            });
+
+            // Dönem seçeneği tıklama olayları
+            periodOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Aktif sınıfını kaldır
+                    periodOptions.forEach(o => o.classList.remove('period-option-active'));
+                    // Yeni aktif sınıfını ekle
+                    option.classList.add('period-option-active');
+                    // Seçili metni güncelle
+                    const periodTexts = {
+                        'daily': 'Günlük',
+                        'monthly': 'Aylık',
+                        'quarterly': '3 Aylık',
+                        'yearly': 'Yıllık'
+                    };
+                    selectedPeriodSpan.textContent = periodTexts[option.dataset.period] || 'Günlük';
+                    // Menüyü kapat
+                    periodDropdownMenu.classList.remove('open');
+                    periodDropdownToggle.classList.remove('active');
+                    // Verileri güncelle
+                    updateStatCards(option.dataset.period);
+                });
+            });
+
+            // Token kontrolünü hemen çalıştır
+            console.log('🚀 checkTokenAndLoadUser çalıştırılıyor');
+            checkTokenAndLoadUser();
+
+            // Chat Açma
+            window.openChat = function(brandId, brandName) {
+                const chatArea = document.getElementById('chatArea');
+                const messagingItems = document.querySelectorAll('.messaging-item');
+                
+                messagingItems.forEach(item => item.classList.remove('active'));
+                event.target.closest('.messaging-item').classList.add('active');
+
+                chatArea.innerHTML = `
+                    <div class="messaging-messages" id="messagesContainer">
+                        <div class="message">
+                            <div class="message-bubble">
+                                Merhaba! Kampanya detaylarını gönderbilir misin?
+                                <div class="message-time">09:30</div>
+                            </div>
+                        </div>
+                        <div class="message sent">
+                            <div class="message-bubble">
+                                Elbette! Gönderi sayısı, reel sayısı ve detayları ekte bulunuyor.
+                                <div class="message-time">09:35</div>
+                            </div>
+                        </div>
+                        <div class="message">
+                            <div class="message-bubble">
+                                Harika! Ne zaman başlayabilirim?
+                                <div class="message-time">09:40</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="messaging-input-group">
+                        <input type="text" class="messaging-input" placeholder="Mesaj yaz...">
+                        <button class="messaging-send-btn">Gönder</button>
+                    </div>
+                `;
+            };
+
+            // Sayfa yüklendiğinde ilk chat'i aç
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => {
+                    const firstMessaging = document.querySelector('.messaging-item');
+                    if (firstMessaging) {
+                        firstMessaging.click();
+                    }
+                });
+            } else {
+                const firstMessaging = document.querySelector('.messaging-item');
+                if (firstMessaging && firstMessaging.classList.contains('active')) {
+                    window.openChat(1, 'ModaMarka');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

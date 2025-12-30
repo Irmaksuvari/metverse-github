@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium'a Yükseltin - MetVerse</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="header-container"></div>
+
+    <main class="container">
+        <section class="upgrade-section">
+            <div class="upgrade-header">
+                <h1>🚀 Premium Planına Yükseltin</h1>
+                <p>Tüm güçlü özelliklere ve sınırsız erişime sahip olun</p>
+            </div>
+
+            <div class="upgrade-content">
+                <div class="plan-comparison">
+                    <div class="plan-card basic">
+                        <h3>Ücretsiz Plan</h3>
+                        <div class="plan-price">₺0<span>/ay</span></div>
+                        <ul class="plan-features">
+                            <li>✓ Temel Profil</li>
+                            <li>✓ Kampanya Başvurusu</li>
+                            <li>✓ 5 Profil Güncelleme/Ay</li>
+                            <li>✗ Analizler</li>
+                            <li>✗ Raporlar</li>
+                            <li>✗ İşbirlik Danışmanlığı</li>
+                        </ul>
+                        <button class="btn-secondary" disabled>Mevcut Planın</button>
+                    </div>
+
+                    <div class="plan-card premium featured">
+                        <div class="badge">EN POPÜLER</div>
+                        <h3>Premium Plan</h3>
+                        <div class="plan-price">₺650<span>/ay</span></div>
+                        <ul class="plan-features">
+                            <li>✓ Temel Profil</li>
+                            <li>✓ Kampanya Başvurusu</li>
+                            <li>✓ Sınırsız Profil Güncelleme</li>
+                            <li>✓ Analizler ve Raporlar</li>
+                            <li>✓ İleri Seviye İstatistikler</li>
+                            <li>✓ 24/7 Danışmanlık Desteği</li>
+                        </ul>
+                        <button class="btn-primary" onclick="startUpgrade()">Şimdi Yükseltin</button>
+                    </div>
+                </div>
+
+                <div class="upgrade-benefits">
+                    <h2>Premium Avantajları</h2>
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <div class="benefit-icon">📊</div>
+                            <h4>Detaylı Analizler</h4>
+                            <p>Kampanyanızın performansını derinlemesine analiz edin</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">📈</div>
+                            <h4>Gelişmiş Raporlar</h4>
+                            <p>Profesyonel raporlar oluşturun ve paylaşın</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">💡</div>
+                            <h4>Akıllı Öneriler</h4>
+                            <p>AI destekli kişiselleştirilmiş tavsiyeler alın</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">⚡</div>
+                            <h4>Öncelikli Destek</h4>
+                            <p>24/7 hızlı teknik destek ve danışmanlık</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">🎯</div>
+                            <h4>Hedef Analizi</h4>
+                            <p>Markaların hedeflerine daha iyi uyup uymadığınızı görin</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">🏆</div>
+                            <h4>Premium Badge</h4>
+                            <p>Profilinizde Premium rozeti ile öne çıkın</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/header.js"></script>
+    <script>
+        function startUpgrade() {
+            const user = localStorage.getItem('user');
+            if (!user) {
+                alert('Lütfen giriş yapınız');
+                window.location.href = '/giris_yap.html';
+                return;
+            }
+
+            try {
+                const userData = JSON.parse(user);
+                const userType = userData.userType || 'influencer';
+
+                if (userType === 'marka') {
+                    // Marka upgrade process
+                    window.location.href = '/marka-upgrade-payment';
+                } else {
+                    // Influencer upgrade process
+                    window.location.href = '/influencer-upgrade-payment';
+                }
+            } catch (error) {
+                console.error('Upgrade hatası:', error);
+                alert('Bir hata oluştu. Lütfen giriş yapınız');
+                window.location.href = '/giris_yap.html';
+            }
+        }
+    </script>
+
+    <style>
+        .upgrade-section {
+            padding: 2rem 0;
+        }
+
+        .upgrade-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .upgrade-header h1 {
+            font-size: 2.5rem;
+            color: rgb(232, 133, 202);
+            margin-bottom: 0.5rem;
+        }
+
+        .upgrade-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .plan-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .plan-card {
+            background: rgba(232, 133, 202, 0.05);
+            border: 2px solid rgba(232, 133, 202, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .plan-card:hover {
+            border-color: rgb(232, 133, 202);
+            transform: translateY(-5px);
+        }
+
+        .plan-card.featured {
+            border-color: rgb(232, 133, 202);
+            background: rgba(232, 133, 202, 0.1);
+            transform: scale(1.05);
+        }
+
+        .plan-card.featured:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        .badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgb(255, 100, 150));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .plan-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            color: rgb(232, 133, 202);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-price span {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            gap: 0.75rem;
+        }
+
+        .plan-features li {
+            color: var(--text-primary);
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.1);
+        }
+
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+
+        .plan-card button {
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .plan-card button[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .benefit-card {
+            background: rgba(232, 133, 202, 0.05);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            border-color: rgb(232, 133, 202);
+            background: rgba(232, 133, 202, 0.1);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h4 {
+            color: rgb(232, 133, 202);
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 1200px) {
+            .plan-comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .plan-card.featured {
+                transform: scale(1);
+            }
+
+            .plan-card.featured:hover {
+                transform: translateY(-5px);
+            }
+
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .upgrade-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

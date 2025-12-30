@@ -1,0 +1,170 @@
+[
+  {
+    "influencer_id": "INF001",
+    "influencer_ad": "Elif",
+    "influencer_soyad": "Acar",
+    "ortalama_itibar_puani": 4.9,
+    "tamamlanan_kampanya_sayisi": 2,
+    "itibar_durumu": "Çok Güvenilir"
+  },
+  {
+    "influencer_id": "INF002",
+    "influencer_ad": "Zeynep",
+    "influencer_soyad": "Arslan",
+    "ortalama_itibar_puani": 4.7,
+    "tamamlanan_kampanya_sayisi": 1,
+    "itibar_durumu": "Güvenilir"
+  },
+  {
+    "influencer_id": "INF003",
+    "influencer_ad": "Mert",
+    "influencer_soyad": "Yalçın",
+    "ortalama_itibar_puani": 4.6,
+    "tamamlanan_kampanya_sayisi": 1,
+    "itibar_durumu": "Güvenilir"
+  },
+  {
+    "influencer_id": "INF004",
+    "influencer_ad": "Ayşe",
+    "influencer_soyad": "Korkmaz",
+    "ortalama_itibar_puani": 5.0,
+    "tamamlanan_kampanya_sayisi": 1,
+    "itibar_durumu": "Çok Güvenilir"
+  },
+  {
+    "influencer_id": "INF005",
+    "influencer_ad": "Burak",
+    "influencer_soyad": "Demir",
+    "ortalama_itibar_puani": 4.2,
+    "tamamlanan_kampanya_sayisi": 1,
+    "itibar_durumu": "Orta"
+  },
+  {
+    "influencer_id": "INF006",
+    "influencer_ad": "Derya",
+    "influencer_soyad": "Polat",
+    "ortalama_itibar_puani": 5.0,
+    "tamamlanan_kampanya_sayisi": 1,
+    "itibar_durumu": "Çok Güvenilir"
+  },
+  {
+    "influencer_id": "INF007",
+    "influencer_ad": "Can",
+    "influencer_soyad": "Öztürk",
+    "ortalama_itibar_puani": 3.9,
+    "tamamlanan_kampanya_sayisi": 1,
+    "itibar_durumu": "Orta"
+  },
+  {
+    "influencer_id": "INF008",
+    "influencer_ad": "Selin",
+    "influencer_soyad": "Yılmaz",
+    "ortalama_itibar_puani": 4.8,
+    "tamamlanan_kampanya_sayisi": 1,
+    "itibar_durumu": "Çok Güvenilir"
+  },
+  {
+    "influencer_id": "INF009",
+    "influencer_ad": "Okan",
+    "influencer_soyad": "Şahin",
+    "ortalama_itibar_puani": 4.6,
+    "tamamlanan_kampanya_sayisi": 1,
+    "itibar_durumu": "Güvenilir"
+  },
+  {
+    "influencer_id": "INF010",
+    "influencer_ad": "Melis",
+    "influencer_soyad": "Aksoy",
+    "ortalama_itibar_puani": 4.7,
+    "tamamlanan_kampanya_sayisi": 1,
+    "itibar_durumu": "Güvenilir"
+  },
+  {
+    "influencer_id": "INF011",
+    "influencer_ad": "Kerem",
+    "influencer_soyad": "Aydın",
+    "ortalama_itibar_puani": 4.1,
+    "tamamlanan_kampanya_sayisi": 1,
+    "itibar_durumu": "Orta"
+  },
+  {
+    "influencer_id": "INF012",
+    "influencer_ad": "Ece",
+    "influencer_soyad": "Ural",
+    "ortalama_itibar_puani": 5.0,
+    "tamamlanan_kampanya_sayisi": 1,
+    "itibar_durumu": "Çok Güvenilir"
+  },
+  {
+    "influencer_id": "INF013",
+    "influencer_ad": "Furkan",
+    "influencer_soyad": "Kaplan",
+    "ortalama_itibar_puani": 4.8,
+    "tamamlanan_kampanya_sayisi": 0,
+    "itibar_durumu": "Yeni / Güvenilir değil"
+  },
+  {
+    "influencer_id": "INF014",
+    "influencer_ad": "Nil",
+    "influencer_soyad": "Sezer",
+    "ortalama_itibar_puani": 4.7,
+    "tamamlanan_kampanya_sayisi": 1,
+    "itibar_durumu": "Güvenilir"
+  },
+  {
+    "influencer_id": "INF015",
+    "influencer_ad": "Hakan",
+    "influencer_soyad": "Tunç",
+    "ortalama_itibar_puani": 4.3,
+    "tamamlanan_kampanya_sayisi": 1,
+    "itibar_durumu": "Orta"
+  },
+  {
+    "influencer_id": "INF016",
+    "influencer_ad": "Alara",
+    "influencer_soyad": "Koç",
+    "ortalama_itibar_puani": 4.8,
+    "tamamlanan_kampanya_sayisi": 1,
+    "itibar_durumu": "Güvenilir"
+  },
+  {
+    "influencer_id": "INF017",
+    "influencer_ad": "Emre",
+    "influencer_soyad": "Şahin",
+    "ortalama_itibar_puani": 5.0,
+    "tamamlanan_kampanya_sayisi": 1,
+    "itibar_durumu": "Çok Güvenilir"
+  },
+  {
+    "influencer_id": "INF018",
+    "influencer_ad": "Cansu",
+    "influencer_soyad": "Erdem",
+    "ortalama_itibar_puani": 4.6,
+    "tamamlanan_kampanya_sayisi": 1,
+    "itibar_durumu": "Güvenilir"
+  },
+  {
+    "influencer_id": "INF019",
+    "influencer_ad": "Oğuz",
+    "influencer_soyad": "Karataş",
+    "ortalama_itibar_puani": 3.9,
+    "tamamlanan_kampanya_sayisi": 0,
+    "itibar_durumu": "Yeni / Güvenilir değil"
+  },
+  {
+    "influencer_id": "INF020",
+    "influencer_ad": "Buse",
+    "influencer_soyad": "Yalçın",
+    "ortalama_itibar_puani": 5.0,
+    "tamamlanan_kampanya_sayisi": 1,
+    "itibar_durumu": "Çok Güvenilir"
+  },
+  {
+    "influencer_id": "INF021",
+    "influencer_ad": "Alperen",
+    "influencer_soyad": "Kahveci",
+    "ortalama_itibar_puani": 4.8,
+    "tamamlanan_kampanya_sayisi": 2,
+    "itibar_durumu": "Çok Güvenilir"
+  }
+]

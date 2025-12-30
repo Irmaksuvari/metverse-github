@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Başvuru ve Teklifler - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .basvuru-teklifler-section {
+            background-color: rgb(4, 0, 29);
+            background-image: radial-gradient(circle, rgba(232, 133, 202, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            padding: 120px 1rem 4rem 1rem;
+            position: relative;
+        }
+
+        .basvuru-teklifler-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.6s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .basvuru-teklifler-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #fffffffe;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .basvuru-teklifler-header h1 .highlight {
+            color: rgb(232, 133, 202);
+        }
+
+        .basvuru-teklifler-header p {
+            font-size: 1.2rem;
+            color: #B0B0B0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .basvuru-teklifler-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .basvuru-teklifler-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 1rem 2rem;
+            background: rgba(232, 133, 202, 0.1);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            border-radius: 10px;
+            color: #B0B0B0;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: rgba(232, 133, 202, 0.2);
+            border-color: rgb(232, 133, 202);
+            color: rgb(232, 133, 202);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            border-color: rgb(232, 133, 202);
+            color: #fffffffe;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(30, 0, 34, 0.5);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 15px;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h2 {
+            font-size: 1.5rem;
+            color: #fffffffe;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: #B0B0B0;
+            font-size: 1rem;
+        }
+
+        .basvuru-card {
+            background: rgba(30, 0, 34, 0.6);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .basvuru-card:hover {
+            background: rgba(30, 0, 34, 0.9);
+            border-color: rgba(232, 133, 202, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(232, 133, 202, 0.2);
+        }
+
+        .basvuru-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.2);
+        }
+
+        .basvuru-card-header h3 {
+            color: #fffffffe;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .basvuru-status {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .basvuru-status.beklemede {
+            background: rgba(255, 193, 7, 0.2);
+            color: rgb(255, 193, 7);
+            border: 1px solid rgba(255, 193, 7, 0.4);
+        }
+
+        .basvuru-status.onaylandi {
+            background: rgba(76, 175, 80, 0.2);
+            color: rgb(76, 175, 80);
+            border: 1px solid rgba(76, 175, 80, 0.4);
+        }
+
+        .basvuru-status.reddedildi {
+            background: rgba(244, 67, 54, 0.2);
+            color: rgb(244, 67, 54);
+            border: 1px solid rgba(244, 67, 54, 0.4);
+        }
+
+        .basvuru-card-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .detail-label {
+            font-size: 0.85rem;
+            color: rgba(232, 133, 202, 0.8);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .detail-value {
+            font-size: 0.95rem;
+            color: #fffffffe;
+            font-weight: 500;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+
+    <section class="basvuru-teklifler-section">
+        <div class="basvuru-teklifler-header">
+            <h1>Başvuru ve <span class="highlight">Teklifler</span></h1>
+            <p>Kampanyalara başvuru yapın ve aktif tekliflerinizi yönetin</p>
+        </div>
+
+        <div class="basvuru-teklifler-container">
+            <!-- Sekmeler -->
+            <div class="basvuru-teklifler-tabs">
+                <button class="tab-btn active" onclick="switchTab('basvurularim')">📋 Başvurularım</button>
+                <button class="tab-btn" onclick="switchTab('tekliflerim')">🎁 Tekliflerim</button>
+            </div>
+
+            <!-- Başvurularım Sekmesi -->
+            <div id="basvurularim" class="tab-content active">
+                <div class="empty-state">
+                    <div class="empty-state-icon">📋</div>
+                    <h2>Henüz başvuru bulunmuyor</h2>
+                    <p>Yeni kampanyalara başvuru yaparak burada görüntülemenizi sağlayabilirsiniz</p>
+                </div>
+            </div>
+
+            <!-- Tekliflerim Sekmesi -->
+            <div id="tekliflerim" class="tab-content">
+                <div class="empty-state">
+                    <div class="empty-state-icon">🎁</div>
+                    <h2>Henüz teklif bulunmuyor</h2>
+                    <p>Markalardan gelen teklifler bu bölümde görüntülenecektir</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        let basvurular = [];
+        let infId = null;
+
+        // Sayfayı yükle
+        async function loadApplications() {
+            try {
+                // Giriş yapılı kullanıcıyı al
+                const user = JSON.parse(localStorage.getItem('user'));
+                if (!user || !user.id) {
+                    console.log('❌ Giriş yapılmamış');
+                    return;
+                }
+
+                infId = user.id;
+
+                // Başvuruları yükle
+                const response = await fetch('/data/inflerinBaşvuruları.json');
+                const allBasvurular = await response.json();
+
+                // Sadece bu influencerin başvurularını filtrele
+                basvurular = allBasvurular.filter(b => b.inf_id === infId);
+
+                displayApplications();
+                console.log('✅ Başvurular yüklendi:', basvurular.length);
+            } catch (error) {
+                console.error('❌ Başvuru yükleme hatası:', error);
+            }
+        }
+
+        function displayApplications() {
+            const container = document.getElementById('basvurularim');
+            
+            if (basvurular.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📋</div>
+                        <h2>Henüz başvuru bulunmuyor</h2>
+                        <p>Yeni kampanyalara başvuru yaparak burada görüntülemenizi sağlayabilirsiniz</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = basvurular.map(basvuru => `
+                <div class="basvuru-card">
+                    <div class="basvuru-card-header">
+                        <h3>${basvuru.kampanya_adi}</h3>
+                        <span class="basvuru-status ${basvuru.basvuru_durumu.toLowerCase()}">${basvuru.basvuru_durumu}</span>
+                    </div>
+                    <div class="basvuru-card-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Platform:</span>
+                            <span class="detail-value">${basvuru.platform}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Kampanya Türü:</span>
+                            <span class="detail-value">${basvuru.kampanya_turu}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Bütçe:</span>
+                            <span class="detail-value">₺${basvuru.kampanya_butcesi_tl.toLocaleString('tr-TR')}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Son Tarih:</span>
+                            <span class="detail-value">${new Date(basvuru.kampanya_bitis).toLocaleDateString('tr-TR')}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Başvuru Tarihi:</span>
+                            <span class="detail-value">${new Date(basvuru.basvuru_tarihi).toLocaleDateString('tr-TR')}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function switchTab(tabName) {
+            // Tüm tab içeriklerini gizle
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Tüm tab butonlarından active class'ını kaldır
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Seçilen tab'ı göster
+            const selectedContent = document.getElementById(tabName);
+            if (selectedContent) {
+                selectedContent.classList.add('active');
+            }
+
+            // Seçilen butona active class ekle
+            event.target.classList.add('active');
+
+            console.log('📂 Sekme değiştirildi:', tabName);
+        }
+
+        // Scroll event for header background color change
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (nav) {
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+        });
+
+        // Sayfa yüklendiğinde başvuruları getir
+        document.addEventListener('DOMContentLoaded', () => {
+            loadApplications();
+        });
+    </script>
+</body>
+</html>

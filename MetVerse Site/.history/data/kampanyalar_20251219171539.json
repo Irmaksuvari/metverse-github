@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "name": "Yaz Koleksiyonu Kampanyası",
+    "brand": "FashionBrand Co.",
+    "description": "Yaz 2024 koleksiyonunun tanıtımı",
+    "startDate": "2024-06-01",
+    "endDate": "2024-08-31",
+    "budget": 50000,
+    "status": "tamamlandi",
+    "influencers": [
+      {
+        "influencerId": 1,
+        "name": "Ayşe Demir",
+        "fee": 10000,
+        "status": "tamamlandi"
+      }
+    ],
+    "targetMetrics": {
+      "reach": 1000000,
+      "engagement": 50000,
+      "conversions": 500
+    },
+    "actualMetrics": {
+      "reach": 1250000,
+      "engagement": 62500,
+      "conversions": 625
+    }
+  },
+  {
+    "id": 2,
+    "name": "Teknoloji Ürün Lansmanı",
+    "brand": "TechWorld Ltd.",
+    "description": "Yeni telefon modelinin pazara sunulması",
+    "startDate": "2024-11-15",
+    "endDate": "2024-12-31",
+    "budget": 75000,
+    "status": "aktif",
+    "influencers": [
+      {
+        "influencerId": 2,
+        "name": "Mehmet Kaya",
+        "fee": 15000,
+        "status": "devam-ediyor"
+      }
+    ],
+    "targetMetrics": {
+      "reach": 1500000,
+      "engagement": 75000,
+      "conversions": 1000
+    },
+    "actualMetrics": {
+      "reach": 800000,
+      "engagement": 40000,
+      "conversions": 350
+    }
+  },
+  {
+    "id": 3,
+    "name": "Kültür Sanat Projesi",
+    "brand": "KulturSanat Foundation",
+    "description": "Türk sanatı ve kültürünün tanıtımı",
+    "startDate": "2025-01-15",
+    "endDate": "2025-03-31",
+    "budget": 40000,
+    "status": "baslamadi",
+    "influencers": [
+      {
+        "influencerId": 3,
+        "name": "Zeynep Arslan",
+        "fee": 8000,
+        "status": "beklemede"
+      }
+    ],
+    "targetMetrics": {
+      "reach": 800000,
+      "engagement": 40000,
+      "conversions": 300
+    },
+    "actualMetrics": {
+      "reach": 0,
+      "engagement": 0,
+      "conversions": 0
+    }
+  }
+]

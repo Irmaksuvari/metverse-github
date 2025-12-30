@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kampanyalarım - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .kampanya-header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+
+        .kampanya-header h1 {
+            font-size: 32px;
+            color: rgb(232, 133, 202);
+            font-weight: 700;
+        }
+
+        .kampanya-create-btn {
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgb(220, 100, 180));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(232, 133, 202, 0.3);
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .kampanya-create-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 133, 202, 0.4);
+        }
+
+        .kampanya-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .kampanya-card {
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.15), rgba(220, 100, 180, 0.1));
+            border: 2px solid rgba(232, 133, 202, 0.4);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(232, 133, 202, 0.15);
+        }
+
+        .kampanya-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(232, 133, 202, 0.7);
+            box-shadow: 0 15px 40px rgba(232, 133, 202, 0.25);
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.2), rgba(220, 100, 180, 0.15));
+        }
+
+        .kampanya-card-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgb(220, 100, 180));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .kampanya-card-description {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .kampanya-card-meta {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .kampanya-card-status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+            border: 1px solid rgba(76, 175, 80, 0.5);
+        }
+
+        .status-paused {
+            background: rgba(255, 152, 0, 0.2);
+            color: #ff9800;
+            border: 1px solid rgba(255, 152, 0, 0.5);
+        }
+
+        .status-completed {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196f3;
+            border: 1px solid rgba(33, 150, 243, 0.5);
+        }
+
+        .kampanya-card-date {
+            font-size: 13px;
+            color: rgba(232, 133, 202, 0.9);
+            font-weight: 500;
+        }
+
+        .kampanya-card-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .kampanya-action-btn {
+            padding: 10px 20px;
+            border: 1px solid rgba(232, 133, 202, 0.6);
+            background: rgba(232, 133, 202, 0.15);
+            color: rgb(232, 133, 202);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .kampanya-action-btn:hover {
+            background: rgba(232, 133, 202, 0.25);
+            border-color: rgba(232, 133, 202, 0.9);
+            transform: translateY(-2px);
+        }
+
+        .kampanya-card-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .kampanya-card-right {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-left: 30px;
+        }
+
+        .kampanya-card-budget {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 25px;
+            background: rgba(232, 133, 202, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            min-width: 150px;
+        }
+
+        .kampanya-card-budget-label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .kampanya-card-budget-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: rgb(232, 133, 202);
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgb(220, 100, 180));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .empty-state-text {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .empty-state-subtext {
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* Modal Stili */
+        .kampanya-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .kampanya-modal-content {
+            background: linear-gradient(135deg, rgba(4, 0, 29, 0.95), rgba(20, 10, 50, 0.95));
+            margin: 5% auto;
+            padding: 40px;
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .kampanya-modal-close {
+            color: rgba(255, 255, 255, 0.7);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .kampanya-modal-close:hover {
+            color: rgb(232, 133, 202);
+        }
+
+        .kampanya-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .kampanya-form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .kampanya-form-group label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .kampanya-form-group input,
+        .kampanya-form-group textarea,
+        .kampanya-form-group select {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .kampanya-form-group input::placeholder,
+        .kampanya-form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .kampanya-form-group input:focus,
+        .kampanya-form-group textarea:focus,
+        .kampanya-form-group select:focus {
+            outline: none;
+            border-color: rgb(232, 133, 202);
+            background: rgba(232, 133, 202, 0.1);
+            box-shadow: 0 0 15px rgba(232, 133, 202, 0.2);
+        }
+
+        .kampanya-form-group select option {
+            background: #0a0018;
+            color: white;
+            padding: 8px;
+        }
+
+        .kampanya-form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .kampanya-form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .kampanya-form-actions button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .kampanya-form-submit {
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgb(220, 100, 180));
+            color: white;
+            box-shadow: 0 4px 15px rgba(232, 133, 202, 0.3);
+        }
+
+        .kampanya-form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 133, 202, 0.4);
+        }
+
+        .kampanya-form-cancel {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .kampanya-form-cancel:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+
+        /* Tab Stili */
+        .kampanya-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(232, 133, 202, 0.2);
+            padding-bottom: 15px;
+        }
+
+        .kampanya-tab-btn {
+            padding: 12px 24px;
+            background: transparent;
+            border: 2px solid transparent;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .kampanya-tab-btn:hover {
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(232, 133, 202, 0.1);
+        }
+
+        .kampanya-tab-btn.active {
+            color: rgb(232, 133, 202);
+            border-bottom: 3px solid rgb(232, 133, 202);
+            background: rgba(232, 133, 202, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+
+    <main class="influencer-main">
+        <div class="container">
+            <section class="influencer-content">
+                <!-- Üst Bölüm: Başlık ve Buton -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+                    <div>
+                        <h1 style="font-size: 32px; color: rgb(232, 133, 202); font-weight: 700; margin: 0;">Kampanyalarım</h1>
+                        <p style="color: rgba(255, 255, 255, 0.6); margin: 8px 0 0 0;">Aktif kampanyalarınızı yönetin veya yeni kampanya oluşturun</p>
+                    </div>
+                    <button class="kampanya-create-btn" id="yeniKampanyaBtn">+ Yeni Kampanya</button>
+                </div>
+
+                <!-- Tab Butonları -->
+                <div class="kampanya-tabs">
+                    <button class="kampanya-tab-btn active" data-tab="aktif">
+                        🟢 Aktif Kampanyalarım
+                    </button>
+                    <button class="kampanya-tab-btn" data-tab="duraklatilan">
+                        🟡 Duraklatılan Kampanyalarım
+                    </button>
+                    <button class="kampanya-tab-btn" data-tab="gecmis">
+                        🔵 Geçmiş Kampanyalarım
+                    </button>
+                </div>
+
+                <!-- Kampanya Listesi -->
+                <div id="kampanyaListesi" class="kampanya-grid">
+                    <!-- Kampanya kartları buraya yüklenecek -->
+                </div>
+
+                <!-- Boş Durum -->
+                <div id="bosHali" class="empty-state" style="display: none;">
+                    <div class="empty-state-icon">📋</div>
+                    <div class="empty-state-text">Henüz kampanya oluşturmadınız</div>
+                    <div class="empty-state-subtext">Yeni kampanya oluşturarak başlayın</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Yeni Kampanya Modal -->
+    <div id="kampanyaModal" class="kampanya-modal">
+        <div class="kampanya-modal-content">
+            <span class="kampanya-modal-close">&times;</span>
+            <h2 style="color: rgb(232, 133, 202); margin-bottom: 20px;">Yeni Kampanya Oluştur</h2>
+            <form class="kampanya-form" id="kampanyaForm">
+                <div class="kampanya-form-group">
+                    <label for="kampanyaAdi">Kampanya Adı *</label>
+                    <input type="text" id="kampanyaAdi" name="kampanyaAdi" placeholder="Örn: Yaz Koleksiyonu 2025" required>
+                </div>
+
+                <div class="kampanya-form-group">
+                    <label for="kampanyaBudget">Bütçe (TL) *</label>
+                    <input type="number" id="kampanyaBudget" name="kampanyaBudget" placeholder="Örn: 50000" min="0" step="1000" required>
+                </div>
+
+                <div class="kampanya-form-group">
+                    <label for="kampanyaTarihi">Başlangıç Tarihi *</label>
+                    <input type="date" id="kampanyaTarihi" name="kampanyaTarihi" required>
+                </div>
+
+                <div class="kampanya-form-group">
+                    <label for="kampanyaBitisTarihi">Bitiş Tarihi *</label>
+                    <input type="date" id="kampanyaBitisTarihi" name="kampanyaBitisTarihi" required>
+                </div>
+
+                <div class="kampanya-form-group">
+                    <label for="kampanyaTuru">Kampanya Türü *</label>
+                    <select id="kampanyaTuru" name="kampanyaTuru" required>
+                        <option value="">Seçiniz...</option>
+                        <option value="Reels">Reels</option>
+                        <option value="Post">Yazı Paylaşımı</option>
+                        <option value="Video">Video</option>
+                        <option value="Tutorial">Eğitim Videosu</option>
+                        <option value="Story">Hikaye</option>
+                        <option value="Documentary">Belgesel</option>
+                        <option value="Sponsorluk">Sponsorluk</option>
+                        <option value="Unboxing">Unboxing</option>
+                        <option value="Behind the Scenes">Perde Arkası</option>
+                        <option value="Contest">Yarışma</option>
+                        <option value="Event Coverage">Etkinlik Kapsamı</option>
+                        <option value="Series">Dizi</option>
+                        <option value="Poll">Anket</option>
+                        <option value="Challenge">Challenge</option>
+                        <option value="Advocacy">Savunuculuk</option>
+                        <option value="Webinar">Webinar</option>
+                        <option value="Conference">Konferans</option>
+                        <option value="Fashion Show">Moda Gösterisi</option>
+                        <option value="Product Demo">Ürün Tanıtımı</option>
+                        <option value="Grand Opening">Açılış Etkinliği</option>
+                        <option value="Educational Series">Eğitim Serisi</option>
+                    </select>
+                </div>
+
+                <div class="kampanya-form-group">
+                    <label for="kampanyaPlatform">Platform</label>
+                    <select id="kampanyaPlatform" name="kampanyaPlatform">
+                        <option value="">Seçiniz...</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="TikTok">TikTok</option>
+                        <option value="YouTube">YouTube</option>
+                        <option value="LinkedIn">LinkedIn</option>
+                        <option value="Pinterest">Pinterest</option>
+                        <option value="Twitter">Twitter</option>
+                        <option value="Facebook">Facebook</option>
+                        <option value="Diğer">Diğer</option>
+                    </select>
+                </div>
+
+                <div class="kampanya-form-actions">
+                    <button type="submit" class="kampanya-form-submit">Kampanya Oluştur</button>
+                    <button type="button" class="kampanya-form-cancel" id="formIptalBtn">İptal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Ürün</h4>
+                    <ul>
+                        <li><a href="#features">Özellikler</a></li>
+                        <li><a href="#">Fiyatlandırma</a></li>
+                        <li><a href="#">Güvenlik</a></li>
+                        <li><a href="#">Güncellemeler</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Şirket</h4>
+                    <ul>
+                        <li><a href="#">Hakkımızda</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Kariyer</a></li>
+                        <li><a href="#">Basın</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Yasal</h4>
+                    <ul>
+                        <li><a href="#">Gizlilik Politikası</a></li>
+                        <li><a href="#">Hizmet Şartları</a></li>
+                        <li><a href="#">Çerez Politikası</a></li>
+                        <li><a href="#">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Bağlan</h4>
+                    <ul>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Discord</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MetVerse. Tüm hakları saklıdır.</p>
+                <p>Influencer-marka ortaklıklarında güven ve adilliği yeniden tanımlama.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Kampanya Modal Fonksiyonları
+        const modal = document.getElementById('kampanyaModal');
+        const yeniKampanyaBtn = document.getElementById('yeniKampanyaBtn');
+        const closeBtn = document.querySelector('.kampanya-modal-close');
+        const formIptalBtn = document.getElementById('formIptalBtn');
+        const kampanyaForm = document.getElementById('kampanyaForm');
+        const kampanyaListesi = document.getElementById('kampanyaListesi');
+        const bosHali = document.getElementById('bosHali');
+
+        let kampanyalar = [];
+        let markaId = null;
+
+        // Sayfa yüklendiğinde marka ID'sini al ve kampanyaları yükle
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // localStorage'dan oturum açılı markaya ait ID'yi al
+                const userDataStr = localStorage.getItem('user');
+                if (!userDataStr) {
+                    console.error('Kullanıcı oturumu bulunamadı');
+                    bosHali.style.display = 'block';
+                    return;
+                }
+
+                const userData = JSON.parse(userDataStr);
+                markaId = userData.id;
+                console.log('📌 Giriş yapılı marka ID:', markaId);
+
+                // Her iki dosyayı paralel olarak yükle
+                const [response1, response2] = await Promise.all([
+                    fetch('/data/kampanyalar.json'),
+                    fetch('/data/eşleşmemiş_kampanyalarım.json')
+                ]);
+                
+                const tumKampanyalar = await response1.json();
+                const eslesmemisKampanyalar = await response2.json();
+
+                // Her iki kaynaktan bu markanın kampanyalarını filtrele
+                const kampanyalarFiltered = tumKampanyalar.filter(k => k.marka_id === markaId);
+                const eslesmemisFiltered = eslesmemisKampanyalar.filter(k => k.marka_id === markaId);
+                
+                // Birleştir
+                kampanyalar = [...kampanyalarFiltered, ...eslesmemisFiltered];
+                
+                console.log('✅ Bulunan kampanya sayısı:', kampanyalar.length);
+                console.log('📊 Eşleşmiş kampanyalar:', kampanyalarFiltered.length);
+                console.log('📊 Eşleşmemiş kampanyalar:', eslesmemisFiltered.length);
+                console.log('🎯 Marka kampanyaları:', kampanyalar);
+
+                gosterKampanyalar();
+
+            } catch (error) {
+                console.error('❌ Kampanyalar yüklenirken hata:', error);
+                bosHali.style.display = 'block';
+            }
+        });
+
+        // Modal Aç
+        yeniKampanyaBtn.addEventListener('click', () => {
+            modal.style.display = 'block';
+            kampanyaForm.reset();
+        });
+
+        // Modal Kapat
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        formIptalBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Window dışında tıklanırsa modal kapat
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Form Gönder
+        kampanyaForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            try {
+                const yeniKampanya = {
+                    kampanya_id: `UKMP${Date.now()}`,
+                    kampanya_adi: document.getElementById('kampanyaAdi').value,
+                    marka_id: markaId,
+                    kampanya_turu: document.getElementById('kampanyaTuru').value,
+                    platform: document.getElementById('kampanyaPlatform').value || '',
+                    kampanya_baslangic: document.getElementById('kampanyaTarihi').value,
+                    kampanya_bitis: document.getElementById('kampanyaBitisTarihi').value,
+                    kampanya_butcesi_tl: parseInt(document.getElementById('kampanyaBudget').value),
+                    kampanya_durumu: 'Eşleşmemiş'
+                };
+
+                console.log('📝 Göndereceğim kampanya:', yeniKampanya);
+
+                // Sunucuya gönder
+                const response = await fetch('/api/kampanya-ekle', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(yeniKampanya)
+                });
+
+                console.log('📨 Sunucu yanıt kodu:', response.status);
+                const result = await response.json();
+                console.log('📨 Sunucu yanıtı:', result);
+
+                if (response.ok) {
+                    console.log('✅ Kampanya başarıyla eklendi:', yeniKampanya);
+                    
+                    // Kampanyalar listesine ekle
+                    kampanyalar.push(yeniKampanya);
+                    
+                    // Modal kapat ve formu sıfırla
+                    modal.style.display = 'none';
+                    kampanyaForm.reset();
+                    
+                    // Kampanyaları yeniden göster
+                    gosterKampanyalar();
+                    
+                    alert('Kampanya başarıyla oluşturuldu!');
+                } else {
+                    alert('Hata: ' + (result.message || 'Kampanya oluşturulurken bir hata oluştu.'));
+                    console.error('Hata:', result);
+                }
+            } catch (error) {
+                alert('Kampanya kaydedilirken hata oluştu: ' + error.message);
+                console.error('❌ Hata:', error);
+            }
+        });
+
+        // Kampanyaları Göster
+        function gosterKampanyalar() {
+            kampanyaListesi.innerHTML = '';
+
+            if (kampanyalar.length === 0) {
+                bosHali.style.display = 'block';
+                return;
+            }
+
+            bosHali.style.display = 'none';
+
+            kampanyalar.forEach(kampanya => {
+                // JSON dosyasından gelen verilerin durum eşlemesi
+                let statusClass = 'status-completed';
+                let statusText = '🔵 Tamamlandı';
+
+                if (kampanya.kampanya_durumu === 'Aktif') {
+                    statusClass = 'status-active';
+                    statusText = '🟢 Aktif';
+                } else if (kampanya.kampanya_durumu === 'Duraklatılmış') {
+                    statusClass = 'status-paused';
+                    statusText = '🟡 Duraklatılmış';
+                } else if (kampanya.kampanya_durumu === 'Eşleşmemiş') {
+                    statusClass = 'status-paused';
+                    statusText = '🔴 Eşleşmemiş';
+                }
+
+                const kartHTML = `
+                    <div class="kampanya-card">
+                        <div class="kampanya-card-left">
+                            <div class="kampanya-card-title">${kampanya.kampanya_adi}</div>
+                            <div class="kampanya-card-description">
+                                📱 ${kampanya.platform} | 🎬 ${kampanya.kampanya_turu} 
+                                <br>AI Eşleşme Skoru: ${kampanya.ai_eslesme_skoru}%
+                            </div>
+                            <div class="kampanya-card-meta">
+                                <span class="kampanya-card-status ${statusClass}">${statusText}</span>
+                                <span class="kampanya-card-date">📅 ${new Date(kampanya.kampanya_baslangic).toLocaleDateString('tr-TR')} - ${new Date(kampanya.kampanya_bitis).toLocaleDateString('tr-TR')}</span>
+                            </div>
+                        </div>
+                        <div class="kampanya-card-right">
+                            <div class="kampanya-card-budget">
+                                <div class="kampanya-card-budget-label">Bütçe</div>
+                                <div class="kampanya-card-budget-amount">₺${kampanya.kampanya_butcesi_tl.toLocaleString('tr-TR')}</div>
+                            </div>
+                            <div class="kampanya-card-actions">
+                                <button class="kampanya-action-btn" onclick="duzenleKampanya('${kampanya.kampanya_id}')">Düzenle</button>
+                                <button class="kampanya-action-btn" onclick="silKampanya('${kampanya.kampanya_id}')" style="color: #f44336; border-color: rgba(244, 67, 54, 0.5);">Sil</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                kampanyaListesi.innerHTML += kartHTML;
+            });
+        }
+
+        // Kampanya Sil
+        function silKampanya(kampanyaId) {
+            if (confirm('Kampanyayı silmek istediğinizden emin misiniz?')) {
+                // İstemci tarafında sil (gerçek uygulamada sunucuya istek gönderilmeli)
+                kampanyalar = kampanyalar.filter(k => k.kampanya_id !== kampanyaId);
+                gosterKampanyalar();
+                alert('Kampanya silindi. (Not: Sunucudaki veri güncellenmiyor)');
+            }
+        }
+
+        // Kampanya Düzenle (Basit Versiyonu)
+        function duzenleKampanya(kampanyaId) {
+            alert('Kampanya düzenleme özelliği yakında eklenecektir.');
+        }
+    </script>
+</body>
+</html>

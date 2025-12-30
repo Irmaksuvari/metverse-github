@@ -1,0 +1,32 @@
+[
+  {
+    "basvuru_id": "BSV1766182128887",
+    "inf_id": 1731628800000,
+    "inf_adi": "Alperen",
+    "inf_soyadi": "Kahveci",
+    "kampanya_id": "UKMP033",
+    "kampanya_adi": "Kurumsal 3D Çözümler Tanıtımı",
+    "marka_id": 1731657600000,
+    "platform": "LinkedIn",
+    "kampanya_turu": "Webinar",
+    "kampanya_bitis": "2026-02-15",
+    "kampanya_butcesi_tl": 30000,
+    "basvuru_tarihi": "2025-12-19T22:08:48.888Z",
+    "basvuru_durumu": "Beklemede"
+  },
+  {
+    "basvuru_id": "BSV1766182789410",
+    "inf_id": 1731628800000,
+    "inf_adi": "Alperen",
+    "inf_soyadi": "Kahveci",
+    "kampanya_id": "UKMP003",
+    "kampanya_adi": "Sosyal Medya Pazarlaması Kampanyası",
+    "marka_id": 1734253847126,
+    "platform": "TikTok",
+    "kampanya_turu": "Video",
+    "kampanya_bitis": "2025-12-31",
+    "kampanya_butcesi_tl": 17000,
+    "basvuru_tarihi": "2025-12-19T22:19:49.410Z",
+    "basvuru_durumu": "Beklemede"
+  }
+]

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .contact-section {
+            background-color: rgb(4, 0, 29);
+            background-image: radial-gradient(circle, rgba(232, 133, 202, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            padding: 120px 1rem 4rem 1rem;
+            position: relative;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.6s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #fffffffe;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .contact-header h1 .highlight {
+            color: rgb(232, 133, 202);
+        }
+
+        .contact-header p {
+            font-size: 1.2rem;
+            color: #B0B0B0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Form Stileri */
+        .contact-form-wrapper {
+            background: rgba(4, 0, 29, 0.92);
+            border: 1px solid rgba(255, 223, 152, 0.1);
+            padding: 3rem;
+            border-radius: 0.75rem;
+            animation: slideInLeft 0.6s ease;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-form-wrapper h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fffffffe;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            color: rgb(232, 133, 202);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            background: rgba(255, 223, 152, 0.08);
+            border: 1px solid rgba(255, 223, 152, 0.2);
+            border-radius: 0.5rem;
+            color: #fffffffe;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #666666;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: rgb(232, 133, 202);
+            background: rgba(255, 223, 152, 0.08);
+            box-shadow: 0 0 0 3px rgba(232, 133, 202, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: rgb(232, 133, 202);
+            color: #000;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: rgb(250, 139, 255);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(232, 133, 202, 0.3);
+        }
+
+        /* İletişim Bilgileri */
+        .contact-info-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            animation: slideInRight 0.6s ease;
+        }
+
+        .contact-info-card {
+            background: rgba(4, 0, 29, 0.9);
+            border: 1px solid rgba(255, 223, 152, 0.1);
+            padding: 2.5rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-info-card:hover {
+            border-color: rgba(232, 133, 202, 0.3);
+            background: rgba(232, 133, 202, 0.05);
+            box-shadow: 0 8px 20px rgba(232, 133, 202, 0.1);
+        }
+
+        .contact-info-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: rgb(232, 133, 202);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .contact-info-card p {
+            color: #B0B0B0;
+            font-size: 1rem;
+            line-height: 1.6;
+            word-break: break-all;
+        }
+
+        .info-icon {
+            font-size: 1.8rem;
+        }
+
+        /* Harita Alanı */
+        .map-section {
+            grid-column: 1 / -1;
+            margin-top: 4rem;
+        }
+
+        .map-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fffffffe;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.1) 0%, rgba(254, 255, 152, 0.05) 100%);
+            border: 2px solid rgba(232, 133, 202, 0.2);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .map-placeholder:hover {
+            border-color: rgba(232, 133, 202, 0.4);
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.15) 0%, rgba(254, 255, 152, 0.08) 100%);
+        }
+
+        .map-icon {
+            font-size: 4rem;
+            color: rgb(232, 133, 202);
+        }
+
+        .map-text {
+            color: #B0B0B0;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .contact-form-wrapper,
+            .contact-info-wrapper {
+                max-width: 100%;
+            }
+
+            .contact-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-section {
+                padding: 2rem 1rem;
+                margin-top: 120px;
+            }
+
+            .contact-header {
+                margin-bottom: 3rem;
+            }
+
+            .contact-header h1 {
+                font-size: 2rem;
+            }
+
+            .contact-header p {
+                font-size: 1rem;
+            }
+
+            .contact-form-wrapper {
+                padding: 2rem;
+            }
+
+            .contact-info-card {
+                padding: 2rem;
+            }
+
+            .map-placeholder {
+                height: 300px;
+            }
+
+            .map-icon {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-section {
+                padding: 1.5rem 1rem;
+                margin-top: 120px;
+            }
+
+            .contact-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .contact-header p {
+                font-size: 0.9rem;
+            }
+
+            .contact-form-wrapper {
+                padding: 1.5rem;
+            }
+
+            .contact-form-wrapper h2 {
+                font-size: 1.4rem;
+            }
+
+            .contact-info-card {
+                padding: 1.5rem;
+            }
+
+            .contact-info-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .map-placeholder {
+                height: 250px;
+            }
+
+            .map-icon {
+                font-size: 2.5rem;
+            }
+
+            .map-text {
+                font-size: 1rem;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+    <!-- Navigation -->
+    
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-header">
+            <h1>Bize <span class="highlight">Ulaşın</span></h1>
+            <p>Sorularınız, önerileriniz veya işbirliği talepleriniz için bize ulaşabilirsiniz. Size en kısa sürede dönüş yapacağız.</p>
+        </div>
+
+        <div class="contact-container">
+            <!-- Contact Form -->
+            <div class="contact-form-wrapper">
+                <h2>İletişim Formu</h2>
+                <form id="contactForm" method="POST" action="/api/contact">
+                    <div class="form-group">
+                        <label for="fullname">Adınız Soyadınız</label>
+                        <input 
+                            type="text" 
+                            id="fullname" 
+                            name="fullname" 
+                            placeholder="Tam adınızı girin" 
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-posta Adresiniz</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="E-posta adresinizi girin" 
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Konu Başlığı</label>
+                        <input 
+                            type="text" 
+                            id="subject" 
+                            name="subject" 
+                            placeholder="Konuyu belirtiniz" 
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Mesajınız</label>
+                        <textarea 
+                            id="message" 
+                            name="message" 
+                            placeholder="Mesajınızı buraya yazınız..." 
+                            required
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Gönder</button>
+                </form>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info-wrapper">
+                <div class="contact-info-card">
+                    <h3><span class="info-icon">📍</span> Adres</h3>
+                    <p>Merkez Ofis<br>
+                    Besiktas, İstanbul<br>
+                    Türkiye</p>
+                </div>
+
+                <div class="contact-info-card">
+                    <h3><span class="info-icon">📞</span> Telefon</h3>
+                    <p>+90 (212) 123 45 67<br>
+                    +90 (541) 123 45 67</p>
+                </div>
+
+                <div class="contact-info-card">
+                    <h3><span class="info-icon">📧</span> E-posta</h3>
+                    <p>info@metverse.com<br>
+                    support@metverse.com</p>
+                </div>
+            </div>
+
+            <!-- Map Section -->
+            <div class="map-section">
+                <h2>Ofis Konumumuz</h2>
+                <div class="map-placeholder">
+                    <div class="map-icon">🗺️</div>
+                    <div class="map-text">Google Maps entegrasyonu yakında eklenecektir</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dinamik Footer Bileşeni -->
+    <div id="footer-container"></div>
+    <script src="js/footer.js"></script>
+
+    
+</body>
+</html>
+

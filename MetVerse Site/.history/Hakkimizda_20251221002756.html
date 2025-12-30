@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakkımızda - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&family=Genos:ital@1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .about-section {
+            background-color: rgb(4, 0, 29);
+            background-image: radial-gradient(circle, rgba(232, 133, 202, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            padding:
+             120px 2rem 4rem 2rem;
+            position: relative;
+        }
+
+        .about-container {
+            max-width: 100%;
+            margin: 0 auto;
+            background-color: transparent;
+            border-radius: 0;
+            padding: 2rem 3rem;
+            box-shadow: none;
+            position: relative;
+            z-index: 2;
+            min-height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow-y: visible;
+            max-height: none;
+            aspect-ratio: auto;
+        }
+
+        .about-container h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            text-align: center;
+            line-height: 1.2;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            font-family: 'Genos', cursive;
+            font-style: italic;
+        }
+
+        .about-container h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #e885ca;
+            margin-top: 1rem;
+            margin-bottom: 0.6rem;
+            text-align: left;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            font-family: 'Genos', cursive;
+            font-style: italic;
+        }
+
+        .about-container p {
+            font-size: 1rem;
+            color: #ffffff;
+            line-height: 1.5;
+            margin-bottom: 0.8rem;
+            text-align: left;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            font-family: 'Genos', cursive;
+            font-style: italic;
+        }
+
+        .about-container ul {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0 1.2rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .about-container li {
+            font-size: 1rem;
+            color: #ffffff;
+            line-height: 1.5;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            text-align: left;
+            max-width: 100%;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            font-family: 'Genos', cursive;
+            font-style: italic;
+        }
+
+        .about-container li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #e885ca;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-right: 0.5rem;
+        }
+
+        .about-container li strong {
+            color: #e885ca;
+            font-weight: 700;
+        }
+
+        .about-footer-text {
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+            border-top: 2px solid rgba(232, 133, 202, 0.5);
+            text-align: left;
+            font-size: 1rem;
+            color: #ffffff;
+            line-height: 1.5;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            font-family: 'Genos', cursive;
+            font-style: italic;
+        }
+
+        .about-footer-text strong {
+            color: #e885ca;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .about-section {
+                padding: 120px 1rem 2rem 1rem;
+            }
+
+            .about-container {
+                padding: 1.5rem 1rem;
+                max-height: none;
+                min-height: auto;
+            }
+
+            .about-container h1 {
+                font-size: 1.4rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .about-container h2 {
+                font-size: 0.95rem;
+                margin-top: 0.8rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .about-container p,
+            .about-container li,
+            .about-footer-text {
+                font-size: 0.78rem;
+                line-height: 1.4;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .about-section {
+                padding: 120px 0.5rem 1.5rem 0.5rem;
+            }
+
+            .about-container {
+                padding: 1rem 0.8rem;
+                border-radius: 0;
+                max-height: none;
+                min-height: auto;
+            }
+
+            .about-container h1 {
+                font-size: 1.1rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .about-container h2 {
+                font-size: 0.85rem;
+                margin-top: 0.6rem;
+                margin-bottom: 0.4rem;
+            }
+
+            .about-container p,
+            .about-container li,
+            .about-footer-text {
+                font-size: 0.75rem;
+                line-height: 1.3;
+            }
+        }
+            .about-container li,
+            .about-footer-text {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+
+            .about-container li {
+                padding-left: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+    <!-- Navigation -->
+    
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-container">
+            <h1>💌 METVERSE'ten Size Bir Mektup</h1>
+
+            <p>Sevgili İş Ortağımız, Influencer'ımız veya Marka Dostumuz,</p>
+
+            <p>Merhaba! Biz, METVERSE ekibi. Bizim hikayemiz, tıpkı sizin gibi küçük bir kafede büyük hayaller kuran bir işletme sahibinin ve odasında tüm emeğini dijital dünyaya aktaran bir içerik üreticisinin yaşadığı hayal kırıklıklarından doğdu.</p>
+
+            <p>Dijital dünya inanılmaz fırsatlar sunsa da, ne yazık ki her zaman adil değil. Yanlış işbirlikleri, sahte etkileşimler ve kaybolan bütçeler nedeniyle güvenin kırıldığına tanık olduk. KOBİ'ler için örtülü reklam cezaları büyük bir finansal risk yaratırken, influencer'lar gerçek emeklerinin karşılığını alamayabiliyordu.</p>
+
+            <h2>Biz Neyi Değiştirmek İçin Buradayız?</h2>
+
+            <p>Biz, influencer pazarlamasında Güven ve Performans Devrimi'ni başlatmak için varız. Sloganımız basit: <strong>"Verinin gücüyle şeffaf, kazancın gücüyle adil."</strong></p>
+
+            <p>Amacımız, her bütçedeki markanın maddi kayıp yaşamadan güvenle iş birliği yapması ve her influencer'ın emeğinin, etkileşiminin ve değerinin görünür kılınmasıdır.</p>
+
+            <h2>Güvenliğiniz Bizim Önceliğimiz: METVERSE'ün 3 Sözü</h2>
+
+            <p>Platformumuzu, sizi bu risklerden koruyan ve yalnızca gerçek sonuçlara odaklanan üç temel üzerine inşa ettik:</p>
+
+            <ul>
+                <li><strong>Gerçek Etkileşim Garantisi:</strong> Yapay zekâ destekli sistemimiz, sahte takipçi ve bot aktivitelerini tespit eder. Performansı sadece ulaşılan gerçek kitle üzerinden hesaplanan Erişim Bazlı ER (Etkileşim Oranı) ile ölçeriz. Böylece bütçeniz asla boşa gitmez ve emeğiniz doğru değerlendirilir.</li>
+
+                <li><strong>Escrow ile Ödeme Güvencesi:</strong> İş birliği tamamlanana kadar ödemeniz güvenli bir havuzda (Escrow) tutulur. Bu sistem, hem markayı hem de influencer'ı koruyarak finansal riskleri sıfırlar.</li>
+
+                <li><strong>Hukuki Rahatlık:</strong> Örtülü Reklam cezası gibi riskleri ortadan kaldıran Hukuki Koruma Kalkanı sunuyoruz.</li>
+            </ul>
+
+            <h2>METVERSE, Sizin Dijital Eviniz</h2>
+
+            <p>Bizimle çalışmak, sadece bir kampanya başlatmak demek değil. Platformumuz üzerinden tamamladığınız her başarılı iş, profilinize "onaylı puan" olarak eklenir. Bu, sizin dijital dünyadaki itibarınız, yani Dijital CV'nizdir.</p>
+
+            <p>Unutmayın, platformumuzun dışında çalışmayı seçenler bu güvenliği, otomatik raporlamayı ve en önemlisi uzun vadeli itibar kaydını kaybeder.</p>
+
+            <p>Gelin, bu heyecan verici yolculukta küçük hayallerinizi büyük başarılara dönüştürmek için dijital dünyada o güvenilir, şeffaf köprüyü birlikte kuralım.</p>
+
+            <div class="about-footer-text">
+                <p>Sizi aramızda görmekten mutluluk duyarız.</p>
+                <p><strong>Saygılarımızla,</strong></p>
+                <p><strong>METVERSE Ekibi</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Ürün</h4>
+                    <ul>
+                        <li><a href="#features">Özellikler</a></li>
+                        <li><a href="#">Fiyatlandırma</a></li>
+                        <li><a href="#">Güvenlik</a></li>
+                        <li><a href="#">Güncellemeler</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Şirket</h4>
+                    <ul>
+                        <li><a href="#">Hakkımızda</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Kariyer</a></li>
+                        <li><a href="#">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Yasal</h4>
+                    <ul>
+                        <li><a href="#">Gizlilik Politikası</a></li>
+                        <li><a href="#">Kullanım Koşulları</a></li>
+                        <li><a href="#">Çerez Politikası</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Sosyal Medya</h4>
+                    <ul>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Discord</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MetVerse. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    
+</body>
+</html>
+

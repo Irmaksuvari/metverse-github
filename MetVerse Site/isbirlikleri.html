@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İşbirlikleri - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .isbirlikleri-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(232, 133, 202, 0.2);
+            padding-bottom: 15px;
+        }
+
+        .isbirlikleri-tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .isbirlikleri-tab:hover {
+            color: rgb(232, 133, 202);
+        }
+
+        .isbirlikleri-tab.active {
+            color: rgb(232, 133, 202);
+        }
+
+        .isbirlikleri-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -17px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, rgb(232, 133, 202), rgb(220, 100, 180));
+        }
+
+        .isbirlikleri-content {
+            display: none;
+        }
+
+        .isbirlikleri-content.active {
+            display: block;
+        }
+
+        .isbirlikleri-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .isbirligi-card {
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.15), rgba(220, 100, 180, 0.1));
+            border: 2px solid rgba(232, 133, 202, 0.4);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .isbirligi-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(232, 133, 202, 0.7);
+            box-shadow: 0 15px 40px rgba(232, 133, 202, 0.25);
+        }
+
+        .isbirligi-card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .isbirligi-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgb(220, 100, 180));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .isbirligi-info h3 {
+            margin: 0;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .isbirligi-info p {
+            margin: 3px 0 0 0;
+            color: rgba(232, 133, 202, 0.8);
+            font-size: 13px;
+        }
+
+        .isbirligi-card-meta {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            padding: 12px 0;
+            border-top: 1px solid rgba(232, 133, 202, 0.2);
+            border-bottom: 1px solid rgba(232, 133, 202, 0.2);
+        }
+
+        .isbirligi-meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .isbirligi-meta-label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .isbirligi-meta-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: rgb(232, 133, 202);
+        }
+
+        .isbirligi-card-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .isbirligi-btn {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid rgba(232, 133, 202, 0.6);
+            background: rgba(232, 133, 202, 0.15);
+            color: rgb(232, 133, 202);
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .isbirligi-btn:hover {
+            background: rgba(232, 133, 202, 0.25);
+            border-color: rgba(232, 133, 202, 0.9);
+        }
+
+        /* Mesajlaşma Bölümü */
+        .messaging-section {
+            margin-top: 50px;
+        }
+
+        .messaging-section h2 {
+            font-size: 24px;
+            color: rgb(232, 133, 202);
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .messaging-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+            max-height: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .messaging-list {
+            background: rgba(0, 0, 0, 0.3);
+            border-right: 1px solid rgba(232, 133, 202, 0.2);
+            overflow-y: auto;
+        }
+
+        .messaging-item {
+            padding: 15px;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .messaging-item:hover {
+            background: rgba(232, 133, 202, 0.15);
+        }
+
+        .messaging-item.active {
+            background: rgba(232, 133, 202, 0.2);
+            border-left: 3px solid rgb(232, 133, 202);
+        }
+
+        .messaging-item-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgb(220, 100, 180));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .messaging-item-info h4 {
+            margin: 0;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .messaging-item-info p {
+            margin: 3px 0 0 0;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .messaging-chat {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .messaging-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .message.sent {
+            justify-content: flex-end;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: rgba(232, 133, 202, 0.2);
+            border: 1px solid rgba(232, 133, 202, 0.4);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .message.sent .message-bubble {
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.4), rgba(220, 100, 180, 0.3));
+            border-color: rgba(232, 133, 202, 0.6);
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 5px;
+        }
+
+        .messaging-input-group {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 0 0 15px 0;
+        }
+
+        .messaging-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: inherit;
+        }
+
+        .messaging-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .messaging-input:focus {
+            outline: none;
+            border-color: rgb(232, 133, 202);
+            background: rgba(232, 133, 202, 0.1);
+        }
+
+        .messaging-send-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgb(220, 100, 180));
+            border: none;
+            color: white;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .messaging-send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(232, 133, 202, 0.3);
+        }
+
+        .empty-messaging {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: rgba(255, 255, 255, 0.4);
+            text-align: center;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .empty-state-text {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .empty-state-subtext {
+            font-size: 14px;
+        }
+
+        /* Modal Detay Paneli */
+        .collaboration-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .collaboration-modal.active {
+            display: flex;
+        }
+
+        .collaboration-modal-content {
+            background: linear-gradient(135deg, rgba(20, 0, 25, 0.95), rgba(30, 0, 35, 0.95));
+            border: 2px solid rgba(232, 133, 202, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .collaboration-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: rgba(232, 133, 202, 0.2);
+            color: rgb(232, 133, 202);
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .collaboration-modal-close:hover {
+            background: rgba(232, 133, 202, 0.4);
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(232, 133, 202, 0.2);
+        }
+
+        .modal-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgb(220, 100, 180));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .modal-header-info h2 {
+            margin: 0;
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .modal-header-info p {
+            margin: 5px 0 0 0;
+            color: rgba(232, 133, 202, 0.8);
+            font-size: 14px;
+        }
+
+        .modal-section {
+            margin-bottom: 25px;
+        }
+
+        .modal-section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: rgb(232, 133, 202);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+        }
+
+        .escrow-status-card {
+            background: rgba(232, 133, 202, 0.1);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+
+        .status-badge-modal {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .status-badge-modal.odendi {
+            background: rgba(34, 197, 94, 0.2);
+            color: rgb(34, 197, 94);
+            border: 1px solid rgba(34, 197, 94, 0.4);
+        }
+
+        .status-badge-modal.beklemede {
+            background: rgba(249, 115, 22, 0.2);
+            color: rgb(249, 115, 22);
+            border: 1px solid rgba(249, 115, 22, 0.4);
+        }
+
+        .status-badge-modal.kilitli {
+            background: rgba(239, 68, 68, 0.2);
+            color: rgb(239, 68, 68);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+
+        .status-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.1);
+        }
+
+        .status-info-row:last-child {
+            border-bottom: none;
+        }
+
+        .status-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+        }
+
+        .status-value {
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .kargo-tracking-card {
+            background: rgba(0, 150, 255, 0.1);
+            border: 1px solid rgba(0, 150, 255, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+
+        .kargo-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .kargo-step {
+            display: flex;
+            gap: 12px;
+        }
+
+        .kargo-step-indicator {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(0, 150, 255, 0.2);
+            border: 2px solid rgba(0, 150, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .kargo-step.active .kargo-step-indicator {
+            background: rgba(0, 150, 255, 0.4);
+            border-color: rgb(0, 150, 255);
+        }
+
+        .kargo-step.completed .kargo-step-indicator {
+            background: rgba(34, 197, 94, 0.3);
+            border-color: rgb(34, 197, 94);
+            color: rgb(34, 197, 94);
+        }
+
+        .kargo-step-content {
+            flex: 1;
+        }
+
+        .kargo-step-title {
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .kargo-step-time {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+        }
+
+        /* Escrow Onay Bölümü */
+        .escrow-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .escrow-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .escrow-btn-approve {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.2));
+            color: rgb(34, 197, 94);
+            border: 1px solid rgba(34, 197, 94, 0.5);
+        }
+
+        .escrow-btn-approve:hover {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.4), rgba(34, 197, 94, 0.3));
+            border-color: rgb(34, 197, 94);
+            transform: translateY(-2px);
+        }
+
+        .escrow-btn-cancel {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(239, 68, 68, 0.2));
+            color: rgb(239, 68, 68);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+        }
+
+        .escrow-btn-cancel:hover {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.4), rgba(239, 68, 68, 0.3));
+            border-color: rgb(239, 68, 68);
+            transform: translateY(-2px);
+        }
+
+        /* Kargo Seçim */
+        .kargo-selection {
+            background: rgba(0, 150, 255, 0.1);
+            border: 1px solid rgba(0, 150, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .kargo-selection select {
+            width: 100%;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 150, 255, 0.4);
+            color: white;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .kargo-selection select:focus {
+            outline: none;
+            border-color: rgb(0, 150, 255);
+            background: rgba(0, 150, 255, 0.1);
+        }
+
+        .kargo-selection select option {
+            background: rgba(20, 0, 25, 0.95);
+            color: white;
+        }
+
+        .modal-info-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid rgb(232, 133, 202);
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        .modal-info-box p {
+            margin: 5px 0;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+
+    <main class="influencer-main">
+        <div class="container">
+            <section class="influencer-content">
+                <!-- Başlık -->
+                <div style="margin-bottom: 30px;">
+                    <h1 style="font-size: 32px; color: rgb(232, 133, 202); font-weight: 700; margin: 0;">İşbirlikleri</h1>
+                    <p style="color: rgba(255, 255, 255, 0.6); margin: 8px 0 0 0;">Aktif işbirlikleri ve influencer işbirlik fırsat ları</p>
+                </div>
+
+                <!-- Sekmeler -->
+                <div class="isbirlikleri-tabs">
+                    <button class="isbirlikleri-tab active" data-tab="aktif">🟢 Aktif İşbirlikleri</button>
+                    <button class="isbirlikleri-tab" data-tab="gecmis">📋 Geçmiş İşbirlikleri</button>
+                </div>
+
+                <!-- Aktif İşbirlikleri -->
+                <div id="aktif" class="isbirlikleri-content active">
+                    <div class="isbirlikleri-grid" id="aktifGrid">
+                        <!-- Kartlar JS tarafından yüklenecek -->
+                    </div>
+                </div>
+
+                <!-- Geçmiş İşbirlikleri -->
+                <div id="gecmis" class="isbirlikleri-content">
+                    <div class="isbirlikleri-grid" id="gecmisGrid">
+                        <!-- Kartlar JS tarafından yüklenecek -->
+                    </div>
+                </div>
+
+                <!-- Mesajlaşma Bölümü -->
+                <div class="messaging-section">
+                    <h2>💬 İnfluencer Mesajlaşması</h2>
+                    <div class="messaging-container">
+                        <!-- Mesaj Listesi -->
+                        <div class="messaging-list" id="messagingList">
+                            <!-- Konuşmalar JS tarafından yüklenecek -->
+                        </div>
+
+                        <!-- Chat Alanı -->
+                        <div class="messaging-chat" id="chatArea">
+                            <div class="empty-messaging">
+                                <div>
+                                    <div style="font-size: 48px; margin-bottom: 15px;">💬</div>
+                                    <p>Bir influencer seç</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Boş Durum -->
+                <div id="bosHali" class="empty-state" style="display: none;">
+                    <div class="empty-state-icon">🤝</div>
+                    <div class="empty-state-text">Henüz hiç işbirliği bulunmamaktadır</div>
+                    <div class="empty-state-subtext">Kampanyalarınız için influencer işbirliği başlatın</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- İşbirliği Detay Modal -->
+    <div class="collaboration-modal" id="collaborationModal">
+        <div class="collaboration-modal-content">
+            <button class="collaboration-modal-close" onclick="closeCollaborationModal()">×</button>
+            
+            <div class="modal-header">
+                <div class="modal-avatar" id="modalAvatar">👨‍💼</div>
+                <div class="modal-header-info">
+                    <h2 id="modalInfluencerName">Adı Soyadı</h2>
+                    <p id="modalInfluencerHandle">@handle</p>
+                    <p id="modalCampaignName" style="margin-top: 10px; color: rgba(255, 255, 255, 0.8);">Kampanya Adı</p>
+                </div>
+            </div>
+
+            <!-- Escrow Ödeme Durumu -->
+            <div class="modal-section">
+                <div class="modal-section-title">💳 Escrow Ödeme Durumu</div>
+                <div class="escrow-status-card">
+                    <div class="status-badge-modal" id="modalEscrowStatus">Beklemede</div>
+                    <div class="status-info-row">
+                        <span class="status-label">Ödeme Tutarı</span>
+                        <span class="status-value" id="modalPaymentAmount">₺0</span>
+                    </div>
+                    <div class="status-info-row">
+                        <span class="status-label">Ödeme Durumu</span>
+                        <span class="status-value" id="modalPaymentStatus">Beklemede</span>
+                    </div>
+                    <div class="status-info-row">
+                        <span class="status-label">Kampanya Durumu</span>
+                        <span class="status-value" id="modalCampaignStatus">Devam Ediyor</span>
+                    </div>
+                    <div class="status-info-row">
+                        <span class="status-label">Başlangıç Tarihi</span>
+                        <span class="status-value" id="modalStartDate">01.01.2025</span>
+                    </div>
+                    <div class="status-info-row" style="border-bottom: none;">
+                        <span class="status-label">Bitiş Tarihi</span>
+                        <span class="status-value" id="modalEndDate">31.01.2025</span>
+                    </div>
+                </div>
+                <div class="escrow-actions" id="escrowActions">
+                    <button class="escrow-btn escrow-btn-approve" onclick="approveEscrowPayment()">✓ Ödeme Onayla</button>
+                    <button class="escrow-btn escrow-btn-cancel" onclick="closeCollaborationModal()">✗ İptal Et</button>
+                </div>
+            </div>
+
+            <!-- Kargo Takip Durumu -->
+            <div class="modal-section">
+                <div class="modal-section-title">📦 Kargo Takip Durumu</div>
+                
+                <!-- Kargo Şirketi Seçimi -->
+                <div class="kargo-selection">
+                    <p style="margin: 0 0 8px 0; color: rgba(255, 255, 255, 0.6); font-size: 12px; font-weight: 600;">Kargo Şirketi Seç</p>
+                    <select id="kargoCompanySelect" onchange="updateKargoCompany()">
+                        <option value="">-- Kargo Şirketi Seçin --</option>
+                        <option value="UPS">UPS Express</option>
+                        <option value="DHL">DHL International</option>
+                        <option value="FedEx">FedEx Ground</option>
+                        <option value="Aras Kargo">Aras Kargo</option>
+                        <option value="MNG">MNG Kargo</option>
+                        <option value="Çiçeksepeti">Çiçeksepeti Kargo</option>
+                    </select>
+                </div>
+
+                <!-- Kargo Bilgileri -->
+                <div class="kargo-tracking-card">
+                    <div style="margin-bottom: 15px;">
+                        <p style="margin: 0; color: rgba(255, 255, 255, 0.8); font-size: 13px; font-weight: 600;">
+                            Kargo Kodu: <span id="kargoTrackingNo" style="color: rgb(0, 150, 255); font-family: monospace;">1234567890</span>
+                        </p>
+                        <p style="margin: 5px 0 0 0; color: rgba(255, 255, 255, 0.6); font-size: 12px;">
+                            Şirketi: <span id="kargoCompany" style="color: rgba(255, 255, 255, 0.8); font-weight: 600;">UPS</span>
+                        </p>
+                    </div>
+                    <div class="kargo-timeline" id="kargoTimeline">
+                        <!-- Kargo adımları JS tarafından yüklenecek -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dinamik Footer Bileşeni -->
+    <div id="footer-container"></div>
+    <script src="js/footer.js"></script>
+
+    <script src="script.js"></script>
+    <script>
+        // İşbirlikleri Verileri - Influencer havuzundan dinamik yükleme
+        let isbirlikler = [];
+        let kampanyalar = [];
+
+        // Influencer havuzunu yükle
+        async function loadInfluencers() {
+            try {
+                const response = await fetch('/data/influencers.json');
+                const influencers = await response.json();
+                
+                // Kampanyaları yükle
+                const kampanyalarResponse = await fetch('/data/kampanyalar.json');
+                kampanyalar = await kampanyalarResponse.json();
+                
+                // İnfluencerları işbirliğine dönüştür
+                isbirlikler = influencers.slice(0, 12).map((inf, index) => {
+                    const initials = (inf.ad.charAt(0) + inf.soyad.charAt(0)).toUpperCase();
+                    const avatarEmojis = ['👨‍💼', '👩‍🎨', '👨‍🚀', '👩‍💻', '👨‍🏫', '👩‍⚕️', '👨‍🍳', '👩‍🎤', '👨‍✈️', '👩‍🔬', '👨‍⚖️', '👩‍🎓'];
+                    
+                    // Bu influencer için kampanyaları bul
+                    const influencerKampanyalar = kampanyalar.filter(k => k.influencer_id === inf.id);
+                    let kampanya = null;
+                    
+                    if (influencerKampanyalar.length > 0) {
+                        kampanya = influencerKampanyalar[0]; // İlk kampanyayı al
+                    } else {
+                        // Fallback: rastgele kampanya
+                        const kampanyalar_list = ['Yaz Koleksiyonu 2025', 'Yeni Makyöz Hattı', 'Spor Sponsorluğu', 'Gıda Kampanyası', 'Teknoloji Lansman', 'Moda Fuarı 2025'];
+                        kampanya = { kampanya_adi: kampanyalar_list[index % kampanyalar_list.length] };
+                    }
+                    
+                    const status = kampanya && kampanya.kampanya_durumu === 'Tamamlandı' ? 'gecmis' : 'aktif';
+                    
+                    return {
+                        id: inf.id,
+                        influencerAdi: `${inf.ad} ${inf.soyad}`,
+                        handle: `@${inf.ad.toLowerCase()}${inf.soyad.toLowerCase()}`,
+                        avatar: avatarEmojis[index % avatarEmojis.length],
+                        kampanya: kampanya ? kampanya.kampanya_adi : 'Yaz Koleksiyonu 2025',
+                        kampanyaId: kampanya ? kampanya.kampanya_id : null,
+                        followerler: `${Math.floor(50 + Math.random() * 250)}K`,
+                        oranTutarı: `₺${Math.floor(10000 + Math.random() * 25000)}`,
+                        status: status,
+                        baslangiç: kampanya ? kampanya.kampanya_baslangic : `2025-0${6 + Math.floor(Math.random() * 3)}-${Math.floor(10 + Math.random() * 20)}`,
+                        kampanyaDetails: kampanya
+                    };
+                });
+                
+                loadCollaborations();
+                loadMessaging();
+                if (isbirlikler.length > 0) {
+                    openChat(isbirlikler[0].id, isbirlikler[0].influencerAdi);
+                }
+            } catch (error) {
+                console.error('İnfluencer yükleme hatası:', error);
+            }
+        }
+        
+        loadInfluencers();
+
+        const tabs = document.querySelectorAll('.isbirlikleri-tab');
+        const contentDivs = document.querySelectorAll('.isbirlikleri-content');
+
+        // Tab Değiştirme
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                contentDivs.forEach(div => div.classList.remove('active'));
+                
+                tab.classList.add('active');
+                const tabName = tab.dataset.tab;
+                document.getElementById(tabName).classList.add('active');
+            });
+        });
+
+        // İşbirlikleri Kartlarını Yükle
+        function loadCollaborations() {
+            const aktifGrid = document.getElementById('aktifGrid');
+            const gecmisGrid = document.getElementById('gecmisGrid');
+
+            aktifGrid.innerHTML = '';
+            gecmisGrid.innerHTML = '';
+
+            isbirlikler.forEach(col => {
+                const card = `
+                    <div class="isbirligi-card" style="cursor: pointer;" data-influencer-id="${col.id}">
+                        <div class="isbirligi-card-header">
+                            <div class="isbirligi-avatar">${col.avatar}</div>
+                            <div class="isbirligi-info">
+                                <h3>${col.influencerAdi}</h3>
+                                <p>${col.handle}</p>
+                            </div>
+                        </div>
+                        <div style="font-size: 13px; color: rgba(255, 255, 255, 0.7); margin-bottom: 10px;">
+                            <strong>${col.kampanya}</strong>
+                        </div>
+                        <div class="isbirligi-card-meta">
+                            <div class="isbirligi-meta-item">
+                                <span class="isbirligi-meta-label">Takipçi</span>
+                                <span class="isbirligi-meta-value">${col.followerler}</span>
+                            </div>
+                            <div class="isbirligi-meta-item">
+                                <span class="isbirligi-meta-label">Ücret</span>
+                                <span class="isbirligi-meta-value">${col.oranTutarı}</span>
+                            </div>
+                        </div>
+                        <div class="isbirligi-card-buttons">
+                            <button class="isbirligi-btn" onclick="event.stopPropagation(); openChat(${col.id}, '${col.influencerAdi}'); document.querySelector('.messaging-section').scrollIntoView({behavior: 'smooth'});">Mesaj Gönder</button>
+                        </div>
+                    </div>
+                `;
+
+                if (col.status === 'aktif') {
+                    aktifGrid.innerHTML += card;
+                } else {
+                    gecmisGrid.innerHTML += card;
+                }
+            });
+
+            // Kartlara click event'i ekle
+            document.querySelectorAll('.isbirligi-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (e.target.closest('.isbirligi-btn')) return; // Button tıklandıysa modal açma
+                    const influencerId = this.getAttribute('data-influencer-id');
+                    openCollaborationModal(influencerId);
+                });
+            });
+
+            if (gecmisGrid.innerHTML === '') {
+                gecmisGrid.innerHTML = '<div class="empty-state" style="grid-column: 1/-1;"><div class="empty-state-text">Geçmiş işbirliği bulunmamaktadır</div></div>';
+            }
+        }
+
+        // Modal Açma
+        function openCollaborationModal(influencerId) {
+            // String'i sayıya çevir
+            const numericId = parseInt(influencerId);
+            const col = isbirlikler.find(i => i.id === numericId);
+            
+            if (!col) {
+                console.error('İnfluencer bulunamadı, ID:', influencerId);
+                return;
+            }
+
+            // Header bilgilerini doldur
+            document.getElementById('modalAvatar').textContent = col.avatar;
+            document.getElementById('modalInfluencerName').textContent = col.influencerAdi;
+            document.getElementById('modalInfluencerHandle').textContent = col.handle;
+            document.getElementById('modalCampaignName').textContent = col.kampanya;
+
+            // Rastgele kargo verileri oluştur
+            const kargoData = generateRandomKargoData(numericId);
+            
+            // Geçmiş işbirliği mi kontrol et
+            const isHistorical = col.status === 'gecmis';
+            
+            // Kampanya detaylarını doldur
+            if (col.kampanyaDetails) {
+                const kmp = col.kampanyaDetails;
+                
+                // Escrow bilgilerini doldur
+                const escrowStatus = isHistorical ? 'Ödendi' : (kmp.escrow_durumu || 'Beklemede');
+                document.getElementById('modalEscrowStatus').textContent = escrowStatus;
+                document.getElementById('modalEscrowStatus').className = `status-badge-modal ${escrowStatus.toLowerCase()}`;
+                document.getElementById('modalPaymentAmount').textContent = `₺${(kmp.kampanya_butcesi_tl || 0).toLocaleString('tr-TR')}`;
+                document.getElementById('modalPaymentStatus').textContent = escrowStatus;
+                document.getElementById('modalCampaignStatus').textContent = isHistorical ? 'Tamamlandı' : (kmp.kampanya_durumu || 'Planlandı');
+                
+                // Tarihleri formatla
+                const startDate = new Date(kmp.kampanya_baslangic);
+                const endDate = new Date(kmp.kampanya_bitis);
+                document.getElementById('modalStartDate').textContent = startDate.toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                document.getElementById('modalEndDate').textContent = endDate.toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            }
+
+            // Escrow butonlarını göster/gizle
+            const escrowActions = document.getElementById('escrowActions');
+            if (isHistorical) {
+                escrowActions.style.display = 'none';
+            } else {
+                escrowActions.style.display = 'flex';
+            }
+
+            // Kargo şirketi seçim alanını göster/gizle
+            const kargoSelection = document.querySelector('.kargo-selection');
+            if (isHistorical) {
+                kargoSelection.style.display = 'none';
+            } else {
+                kargoSelection.style.display = 'block';
+            }
+
+            // Kargo bilgilerini doldur
+            document.getElementById('kargoTrackingNo').textContent = kargoData.trackingCode;
+            document.getElementById('kargoCompany').textContent = kargoData.company;
+            document.getElementById('kargoCompanySelect').value = kargoData.company;
+
+            // Kargo timeline'ı doldur - Geçmiş işbirliği ise tamamlandı (100%) göster
+            let timeline;
+            if (isHistorical) {
+                timeline = [
+                    { title: 'Sipariş Teslim Edildi', completed: true, active: false },
+                    { title: 'Kargolandı', completed: true, active: false },
+                    { title: 'Yolda', completed: true, active: false },
+                    { title: 'Teslim Edildi', completed: true, active: false },
+                    { title: 'Tamamlandı', completed: true, active: true }
+                ];
+                
+                // Tarihleri oluştur
+                const currentDate = new Date();
+                const dates = [];
+                for (let i = 0; i < 5; i++) {
+                    const date = new Date(currentDate);
+                    date.setDate(date.getDate() - (5 - i));
+                    const hour = 8 + Math.floor(Math.random() * 14);
+                    const minute = Math.floor(Math.random() * 60);
+                    dates.push(date.toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit' }) + ` ${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`);
+                }
+                
+                timeline = timeline.map((step, index) => ({
+                    ...step,
+                    time: dates[index]
+                }));
+            } else {
+                timeline = generateRandomKargoTimeline(kargoData.company);
+            }
+
+            const kargoTimeline = document.getElementById('kargoTimeline');
+            kargoTimeline.innerHTML = timeline.map(step => `
+                <div class="kargo-step ${step.completed ? 'completed' : ''} ${step.active ? 'active' : ''}">
+                    <div class="kargo-step-indicator">${step.completed ? '✓' : step.active ? '→' : '•'}</div>
+                    <div class="kargo-step-content">
+                        <div class="kargo-step-title">${step.title}</div>
+                        <div class="kargo-step-time">${step.time}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Modal'ı göster
+            document.getElementById('collaborationModal').classList.add('active');
+        }
+
+        // Rastgele kargo verileri oluştur
+        function generateRandomKargoData(influencerId) {
+            const companies = ['UPS', 'DHL', 'FedEx', 'Aras Kargo', 'MNG', 'Çiçeksepeti'];
+            const selectedCompany = companies[influencerId % companies.length];
+            
+            // Kargo kodu oluştur (örn: TR2025120123456)
+            const prefix = selectedCompany.substring(0, 2).toUpperCase();
+            const year = new Date().getFullYear();
+            const randomNum = String(Math.floor(Math.random() * 1000000000)).padStart(10, '0');
+            const trackingCode = `${prefix}${year}${randomNum}`;
+            
+            return {
+                company: selectedCompany,
+                trackingCode: trackingCode
+            };
+        }
+
+        // Rastgele kargo timeline oluştur
+        function generateRandomKargoTimeline(company) {
+            const allStatuses = [
+                { title: 'Sipariş Teslim Edildi', completed: true, active: false },
+                { title: 'Kargolandı', completed: true, active: false },
+                { title: 'Yolda', completed: true, active: true },
+                { title: 'Teslim Edildi', completed: false, active: false },
+                { title: 'Tamamlandı', completed: false, active: false }
+            ];
+
+            // Rastgele ilerleme durumu seç (0-100)
+            const progressScenarios = [
+                { progress: 20, activeStep: 0, description: 'Sipariş Teslim Edildi' },
+                { progress: 40, activeStep: 1, description: 'Kargolandı' },
+                { progress: 60, activeStep: 2, description: 'Yolda' },
+                { progress: 80, activeStep: 3, description: 'Teslim Edildi' },
+                { progress: 100, activeStep: 4, description: 'Tamamlandı' }
+            ];
+            
+            const randomScenario = progressScenarios[Math.floor(Math.random() * progressScenarios.length)];
+
+            const currentDate = new Date();
+            const dates = [];
+            
+            // Tarihleri oluştur
+            for (let i = 0; i < 5; i++) {
+                if (i < randomScenario.activeStep) {
+                    // Tamamlanan adımlar
+                    const date = new Date(currentDate);
+                    date.setDate(date.getDate() - (randomScenario.activeStep - i));
+                    const hour = 8 + Math.floor(Math.random() * 14);
+                    const minute = Math.floor(Math.random() * 60);
+                    dates.push(date.toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit' }) + ` ${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`);
+                } else if (i === randomScenario.activeStep) {
+                    // Aktif adım
+                    if (randomScenario.activeStep === 2) {
+                        dates.push('Yolda - ' + (3 + Math.floor(Math.random() * 3)) + ' gün');
+                    } else {
+                        const date = new Date(currentDate);
+                        const hour = Math.floor(Math.random() * 24);
+                        const minute = Math.floor(Math.random() * 60);
+                        dates.push(date.toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit' }) + ` ${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`);
+                    }
+                } else {
+                    dates.push('Bekleniyor');
+                }
+            }
+
+            return allStatuses.map((status, index) => {
+                const isCompleted = index < randomScenario.activeStep;
+                const isActive = index === randomScenario.activeStep;
+                
+                return {
+                    title: status.title,
+                    time: dates[index] || 'Bekleniyor',
+                    completed: isCompleted,
+                    active: isActive
+                };
+            });
+        }
+
+        // Kargo şirketi değiştiğinde güncelle
+        function updateKargoCompany() {
+            const selectedCompany = document.getElementById('kargoCompanySelect').value;
+            if (!selectedCompany) return;
+            
+            document.getElementById('kargoCompany').textContent = selectedCompany;
+            
+            // Yeni kargo kodu oluştur
+            const prefix = selectedCompany.substring(0, 2).toUpperCase();
+            const year = new Date().getFullYear();
+            const randomNum = String(Math.floor(Math.random() * 1000000000)).padStart(10, '0');
+            const newTrackingCode = `${prefix}${year}${randomNum}`;
+            document.getElementById('kargoTrackingNo').textContent = newTrackingCode;
+            
+            // Timeline'ı güncelle
+            const timeline = generateRandomKargoTimeline(selectedCompany);
+            const kargoTimeline = document.getElementById('kargoTimeline');
+            kargoTimeline.innerHTML = timeline.map(step => `
+                <div class="kargo-step ${step.completed ? 'completed' : ''} ${step.active ? 'active' : ''}">
+                    <div class="kargo-step-indicator">${step.completed ? '✓' : step.active ? '→' : '•'}</div>
+                    <div class="kargo-step-content">
+                        <div class="kargo-step-title">${step.title}</div>
+                        <div class="kargo-step-time">${step.time}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Escrow ödeme onayla
+        function approveEscrowPayment() {
+            const modal = document.getElementById('collaborationModal');
+            const escrowStatus = document.getElementById('modalEscrowStatus');
+            
+            if (escrowStatus.textContent === 'Ödendi') {
+                alert('Bu ödeme zaten onaylanmış!');
+                return;
+            }
+
+            // Ödemeyi onayla
+            escrowStatus.textContent = 'Ödendi';
+            escrowStatus.className = 'status-badge-modal odendi';
+            document.getElementById('modalPaymentStatus').textContent = 'Ödendi';
+            
+            // Butonları gizle
+            document.getElementById('escrowActions').style.display = 'none';
+            
+            // Başarı mesajı
+            alert('✓ Escrow ödeme başarıyla onaylanmıştır!');
+            
+            console.log('💳 Escrow ödeme onaylandı');
+        }
+
+        // Modal Kapama
+        function closeCollaborationModal() {
+            const modal = document.getElementById('collaborationModal');
+            modal.classList.remove('active');
+            
+            // Escrow butonlarını geri getir
+            setTimeout(() => {
+                const escrowActions = document.getElementById('escrowActions');
+                const escrowStatus = document.getElementById('modalEscrowStatus');
+                if (escrowStatus.textContent !== 'Ödendi') {
+                    escrowActions.style.display = 'flex';
+                }
+            }, 300);
+        }
+
+        // Modal dışında tıklanınca kapanması
+        document.getElementById('collaborationModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('collaborationModal')) {
+                closeCollaborationModal();
+            }
+        });
+
+        // Mesajlaşma Özelliği
+        function loadMessaging() {
+            const messagingList = document.getElementById('messagingList');
+            
+            messagingList.innerHTML = isbirlikler.filter(col => col.status === 'aktif').map((col, index) => `
+                <div class="messaging-item ${index === 0 ? 'active' : ''}" data-influencer-id="${col.id}" onclick="openChat(${col.id}, '${col.influencerAdi}')">
+                    <div class="messaging-item-avatar">${col.avatar}</div>
+                    <div class="messaging-item-info">
+                        <h4>${col.influencerAdi}</h4>
+                        <p>Merhaba, nasılsın?</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Chat Açma
+        function openChat(influencerId, influencerName) {
+            const chatArea = document.getElementById('chatArea');
+            const messagingItems = document.querySelectorAll('.messaging-item');
+            
+            // Tüm messaging items'ı deaktif et
+            messagingItems.forEach(item => item.classList.remove('active'));
+            
+            // Seçilen influencer'a ait messaging item'ı bulup aktif et
+            messagingItems.forEach(item => {
+                if (item.onclick && item.getAttribute('onclick').includes(`openChat(${influencerId}`)) {
+                    item.classList.add('active');
+                }
+            });
+            
+            // Alternatif: data attribute'e göre bul
+            const selectedItem = document.querySelector(`[data-influencer-id="${influencerId}"]`);
+            if (selectedItem) {
+                selectedItem.classList.add('active');
+            }
+
+            chatArea.innerHTML = `
+                <div class="messaging-messages" id="messagesContainer">
+                    <div class="message">
+                        <div class="message-bubble">
+                            Merhaba! Yaz kampanyası hakkında görev detaylarını alabilir miyim?
+                            <div class="message-time">09:30</div>
+                        </div>
+                    </div>
+                    <div class="message sent">
+                        <div class="message-bubble">
+                            Tabii! Detaylar ekte bulunuyor. Sosyal medya kanallarında 4 gönderi ve 1 reel istiyoruz.
+                            <div class="message-time">09:35</div>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <div class="message-bubble">
+                            Harika! Hangi tarihte başlayabilirim?
+                            <div class="message-time">09:40</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="messaging-input-group">
+                    <input type="text" class="messaging-input" placeholder="Mesaj yaz...">
+                    <button class="messaging-send-btn">Gönder</button>
+                </div>
+            `;
+        }
+
+        // Sayfayı Yükle
+        loadCollaborations();
+        loadMessaging();
+        openChat(1, 'Deniz Kaya');
+    </script>
+</body>
+</html>

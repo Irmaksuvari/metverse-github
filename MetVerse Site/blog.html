@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .blog-section {
+            background-color: rgb(4, 0, 29);
+            background-image: radial-gradient(circle, rgba(232, 133, 202, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            padding: 120px 1rem 4rem 1rem;
+            position: relative;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.6s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .blog-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #fffffffe;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .blog-header h1 .highlight {
+            color: rgb(232, 133, 202);
+        }
+
+        .blog-header p {
+            font-size: 1.2rem;
+            color: #B0B0B0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .blog-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Yazarlar Listesi */
+        .authors-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .author-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        /* Zigzag Düzeni */
+        .author-item:nth-child(even) {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .author-item:nth-child(even) .author-image {
+            order: -1;
+        }
+
+        .author-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .author-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: rgb(232, 133, 202);
+            line-height: 1.2;
+        }
+
+        .author-role {
+            font-size: 1.1rem;
+            color: #B0B0B0;
+            font-weight: 500;
+        }
+
+        .author-description {
+            font-size: 1rem;
+            color: #D0D0D0;
+            line-height: 1.6;
+            margin-top: 0.5rem;
+        }
+
+        .author-image {
+            position: relative;
+            z-index: 1;
+            width: 85%;
+            height: auto;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .author-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block !important;
+            border-radius: 12px;
+            border: 2px solid rgba(232, 133, 202, 0.2);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(232, 133, 202, 0.15);
+        }
+
+        .author-item:hover .author-image img {
+            border-color: rgba(232, 133, 202, 0.5);
+            box-shadow: 0 15px 40px rgba(232, 133, 202, 0.25);
+            transform: translateY(-5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .blog-section {
+                padding: 120px 1rem 2rem 1rem;
+            }
+
+            .blog-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .blog-header p {
+                font-size: 1rem;
+            }
+
+            .author-item {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .author-item:nth-child(even) {
+                grid-template-columns: 1fr;
+                direction: ltr;
+            }
+
+            .author-name {
+                font-size: 1.4rem;
+            }
+
+            .author-image {
+                width: 80%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-section {
+                padding: 120px 1rem 1.5rem 1rem;
+            }
+
+            .blog-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .blog-header p {
+                font-size: 0.9rem;
+            }
+
+            .authors-list {
+                gap: 2rem;
+            }
+
+            .author-item {
+                gap: 1rem;
+            }
+
+            .author-name {
+                font-size: 1.2rem;
+            }
+
+            .author-role {
+                font-size: 0.9rem;
+            }
+
+            .author-image {
+                width: 75%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+
+    <!-- Blog Section -->
+    <section class="blog-section">
+        <div class="blog-header">
+            <h1><span class="highlight">Ekibimiz</span></h1>
+            <p>MetVerse'ü oluşturan yetenekli ve özverili ekip üyelerimiz.</p>
+        </div>
+
+        <div class="blog-container">
+            <div class="authors-list">
+                <!-- Irmak Süvari -->
+                <div class="author-item">
+                    <div class="author-content">
+                        <div class="author-name">Irmak Süvari</div>
+                    </div>
+                    <div class="author-image">
+                        <img src="görseller/Irmak.png" alt="Irmak Süvari">
+                    </div>
+                </div>
+
+                <!-- Selen Güven -->
+                <div class="author-item">
+                    <div class="author-content">
+                        <div class="author-name">Selen Güven</div>
+                    </div>
+                    <div class="author-image">
+                        <img src="görseller/Selen.png" alt="Selen Güven">
+                    </div>
+                </div>
+
+                <!-- Sudenaz Çobanoğlu -->
+                <div class="author-item">
+                    <div class="author-content">
+                        <div class="author-name">Sudenaz Çobanoğlu</div>
+                    </div>
+                    <div class="author-image">
+                        <img src="görseller/Sude.png" alt="Sudenaz Çobanoğlu">
+                    </div>
+                </div>
+
+                <!-- Ahmet Talha Kula -->
+                <div class="author-item">
+                    <div class="author-content">
+                        <div class="author-name">Ahmet Talha Kula</div>
+                    </div>
+                    <div class="author-image">
+                        <img src="görseller/Talha.png" alt="Ahmet Talha Kula">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dinamik Footer Bileşeni -->
+    <div id="footer-container"></div>
+    <script src="js/footer.js"></script>
+
+    
+</body>
+</html>
+

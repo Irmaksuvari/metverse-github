@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İnfluencer Keşfet - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .kesfet-section {
+            background-color: rgb(4, 0, 29);
+            background-image: radial-gradient(circle, rgba(232, 133, 202, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            padding: 120px 1rem 4rem 1rem;
+            position: relative;
+        }
+
+        .kesfet-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.6s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .kesfet-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #fffffffe;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .kesfet-header h1 .highlight {
+            color: rgb(232, 133, 202);
+        }
+
+        .kesfet-header p {
+            font-size: 1.2rem;
+            color: #B0B0B0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .kesfet-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .kesfet-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            background: rgba(232, 133, 202, 0.1);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            border-radius: 8px;
+            color: #B0B0B0;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: rgba(232, 133, 202, 0.2);
+            border-color: rgb(232, 133, 202);
+            color: rgb(232, 133, 202);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            border-color: rgb(232, 133, 202);
+            color: #fffffffe;
+        }
+
+        .kesfet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .kesfet-card {
+            background: rgba(30, 0, 34, 0.6);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: slideUp 0.4s ease;
+        }
+
+        .kesfet-card:hover {
+            background: rgba(30, 0, 34, 0.9);
+            border-color: rgba(232, 133, 202, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(232, 133, 202, 0.2);
+        }
+
+        .kesfet-card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.2), rgba(232, 133, 202, 0.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.2);
+        }
+
+        .kesfet-card-content {
+            padding: 1.5rem;
+        }
+
+        .kesfet-card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fffffffe;
+            margin-bottom: 0.5rem;
+        }
+
+        .kesfet-card-handle {
+            font-size: 0.9rem;
+            color: rgb(232, 133, 202);
+            margin-bottom: 1rem;
+        }
+
+        .kesfet-card-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(232, 133, 202, 0.15);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: rgb(232, 133, 202);
+            margin-bottom: 1rem;
+        }
+
+        .kesfet-card-desc {
+            font-size: 0.9rem;
+            color: #B0B0B0;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .influencer-stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.2);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #B0B0B0;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .stat-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: rgb(232, 133, 202);
+        }
+
+        .kesfet-card-footer {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.6rem;
+        }
+
+        .kesfet-card-btn {
+            padding: 0.6rem 0.8rem;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            border: none;
+            border-radius: 6px;
+            color: #fffffffe;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .kesfet-card-btn:hover {
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.9), rgb(232, 133, 202));
+            transform: scale(1.05);
+        }
+
+        .kesfet-card-btn-secondary {
+            padding: 0.6rem 0.8rem;
+            background: transparent;
+            border: 1px solid rgba(232, 133, 202, 0.5);
+            border-radius: 6px;
+            color: rgb(232, 133, 202);
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .kesfet-card-btn-secondary:hover {
+            background: rgba(232, 133, 202, 0.1);
+            border-color: rgb(232, 133, 202);
+        }
+
+        .empty-kesfet {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(30, 0, 34, 0.5);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 15px;
+        }
+
+        .empty-kesfet-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-kesfet h2 {
+            font-size: 1.5rem;
+            color: #fffffffe;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-kesfet p {
+            color: #B0B0B0;
+            font-size: 1rem;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .kesfet-header h1 {
+                font-size: 2rem;
+            }
+
+            .kesfet-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kesfet-filters {
+                flex-direction: column;
+            }
+
+            .filter-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+
+    <section class="kesfet-section">
+        <div class="kesfet-header">
+            <h1>İnfluencer'ları <span class="highlight">Keşfet</span></h1>
+            <p>Kampanyalarınıza uygun influencer'ları keşfet ve iş birliği başlat</p>
+        </div>
+
+        <div class="kesfet-container">
+            <!-- Filtreler -->
+            <div class="kesfet-filters">
+                <button class="filter-btn active" onclick="filterInfluencers('all')">🌟 Tümü</button>
+                <button class="filter-btn" onclick="filterInfluencers('fashion')">👗 Moda</button>
+                <button class="filter-btn" onclick="filterInfluencers('beauty')">💄 Güzellik</button>
+                <button class="filter-btn" onclick="filterInfluencers('lifestyle')">🌿 Yaşam Tarzı</button>
+                <button class="filter-btn" onclick="filterInfluencers('tech')">📱 Teknoloji</button>
+            </div>
+
+            <!-- İnfluencer'lar Grid'i -->
+            <div class="kesfet-grid" id="influencerGrid">
+                <!-- İnfluencer'lar burada listelenecek -->
+                <div class="empty-kesfet">
+                    <div class="empty-kesfet-icon">🔍</div>
+                    <h2>İnfluencer yükleniyor...</h2>
+                    <p>Lütfen bekleyin, mevcut influencer'lar görüntülenecektir</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        let influencers = [];
+        let allInfluencersData = {};
+
+        // Sayfa yüklendiğinde veritabanından influencer verilerini çek
+        async function loadInfluencersFromDatabase() {
+            try {
+                // Tüm gerekli verileri paralel olarak çek
+                const [influencersRes, csvRes, kampanyalarRes] = await Promise.all([
+                    fetch('/data/influencers.json'),
+                    fetch('/data/influencers_csv.json'),
+                    fetch('/data/kampanyalar.json')
+                ]);
+
+                const influencersData = await influencersRes.json();
+                const csvData = await csvRes.json();
+                const kampanyalarData = await kampanyalarRes.json();
+
+                console.log('📊 Yüklenen veritabanları:');
+                console.log('👥 Influencer sayısı:', influencersData.length);
+                console.log('📋 CSV verisi sayısı:', csvData.length);
+                console.log('🎯 Kampanya sayısı:', kampanyalarData.length);
+
+                // Influencerları birleştir ve zenginleştir
+                influencers = influencersData.map(inf => {
+                    // CSV verisini bul
+                    const csvInfo = csvData.find(csv => csv.influencer_id === inf.id);
+
+                    // Bu influencerın kampanyalarını bul
+                    const campaigns = kampanyalarData.filter(k => k.influencer_id === inf.id);
+                    
+                    // Ortalama etkileşim oranını hesapla
+                    const avgEngagement = campaigns.length > 0 
+                        ? (campaigns.reduce((sum, k) => sum + k.ai_eslesme_skoru, 0) / campaigns.length).toFixed(1)
+                        : 0;
+
+                    // Ortalama kampanya ücretini hesapla
+                    const avgPrice = campaigns.length > 0
+                        ? Math.round(campaigns.reduce((sum, k) => sum + k.kampanya_butcesi_tl, 0) / campaigns.length)
+                        : 5000;
+
+                    // Kategori eşlemesi
+                    const categoryMap = {
+                        'Moda': 'fashion',
+                        'Güzellik': 'beauty',
+                        'Kozmetik': 'beauty',
+                        'Lifestyle': 'lifestyle',
+                        'Yaşam Tarzı': 'lifestyle',
+                        'Teknoloji': 'tech',
+                        'Vegan Yaşam': 'lifestyle',
+                        'Doğal Ürünler': 'lifestyle',
+                        'Spor': 'lifestyle'
+                    };
+
+                    const category = categoryMap[csvInfo?.influencer_nis] || 'lifestyle';
+                    const categoryEmoji = {
+                        'fashion': '👗',
+                        'beauty': '💄',
+                        'tech': '👨‍💻',
+                        'lifestyle': '🌿'
+                    }[category];
+
+                    return {
+                        id: inf.id,
+                        name: `${inf.ad} ${inf.soyad}`,
+                        handle: csvInfo?.influencer_kullanici_adi || `@${inf.ad.toLowerCase()}`,
+                        category: category,
+                        bio: `${csvInfo?.influencer_nis || 'Yaşam Tarzı'} | ${csvInfo?.influencer_platform || 'Instagram'} Influencer'ı`,
+                        followers: csvInfo?.influencer_tipi === 'Mega' ? '500K+' : 
+                                  csvInfo?.influencer_tipi === 'Makro' ? '250K+' :
+                                  csvInfo?.influencer_tipi === 'Mikro' ? '50K+' : '10K+',
+                        engagement: `${avgEngagement}%`,
+                        price: `₺${avgPrice.toLocaleString('tr-TR')}`,
+                        icon: categoryEmoji,
+                        platform: csvInfo?.influencer_platform || 'Instagram',
+                        type: csvInfo?.influencer_tipi || 'Mikro',
+                        niche: csvInfo?.influencer_nis || 'Lifestyle',
+                        location: `${csvInfo?.influencer_sehir}, ${csvInfo?.influencer_ulke}` || 'Türkiye',
+                        status: csvInfo?.influencer_durum || 'Aktif',
+                        campaignCount: campaigns.length,
+                        avgEngagementScore: avgEngagement
+                    };
+                });
+
+                console.log('✅ Veritabanından', influencers.length, 'influencer yüklendi');
+                console.log('🎯 Influencerlar:', influencers);
+
+                // İlk kez göster
+                displayInfluencers('all');
+
+            } catch (error) {
+                console.error('❌ Veritabanı yükleme hatası:', error);
+                const grid = document.getElementById('influencerGrid');
+                grid.innerHTML = `
+                    <div class="empty-kesfet" style="grid-column: 1/-1;">
+                        <div class="empty-kesfet-icon">⚠️</div>
+                        <h2>Veri yükleme hatası</h2>
+                        <p>Influencer verisi yüklenirken bir hata oluştu. Lütfen sayfayı yenileyin.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function displayInfluencers(filter = 'all') {
+            const grid = document.getElementById('influencerGrid');
+            
+            let filtered = influencers;
+            if (filter !== 'all') {
+                filtered = influencers.filter(i => i.category === filter);
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-kesfet" style="grid-column: 1/-1;">
+                        <div class="empty-kesfet-icon">🔍</div>
+                        <h2>İnfluencer bulunamadı</h2>
+                        <p>Seçtiğiniz kategoride influencer bulunmamaktadır</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(influencer => `
+                <div class="kesfet-card">
+                    <div class="kesfet-card-image">${influencer.icon}</div>
+                    <div class="kesfet-card-content">
+                        <h3 class="kesfet-card-title">${influencer.name}</h3>
+                        <p class="kesfet-card-handle">${influencer.handle}</p>
+                        <div class="kesfet-card-category">${influencer.niche.toUpperCase()}</div>
+                        <p class="kesfet-card-desc">
+                            📱 ${influencer.platform} | 
+                            🎯 ${influencer.type} | 
+                            📍 ${influencer.location}
+                        </p>
+                        
+                        <div class="influencer-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Takipçi</span>
+                                <span class="stat-value">${influencer.followers}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Etkileşim</span>
+                                <span class="stat-value">${influencer.engagement}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Ücret</span>
+                                <span class="stat-value">${influencer.price}</span>
+                            </div>
+                        </div>
+                        
+                        <div style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 1rem; padding: 0.5rem; background: rgba(0,0,0,0.2); border-radius: 6px;">
+                            ✅ ${influencer.campaignCount} kampanya | ${influencer.status}
+                        </div>
+                        
+                        <div class="kesfet-card-footer">
+                            <button class="kesfet-card-btn" onclick="contactInfluencer(${influencer.id})">📩 İletişim</button>
+                            <button class="kesfet-card-btn-secondary" onclick="makeOffer(${influencer.id})">🎁 Teklif Ver</button>
+                            <button class="kesfet-card-btn-secondary" onclick="viewProfile(${influencer.id})">👁️ Profil</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterInfluencers(category) {
+            // Aktif button'ı güncelle
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // İnfluencer'ları filtrele
+            displayInfluencers(category);
+            console.log('🔍 İnfluencer\'lar filtrelendi:', category);
+        }
+
+        function contactInfluencer(influencerId) {
+            const influencer = influencers.find(i => i.id === influencerId);
+            console.log('📩 İnfluencer ile iletişim:', influencer.name);
+            alert(`✅ ${influencer.name} ile iletişim sayfasına yönlendiriliyorsunuz...`);
+            // Mesajlaşma sayfasına yönlendir
+        }
+
+        function makeOffer(influencerId) {
+            const influencer = influencers.find(i => i.id === influencerId);
+            console.log('🎁 Teklif gönder:', influencer.name);
+            alert(`✅ ${influencer.name} için teklif hazırlama sayfasına yönlendiriliyorsunuz...`);
+            // Teklif hazırlama sayfasına yönlendir
+        }
+
+        function viewProfile(influencerId) {
+            const influencer = influencers.find(i => i.id === influencerId);
+            console.log('👁️ Profil görüntüle:', influencer.name);
+            alert(`Profil sayfası: ${influencer.name}`);
+            // Profil sayfasına yönlendir
+        }
+
+        // Sayfa yüklendiğinde influencer'ları göster
+        document.addEventListener('DOMContentLoaded', () => {
+            loadInfluencersFromDatabase();
+        });
+
+        // Scroll event for header background color change
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (nav) {
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

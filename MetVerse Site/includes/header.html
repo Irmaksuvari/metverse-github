@@ -1,0 +1,82 @@
+<nav class="main-header">
+    <div class="header-container">
+        <!-- SOL: Toggle Menü Butonu + Logo -->
+        <div class="header-left">
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <a href="/" class="logo-wrapper logo-text-wrapper">
+                <span class="logo-text">METVERSE</span>
+            </a>
+        </div>
+
+        <!-- ORTA: Giriş Yapılı Kullanıcı Navigasyonu -->
+        <div class="header-center">
+            <nav class="authenticated-nav" id="authenticatedNav" style="display: none;">
+                <a href="/influencer-anasayfa" class="nav-item">Profil</a>
+                <a href="/analyses" class="nav-item premium-feature-link">Analizler</a>
+                <a href="/basvuru-ve-teklifler" class="nav-item">Başvuru ve Teklifler</a>
+                <a href="/kesfet" class="nav-item">Keşfet</a>
+            </nav>
+            <nav class="authenticated-nav" id="markaAuthenticatedNav" style="display: none;">
+                <a href="/marka-anasayfa" class="nav-item" id="markaProfilLink">Profil</a>
+                <a href="/kampanyalarim" class="nav-item" id="markaKampanyalarimLink">Kampanyalarım</a>
+                <a href="/analyses" class="nav-item premium-feature-link">İşbirliği Analizleri</a>
+                <a href="/isbirlikleri" class="nav-item" id="markaIsbirliklerLink">İşbirlikleri</a>
+                <a href="/kesfet-marka" class="nav-item" id="markaKesfetLink">Keşfet</a>
+            </nav>
+        </div>
+
+        <!-- SAĞ: Aksiyon Butonları (Misafir Modu) veya Profil (Giriş Yapılı) -->
+        <div class="header-right">
+            <!-- GÖRÜNÜM 1: Giriş Yapılı Değilse (Misafir Header) -->
+            <div id="general-nav-actions" class="nav-actions">
+                <a href="/giris-yap" class="nav-btn login-btn">Giriş Yap</a>
+                <a href="/kayit-secim" class="nav-btn register-btn">Kaydol</a>
+            </div>
+
+            <!-- GÖRÜNÜM 2: Giriş Yapılı İse (Influencer Header) -->
+            <div id="user-nav-actions" class="nav-actions" style="display: none;">
+                <div class="profile-section">
+                    <div class="profile-name-display" id="profileNameDisplay">
+                        <span id="displayUserName">Kullanıcı</span>
+                    </div>
+                    <button id="profileBtn" class="profile-btn">
+                        <span class="profile-icon">👤</span>
+                    </button>
+                    <div class="dropdown-menu" id="dropdownMenu" style="display: none;">
+                        <div class="dropdown-header">
+                            <div class="user-info">
+                                <h4 id="userName">Kullanıcı Adı</h4>
+                                <p id="userEmail">email@example.com</p>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <button id="hesabıTamamlaBtn" class="dropdown-item hesabi-tamamla-btn">✓ Hesabı Tamamla</button>
+                        <button id="hesabıYükselBtn" class="dropdown-item hesabi-yuksel-btn" style="display: none; color: #ff6b35; font-weight: 600;">💎 Hesabını Yükselt</button>
+                        <button id="baglantilarBtn" class="dropdown-item baglantilar-btn">🔗 Bağlantılar</button>
+                        <button id="logoutBtn" class="dropdown-item logout-btn">Çıkış Yap</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Yan Menü (Sidebar) -->
+        <div class="nav-menu" id="navMenu">
+            <!-- Logo Bölümü -->
+            <div style="text-align: center; padding: 20px 0; border-bottom: 1px solid rgba(232, 133, 202, 0.2);">
+                <img src="/görseller/LOGO.png" alt="MetVerse Logo" style="max-width: 180px; max-height: 140px; object-fit: contain;">
+            </div>
+            
+            <a href="/" class="nav-menu-item">Anasayfa</a>
+            <a href="/basari-hikayeleri" class="nav-menu-item">Başarı Hikayeleri</a>
+            <a href="/blog" class="nav-menu-item">Blog</a>
+            <a href="/hakkimizda" class="nav-menu-item">Hakkımızda</a>
+            <a href="/PremiumBilgilendirme.html" class="nav-menu-item">Paketler</a>
+            <a href="/iletisim" class="nav-menu-item">İletişim</a>
+        </div>
+        <div class="nav-overlay" id="navOverlay"></div>
+    </div>
+</nav>

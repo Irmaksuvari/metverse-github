@@ -1,0 +1,156 @@
+[
+  {
+    "marka_id": 1730534400000,
+    "sirket_adi": "LokalTat Gıda",
+    "marka_sektoru": "Gıda",
+    "marka_ulke": "Türkiye",
+    "marka_sehir": "İstanbul",
+    "sorumlu_ad": "Mehmet",
+    "sorumlu_soyad": "Kaya",
+    "sorumlu_pozisyon": "Genel Müdür",
+    "marka_kayit_tarihi": "2025-11-03"
+  },
+  {
+    "marka_id": 1730620800000,
+    "sirket_adi": "VeganLeaf",
+    "marka_sektoru": "Vegan Ürünler",
+    "marka_ulke": "Türkiye",
+    "marka_sehir": "İzmir",
+    "sorumlu_ad": "Hatice",
+    "sorumlu_soyad": "Öztürk",
+    "sorumlu_pozisyon": "Sahibi",
+    "marka_kayit_tarihi": "2025-11-03"
+  },
+  {
+    "marka_id": 1730707200000,
+    "sirket_adi": "PureGlow Doğal Kozmetik",
+    "marka_sektoru": "Kozmetik",
+    "marka_ulke": "Türkiye",
+    "marka_sehir": "İstanbul",
+    "sorumlu_ad": "Ayşe",
+    "sorumlu_soyad": "Demir",
+    "sorumlu_pozisyon": "Kurucu",
+    "marka_kayit_tarihi": "2025-11-04"
+  },
+  {
+    "marka_id": 1730793600000,
+    "sirket_adi": "FitZone",
+    "marka_sektoru": "Spor Ürünleri",
+    "marka_ulke": "Türkiye",
+    "marka_sehir": "Bursa",
+    "sorumlu_ad": "Oğuz",
+    "sorumlu_soyad": "Yılmaz",
+    "sorumlu_pozisyon": "Pazarlama Müdürü",
+    "marka_kayit_tarihi": "2025-11-05"
+  },
+  {
+    "marka_id": 1730880000000,
+    "sirket_adi": "GreenHome",
+    "marka_sektoru": "Doğal Yaşam",
+    "marka_ulke": "Türkiye",
+    "marka_sehir": "İzmir",
+    "sorumlu_ad": "Derya",
+    "sorumlu_soyad": "Akın",
+    "sorumlu_pozisyon": "Kurucu",
+    "marka_kayit_tarihi": "2025-11-06"
+  },
+  {
+    "marka_id": 1730966400000,
+    "sirket_adi": "TechNest",
+    "marka_sektoru": "Teknoloji",
+    "marka_ulke": "Türkiye",
+    "marka_sehir": "İstanbul",
+    "sorumlu_ad": "Serkan",
+    "sorumlu_soyad": "Arı",
+    "sorumlu_pozisyon": "Ürün Müdürü",
+    "marka_kayit_tarihi": "2025-11-07"
+  },
+  {
+    "marka_id": 1731052800000,
+    "sirket_adi": "MiniRoots",
+    "marka_sektoru": "Anne-Bebek",
+    "marka_ulke": "Türkiye",
+    "marka_sehir": "Ankara",
+    "sorumlu_ad": "Meltem",
+    "sorumlu_soyad": "Koç",
+    "sorumlu_pozisyon": "Marka Sahibi",
+    "marka_kayit_tarihi": "2025-11-08"
+  },
+  {
+    "marka_id": 1731139200000,
+    "sirket_adi": "Eluzi Atölye",
+    "marka_sektoru": "El Yapımı Ürünler",
+    "marka_ulke": "Türkiye",
+    "marka_sehir": "Çanakkale",
+    "sorumlu_ad": "Ebru",
+    "sorumlu_soyad": "Şen",
+    "sorumlu_pozisyon": "Kurucu",
+    "marka_kayit_tarihi": "2025-11-09"
+  },
+  {
+    "marka_id": 1731225600000,
+    "sirket_adi": "OrganikVera",
+    "marka_sektoru": "Kozmetik",
+    "marka_ulke": "Türkiye",
+    "marka_sehir": "İstanbul",
+    "sorumlu_ad": "Selin",
+    "sorumlu_soyad": "Arı",
+    "sorumlu_pozisyon": "Kurucu",
+    "marka_kayit_tarihi": "2025-11-10"
+  },
+  {
+    "marka_id": 1731312000000,
+    "sirket_adi": "FitLife",
+    "marka_sektoru": "Spor Ürünleri",
+    "marka_ulke": "Türkiye",
+    "marka_sehir": "Ankara",
+    "sorumlu_ad": "Murat",
+    "sorumlu_soyad": "Koç",
+    "sorumlu_pozisyon": "Marka Sahibi",
+    "marka_kayit_tarihi": "2025-11-11"
+  },
+  {
+    "marka_id": 1731398400000,
+    "sirket_adi": "LoveSkin",
+    "marka_sektoru": "Cilt Bakımı",
+    "marka_ulke": "Türkiye",
+    "marka_sehir": "İzmir",
+    "sorumlu_ad": "Derya",
+    "sorumlu_soyad": "Aksoy",
+    "sorumlu_pozisyon": "Kurucu",
+    "marka_kayit_tarihi": "2025-11-12"
+  },
+  {
+    "marka_id": 1731484800000,
+    "sirket_adi": "KnowNova",
+    "marka_sektoru": "Teknoloji",
+    "marka_ulke": "Türkiye",
+    "marka_sehir": "İstanbul",
+    "sorumlu_ad": "Can",
+    "sorumlu_soyad": "Yılmaz",
+    "sorumlu_pozisyon": "Pazarlama Müdürü",
+    "marka_kayit_tarihi": "2025-11-13"
+  },
+  {
+    "marka_id": 1731571200000,
+    "sirket_adi": "SoftWear",
+    "marka_sektoru": "Sürdürülebilir Moda",
+    "marka_ulke": "Türkiye",
+    "marka_sehir": "Bursa",
+    "sorumlu_ad": "Ece",
+    "sorumlu_soyad": "Demir",
+    "sorumlu_pozisyon": "Kurucu",
+    "marka_kayit_tarihi": "2025-11-14"
+  },
+  {
+    "marka_id": 1731657600000,
+    "sirket_adi": "3DPrinter",
+    "marka_sektoru": "3D Baskı Hizmeti",
+    "marka_ulke": "Türkiye",
+    "marka_sehir": "Kütahya",
+    "sorumlu_ad": "Demir",
+    "sorumlu_soyad": "Suvari",
+    "sorumlu_pozisyon": "Marka Sahibi",
+    "marka_kayit_tarihi": "2025-11-15"
+  }
+]

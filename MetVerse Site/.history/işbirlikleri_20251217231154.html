@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İşbirlikleri - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .isbirlikleri-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(232, 133, 202, 0.2);
+            padding-bottom: 15px;
+        }
+
+        .isbirlikleri-tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .isbirlikleri-tab:hover {
+            color: rgb(232, 133, 202);
+        }
+
+        .isbirlikleri-tab.active {
+            color: rgb(232, 133, 202);
+        }
+
+        .isbirlikleri-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -17px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, rgb(232, 133, 202), rgb(220, 100, 180));
+        }
+
+        .isbirlikleri-content {
+            display: none;
+        }
+
+        .isbirlikleri-content.active {
+            display: block;
+        }
+
+        .isbirlikleri-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .isbirligi-card {
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.15), rgba(220, 100, 180, 0.1));
+            border: 2px solid rgba(232, 133, 202, 0.4);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .isbirligi-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(232, 133, 202, 0.7);
+            box-shadow: 0 15px 40px rgba(232, 133, 202, 0.25);
+        }
+
+        .isbirligi-card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .isbirligi-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgb(220, 100, 180));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .isbirligi-info h3 {
+            margin: 0;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .isbirligi-info p {
+            margin: 3px 0 0 0;
+            color: rgba(232, 133, 202, 0.8);
+            font-size: 13px;
+        }
+
+        .isbirligi-card-meta {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            padding: 12px 0;
+            border-top: 1px solid rgba(232, 133, 202, 0.2);
+            border-bottom: 1px solid rgba(232, 133, 202, 0.2);
+        }
+
+        .isbirligi-meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .isbirligi-meta-label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .isbirligi-meta-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: rgb(232, 133, 202);
+        }
+
+        .isbirligi-card-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .isbirligi-btn {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid rgba(232, 133, 202, 0.6);
+            background: rgba(232, 133, 202, 0.15);
+            color: rgb(232, 133, 202);
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .isbirligi-btn:hover {
+            background: rgba(232, 133, 202, 0.25);
+            border-color: rgba(232, 133, 202, 0.9);
+        }
+
+        /* Mesajlaşma Bölümü */
+        .messaging-section {
+            margin-top: 50px;
+        }
+
+        .messaging-section h2 {
+            font-size: 24px;
+            color: rgb(232, 133, 202);
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .messaging-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+            max-height: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .messaging-list {
+            background: rgba(0, 0, 0, 0.3);
+            border-right: 1px solid rgba(232, 133, 202, 0.2);
+            overflow-y: auto;
+        }
+
+        .messaging-item {
+            padding: 15px;
+            border-bottom: 1px solid rgba(232, 133, 202, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .messaging-item:hover {
+            background: rgba(232, 133, 202, 0.15);
+        }
+
+        .messaging-item.active {
+            background: rgba(232, 133, 202, 0.2);
+            border-left: 3px solid rgb(232, 133, 202);
+        }
+
+        .messaging-item-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgb(220, 100, 180));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .messaging-item-info h4 {
+            margin: 0;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .messaging-item-info p {
+            margin: 3px 0 0 0;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .messaging-chat {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .messaging-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .message.sent {
+            justify-content: flex-end;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: rgba(232, 133, 202, 0.2);
+            border: 1px solid rgba(232, 133, 202, 0.4);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .message.sent .message-bubble {
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.4), rgba(220, 100, 180, 0.3));
+            border-color: rgba(232, 133, 202, 0.6);
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 5px;
+        }
+
+        .messaging-input-group {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 0 0 15px 0;
+        }
+
+        .messaging-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(232, 133, 202, 0.3);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: inherit;
+        }
+
+        .messaging-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .messaging-input:focus {
+            outline: none;
+            border-color: rgb(232, 133, 202);
+            background: rgba(232, 133, 202, 0.1);
+        }
+
+        .messaging-send-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgb(220, 100, 180));
+            border: none;
+            color: white;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .messaging-send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(232, 133, 202, 0.3);
+        }
+
+        .empty-messaging {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: rgba(255, 255, 255, 0.4);
+            text-align: center;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .empty-state-text {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .empty-state-subtext {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+
+    <main class="influencer-main">
+        <div class="container">
+            <section class="influencer-content">
+                <!-- Başlık -->
+                <div style="margin-bottom: 30px;">
+                    <h1 style="font-size: 32px; color: rgb(232, 133, 202); font-weight: 700; margin: 0;">İşbirlikleri</h1>
+                    <p style="color: rgba(255, 255, 255, 0.6); margin: 8px 0 0 0;">Aktif işbirlikleri ve influencer işbirlik fırsat ları</p>
+                </div>
+
+                <!-- Sekmeler -->
+                <div class="isbirlikleri-tabs">
+                    <button class="isbirlikleri-tab active" data-tab="aktif">🟢 Aktif İşbirlikleri</button>
+                    <button class="isbirlikleri-tab" data-tab="gecmis">📋 Geçmiş İşbirlikleri</button>
+                    <button class="isbirlikleri-tab" data-tab="firsatlar">⭐ Fırsat Takvimi</button>
+                </div>
+
+                <!-- Aktif İşbirlikleri -->
+                <div id="aktif" class="isbirlikleri-content active">
+                    <div class="isbirlikleri-grid" id="aktifGrid">
+                        <!-- Kartlar JS tarafından yüklenecek -->
+                    </div>
+                </div>
+
+                <!-- Geçmiş İşbirlikleri -->
+                <div id="gecmis" class="isbirlikleri-content">
+                    <div class="isbirlikleri-grid" id="gecmisGrid">
+                        <!-- Kartlar JS tarafından yüklenecek -->
+                    </div>
+                </div>
+
+                <!-- Fırsat Takvimi -->
+                <div id="firsatlar" class="isbirlikleri-content">
+                    <div class="isbirlikleri-grid" id="firsatlarGrid">
+                        <!-- Kartlar JS tarafından yüklenecek -->
+                    </div>
+                </div>
+
+                <!-- Mesajlaşma Bölümü -->
+                <div class="messaging-section">
+                    <h2>💬 İnfluencer Mesajlaşması</h2>
+                    <div class="messaging-container">
+                        <!-- Mesaj Listesi -->
+                        <div class="messaging-list" id="messagingList">
+                            <!-- Konuşmalar JS tarafından yüklenecek -->
+                        </div>
+
+                        <!-- Chat Alanı -->
+                        <div class="messaging-chat" id="chatArea">
+                            <div class="empty-messaging">
+                                <div>
+                                    <div style="font-size: 48px; margin-bottom: 15px;">💬</div>
+                                    <p>Bir influencer seç</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Boş Durum -->
+                <div id="bosHali" class="empty-state" style="display: none;">
+                    <div class="empty-state-icon">🤝</div>
+                    <div class="empty-state-text">Henüz hiç işbirliği bulunmamaktadır</div>
+                    <div class="empty-state-subtext">Kampanyalarınız için influencer işbirliği başlatın</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Ürün</h4>
+                    <ul>
+                        <li><a href="#features">Özellikler</a></li>
+                        <li><a href="#">Fiyatlandırma</a></li>
+                        <li><a href="#">Güvenlik</a></li>
+                        <li><a href="#">Güncellemeler</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Şirket</h4>
+                    <ul>
+                        <li><a href="#">Hakkımızda</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Kariyer</a></li>
+                        <li><a href="#">Basın</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Yasal</h4>
+                    <ul>
+                        <li><a href="#">Gizlilik Politikası</a></li>
+                        <li><a href="#">Hizmet Şartları</a></li>
+                        <li><a href="#">Çerez Politikası</a></li>
+                        <li><a href="#">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Bağlan</h4>
+                    <ul>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Discord</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MetVerse. Tüm hakları saklıdır.</p>
+                <p>Influencer-marka ortaklıklarında güven ve adilliği yeniden tanımlama.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // İşbirlikleri Verileri
+        const isbirlikler = [
+            {
+                id: 1,
+                influencerAdi: 'Deniz Kaya',
+                handle: '@denizkaya',
+                avatar: '👩‍🎨',
+                kampanya: 'Yaz Koleksiyonu 2025',
+                followerler: '245K',
+                oranTutarı: '₺18,500',
+                status: 'aktif',
+                baslangiç: '2025-06-15'
+            },
+            {
+                id: 2,
+                influencerAdi: 'Mert Yılmaz',
+                handle: '@mertyilmaz',
+                avatar: '👨‍💼',
+                kampanya: 'Yaz Koleksiyonu 2025',
+                followerler: '189K',
+                oranTutarı: '₺15,200',
+                status: 'aktif',
+                baslangiç: '2025-06-20'
+            },
+            {
+                id: 3,
+                influencerAdi: 'Ayşe Demir',
+                handle: '@aysedemir',
+                avatar: '💄',
+                kampanya: 'Yeni Makyöz Hattı',
+                followerler: '156K',
+                oranTutarı: '₺12,800',
+                status: 'gecmis',
+                bitisZamani: '2025-05-15'
+            },
+            {
+                id: 4,
+                influencerAdi: 'Burak Kara',
+                handle: '@burakkara',
+                avatar: '⚽',
+                kampanya: 'Spor Sponsorluğu',
+                followerler: '312K',
+                oranTutarı: '₺22,500',
+                status: 'aktif',
+                baslangiç: '2025-07-01'
+            }
+        ];
+
+        const tabs = document.querySelectorAll('.isbirlikleri-tab');
+        const contentDivs = document.querySelectorAll('.isbirlikleri-content');
+
+        // Tab Değiştirme
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                contentDivs.forEach(div => div.classList.remove('active'));
+                
+                tab.classList.add('active');
+                const tabName = tab.dataset.tab;
+                document.getElementById(tabName).classList.add('active');
+            });
+        });
+
+        // İşbirlikleri Kartlarını Yükle
+        function loadCollaborations() {
+            const aktifGrid = document.getElementById('aktifGrid');
+            const gecmisGrid = document.getElementById('gecmisGrid');
+
+            aktifGrid.innerHTML = '';
+            gecmisGrid.innerHTML = '';
+
+            isbirlikler.forEach(col => {
+                const card = `
+                    <div class="isbirligi-card">
+                        <div class="isbirligi-card-header">
+                            <div class="isbirligi-avatar">${col.avatar}</div>
+                            <div class="isbirligi-info">
+                                <h3>${col.influencerAdi}</h3>
+                                <p>${col.handle}</p>
+                            </div>
+                        </div>
+                        <div style="font-size: 13px; color: rgba(255, 255, 255, 0.7); margin-bottom: 10px;">
+                            <strong>${col.kampanya}</strong>
+                        </div>
+                        <div class="isbirligi-card-meta">
+                            <div class="isbirligi-meta-item">
+                                <span class="isbirligi-meta-label">Takipçi</span>
+                                <span class="isbirligi-meta-value">${col.followerler}</span>
+                            </div>
+                            <div class="isbirligi-meta-item">
+                                <span class="isbirligi-meta-label">Ücret</span>
+                                <span class="isbirligi-meta-value">${col.oranTutarı}</span>
+                            </div>
+                        </div>
+                        <div class="isbirligi-card-buttons">
+                            <button class="isbirligi-btn">Mesaj Gönder</button>
+                            <button class="isbirligi-btn">Düzenle</button>
+                        </div>
+                    </div>
+                `;
+
+                if (col.status === 'aktif') {
+                    aktifGrid.innerHTML += card;
+                } else {
+                    gecmisGrid.innerHTML += card;
+                }
+            });
+
+            if (gecmisGrid.innerHTML === '') {
+                gecmisGrid.innerHTML = '<div class="empty-state" style="grid-column: 1/-1;"><div class="empty-state-text">Geçmiş işbirliği bulunmamaktadır</div></div>';
+            }
+        }
+
+        // Mesajlaşma Özelliği
+        function loadMessaging() {
+            const messagingList = document.getElementById('messagingList');
+            
+            messagingList.innerHTML = isbirlikler.filter(col => col.status === 'aktif').map((col, index) => `
+                <div class="messaging-item ${index === 0 ? 'active' : ''}" onclick="openChat(${col.id}, '${col.influencerAdi}')">
+                    <div class="messaging-item-avatar">${col.avatar}</div>
+                    <div class="messaging-item-info">
+                        <h4>${col.influencerAdi}</h4>
+                        <p>Merhaba, nasılsın?</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Chat Açma
+        function openChat(influencerId, influencerName) {
+            const chatArea = document.getElementById('chatArea');
+            const messagingItems = document.querySelectorAll('.messaging-item');
+            
+            messagingItems.forEach(item => item.classList.remove('active'));
+            event.target.closest('.messaging-item').classList.add('active');
+
+            chatArea.innerHTML = `
+                <div class="messaging-messages" id="messagesContainer">
+                    <div class="message">
+                        <div class="message-bubble">
+                            Merhaba! Yaz kampanyası hakkında görev detaylarını alabilir miyim?
+                            <div class="message-time">09:30</div>
+                        </div>
+                    </div>
+                    <div class="message sent">
+                        <div class="message-bubble">
+                            Tabii! Detaylar ekte bulunuyor. Sosyal medya kanallarında 4 gönderi ve 1 reel istiyoruz.
+                            <div class="message-time">09:35</div>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <div class="message-bubble">
+                            Harika! Hangi tarihte başlayabilirim?
+                            <div class="message-time">09:40</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="messaging-input-group">
+                    <input type="text" class="messaging-input" placeholder="Mesaj yaz...">
+                    <button class="messaging-send-btn">Gönder</button>
+                </div>
+            `;
+        }
+
+        // Sayfayı Yükle
+        loadCollaborations();
+        loadMessaging();
+        openChat(1, 'Deniz Kaya');
+    </script>
+</body>
+</html>

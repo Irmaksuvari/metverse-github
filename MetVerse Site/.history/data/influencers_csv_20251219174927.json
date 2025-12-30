@@ -1,0 +1,233 @@
+[
+  {
+    "influencer_id": "INF001",
+    "influencer_kullanici_adi": "@elifacar",
+    "influencer_platform": "Instagram",
+    "influencer_tipi": "Mikro",
+    "influencer_nis": "Lifestyle",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "İstanbul",
+    "influencer_kayit_tarihi": "2025-11-01",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF002",
+    "influencer_kullanici_adi": "@zeyneparslan",
+    "influencer_platform": "Instagram",
+    "influencer_tipi": "Mikro",
+    "influencer_nis": "Moda",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "İzmir",
+    "influencer_kayit_tarihi": "2025-11-01",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF003",
+    "influencer_kullanici_adi": "@mertytech",
+    "influencer_platform": "YouTube",
+    "influencer_tipi": "Mikro",
+    "influencer_nis": "Teknoloji",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "İstanbul",
+    "influencer_kayit_tarihi": "2025-11-02",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF004",
+    "influencer_kullanici_adi": "@aysekorkmaz",
+    "influencer_platform": "Instagram",
+    "influencer_tipi": "Nano",
+    "influencer_nis": "Vegan Yaşam",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "Eskişehir",
+    "influencer_kayit_tarihi": "2025-11-02",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF005",
+    "influencer_kullanici_adi": "@burakdemir",
+    "influencer_platform": "YouTube",
+    "influencer_tipi": "Makro",
+    "influencer_nis": "Teknoloji",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "Ankara",
+    "influencer_kayit_tarihi": "2025-11-03",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF006",
+    "influencer_kullanici_adi": "@deryapolat",
+    "influencer_platform": "Instagram",
+    "influencer_tipi": "Nano",
+    "influencer_nis": "Doğal Ürünler",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "İzmir",
+    "influencer_kayit_tarihi": "2025-11-03",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF007",
+    "influencer_kullanici_adi": "@canozturk",
+    "influencer_platform": "Instagram",
+    "influencer_tipi": "Mega",
+    "influencer_nis": "Lifestyle",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "İstanbul",
+    "influencer_kayit_tarihi": "2025-11-04",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF008",
+    "influencer_kullanici_adi": "@selinyilmaz",
+    "influencer_platform": "TikTok",
+    "influencer_tipi": "Mikro",
+    "influencer_nis": "Kozmetik",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "İstanbul",
+    "influencer_kayit_tarihi": "2025-11-04",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF009",
+    "influencer_kullanici_adi": "@okansahin",
+    "influencer_platform": "Instagram",
+    "influencer_tipi": "Nano",
+    "influencer_nis": "Spor",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "Bursa",
+    "influencer_kayit_tarihi": "2025-11-05",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF010",
+    "influencer_kullanici_adi": "@melisaksoy",
+    "influencer_platform": "Instagram",
+    "influencer_tipi": "Mikro",
+    "influencer_nis": "Anne-Bebek",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "Ankara",
+    "influencer_kayit_tarihi": "2025-11-05",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF011",
+    "influencer_kullanici_adi": "@keremaydin",
+    "influencer_platform": "YouTube",
+    "influencer_tipi": "Makro",
+    "influencer_nis": "Oyun",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "İstanbul",
+    "influencer_kayit_tarihi": "2025-11-07",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF012",
+    "influencer_kullanici_adi": "@eceural",
+    "influencer_platform": "Instagram",
+    "influencer_tipi": "Nano",
+    "influencer_nis": "El Yapımı",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "Çanakkale",
+    "influencer_kayit_tarihi": "2025-11-07",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF013",
+    "influencer_kullanici_adi": "@furkankaplan",
+    "influencer_platform": "TikTok",
+    "influencer_tipi": "Mikro",
+    "influencer_nis": "Eğitim",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "Konya",
+    "influencer_kayit_tarihi": "2025-11-08",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF014",
+    "influencer_kullanici_adi": "@nilsezer",
+    "influencer_platform": "Instagram",
+    "influencer_tipi": "Mikro",
+    "influencer_nis": "Sürdürülebilir Moda",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "İzmir",
+    "influencer_kayit_tarihi": "2025-11-09",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF015",
+    "influencer_kullanici_adi": "@hakantunc",
+    "influencer_platform": "YouTube",
+    "influencer_tipi": "Makro",
+    "influencer_nis": "İnceleme",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "İstanbul",
+    "influencer_kayit_tarihi": "2025-11-09",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF016",
+    "influencer_kullanici_adi": "@alarakoc",
+    "influencer_platform": "Instagram",
+    "influencer_tipi": "Mikro",
+    "influencer_nis": "Cilt Bakımı",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "İstanbul",
+    "influencer_kayit_tarihi": "2025-11-10",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF017",
+    "influencer_kullanici_adi": "@emresahinfit",
+    "influencer_platform": "Instagram",
+    "influencer_tipi": "Nano",
+    "influencer_nis": "Spor",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "Ankara",
+    "influencer_kayit_tarihi": "2025-11-10",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF018",
+    "influencer_kullanici_adi": "@cansuerdem",
+    "influencer_platform": "TikTok",
+    "influencer_tipi": "Mikro",
+    "influencer_nis": "Kozmetik",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "İzmir",
+    "influencer_kayit_tarihi": "2025-11-11",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF019",
+    "influencer_kullanici_adi": "@oguzkaratas",
+    "influencer_platform": "YouTube",
+    "influencer_tipi": "Makro",
+    "influencer_nis": "Teknoloji",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "İstanbul",
+    "influencer_kayit_tarihi": "2025-11-11",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF020",
+    "influencer_kullanici_adi": "@buseyalcin",
+    "influencer_platform": "Instagram",
+    "influencer_tipi": "Nano",
+    "influencer_nis": "Sürdürülebilir Moda",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "Bursa",
+    "influencer_kayit_tarihi": "2025-11-12",
+    "influencer_durum": "Aktif"
+  },
+  {
+    "influencer_id": "INF021",
+    "influencer_kullanici_adi": "@ralph3d",
+    "influencer_platform": "Instagram",
+    "influencer_tipi": "Makro",
+    "influencer_nis": "3D Tasarım & Teknoloji",
+    "influencer_ulke": "Türkiye",
+    "influencer_sehir": "Kütahya",
+    "influencer_kayit_tarihi": "2025-11-15",
+    "influencer_durum": "Aktif"
+  }
+]

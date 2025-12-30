@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marka Kayıt - MetVerse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .form-section {
+            background: rgb(4, 0, 29);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .form-container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(232, 133, 202, 0.05);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            padding: 2.5rem;
+            border-radius: 0.75rem;
+            animation: slideUp 0.6s ease;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-title h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #fffffffe;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-title p {
+            color: #B0B0B0;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #fffffffe;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(232, 133, 202, 0.2);
+            border-radius: 0.5rem;
+            color: #fffffffe;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgb(232, 133, 202);
+            box-shadow: 0 0 10px rgba(232, 133, 202, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 0.75rem;
+            cursor: pointer;
+            accent-color: rgb(232, 133, 202);
+        }
+
+        .checkbox-group label {
+            color: #B0B0B0;
+            margin: 0;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .form-button {
+            width: 100%;
+            padding: 0.85rem;
+            background: linear-gradient(135deg, rgb(232, 133, 202), rgba(232, 133, 202, 0.8));
+            color: #fffffffe;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        .form-button:hover {
+            background: linear-gradient(135deg, rgba(232, 133, 202, 0.9), rgb(232, 133, 202));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(232, 133, 202, 0.3);
+        }
+
+        .form-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #B0B0B0;
+            font-size: 0.9rem;
+        }
+
+        .form-link a {
+            color: rgb(232, 133, 202);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .form-link a:hover {
+            color: rgba(232, 133, 202, 0.8);
+        }
+
+        .section-divider {
+            border-top: 1px solid rgba(232, 133, 202, 0.3);
+            margin: 2rem 0 1.5rem 0;
+            padding-top: 1.5rem;
+        }
+
+        .section-divider h3 {
+            color: #fffffffe;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 2rem;
+            }
+
+            .form-title h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .form-title h1 {
+                font-size: 1.25rem;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+
+    <section class="form-section">
+        <div class="form-container">
+            <div class="form-title">
+                <h1>🏢 Marka Kayıt</h1>
+                <p>Markanızı MetVerse'e kaydedin</p>
+            </div>
+
+            <form id="markaForm" method="POST" action="/api/kayit">
+                <input type="hidden" name="tumKayit" value="marka">
+                <input type="hidden" id="selectedPlan" name="plan" value="ucretsiz">
+
+                <!-- Plan Seçim Alanı -->
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="color: #fffffffe; font-size: 0.95rem; font-weight: 600; margin-bottom: 1rem;">Planınızı Seçin *</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <!-- Ücretsiz Plan -->
+                        <div id="freePlanCard" class="plan-card" onclick="selectPlan('ucretsiz', this)" style="
+                            padding: 1.5rem;
+                            border: 2px solid rgba(232, 133, 202, 0.5);
+                            border-radius: 0.5rem;
+                            cursor: pointer;
+                            background: rgba(232, 133, 202, 0.05);
+                            transition: all 0.3s ease;
+                        ">
+                            <h4 style="color: #fffffffe; margin-bottom: 0.5rem; font-weight: 600;">📱 Ücretsiz</h4>
+                            <p style="color: #B0B0B0; font-size: 0.85rem; margin-bottom: 1rem;">Başlamaya Hazır Mısın?</p>
+                            <div style="color: #4ADE80; font-weight: 600; font-size: 1.2rem;">₺0/Ay</div>
+                        </div>
+
+                        <!-- Premium Plan -->
+                        <div id="premiumPlanCard" class="plan-card" onclick="selectPlan('premium', this)" style="
+                            padding: 1.5rem;
+                            border: 2px solid rgba(232, 133, 202, 0.3);
+                            border-radius: 0.5rem;
+                            cursor: pointer;
+                            background: rgba(232, 133, 202, 0.05);
+                            transition: all 0.3s ease;
+                        ">
+                            <h4 style="color: #fffffffe; margin-bottom: 0.5rem; font-weight: 600;">💼 Premium</h4>
+                            <p style="color: #B0B0B0; font-size: 0.85rem; margin-bottom: 1rem;">Maksimum Gücü Açın</p>
+                            <div style="color: rgb(232, 133, 202); font-weight: 600; font-size: 1.2rem;">₺1.200/Ay</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Premium Ödeme Alanı (Gizli) -->
+                <div id="paymentSection" style="display: none; border: 2px solid rgb(232, 133, 202); padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 2rem; background: rgba(232, 133, 202, 0.08);">
+                    <h3 style="color: rgb(232, 133, 202); font-size: 0.95rem; font-weight: 600; margin-bottom: 1rem;">💳 Ödeme Bilgileri</h3>
+                    
+                    <div class="form-group">
+                        <label for="cardName">Kart Sahibinin Adı *</label>
+                        <input 
+                            type="text" 
+                            id="cardName" 
+                            name="cardName" 
+                            placeholder="Adı Soyadı"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cardNumber">Kart Numarası *</label>
+                        <input 
+                            type="text" 
+                            id="cardNumber" 
+                            name="cardNumber" 
+                            placeholder="1234 5678 9012 3456"
+                            maxlength="19"
+                            required
+                        >
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="cardExpiry">Son Kullanma Tarihi *</label>
+                            <input 
+                                type="text" 
+                                id="cardExpiry" 
+                                name="cardExpiry" 
+                                placeholder="AA/YY"
+                                maxlength="5"
+                                required
+                            >
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="cardCVC">CVV *</label>
+                            <input 
+                                type="text" 
+                                id="cardCVC" 
+                                name="cardCVC" 
+                                placeholder="123"
+                                maxlength="3"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(232, 133, 202, 0.1); padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+                        <div style="display: flex; justify-content: space-between; color: #fffffffe; font-weight: 600;">
+                            <span>Aylık Ücret:</span>
+                            <span>₺1.200</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="border-top: 1px solid rgba(255, 223, 152, 0.3); margin: 2rem 0 1.5rem 0; padding-top: 1.5rem;">
+                    <h3 style="color: #fffffffe; font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem;">Şirket Bilgileri</h3>
+                </div>
+                    <input 
+                        type="text" 
+                        id="sirketAdi" 
+                        name="sirketAdi" 
+                        placeholder="Şirketinizin adını giriniz"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="markaAdi">Marka Adı *</label>
+                    <input 
+                        type="text" 
+                        id="markaAdi" 
+                        name="markaAdi" 
+                        placeholder="Markanızın adını giriniz"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-posta Adresi *</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="ornek@sirket.com"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="sifre">Şifre *</label>
+                    <input 
+                        type="password" 
+                        id="sifre" 
+                        name="sifre" 
+                        placeholder="En az 6 karakter"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="sifreTekrar">Şifre Tekrar *</label>
+                    <input 
+                        type="password" 
+                        id="sifreTekrar" 
+                        name="sifreTekrar" 
+                        placeholder="Şifrenizi tekrar giriniz"
+                        required
+                    >
+                </div>
+
+                <div style="border-top: 1px solid rgba(255, 223, 152, 0.3); margin: 2rem 0 1.5rem 0; padding-top: 1.5rem;">
+                    <h3 style="color: #fffffffe; font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem;">Sorumlu Kişi İletişim Bilgileri</h3>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="sorumluAd">Ad *</label>
+                        <input 
+                            type="text" 
+                            id="sorumluAd" 
+                            name="sorumluAd" 
+                            placeholder="Adı"
+                            required
+                        >
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="sorumluSoyad">Soyad *</label>
+                        <input 
+                            type="text" 
+                            id="sorumluSoyad" 
+                            name="sorumluSoyad" 
+                            placeholder="Soyadı"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sorumluPozisyon">Pozisyon *</label>
+                    <input 
+                        type="text" 
+                        id="sorumluPozisyon" 
+                        name="sorumluPozisyon" 
+                        placeholder="Örn: Genel Müdür, Pazarlama Müdürü"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="sorumluTelefon">Telefon Numarası *</label>
+                    <input 
+                        type="tel" 
+                        id="sorumluTelefon" 
+                        name="sorumluTelefon" 
+                        placeholder="+90 (555) 123-4567"
+                        required
+                    >
+                </div>
+
+                <div class="checkbox-group">
+                    <input 
+                        type="checkbox" 
+                        id="kosullar" 
+                        name="kosullar" 
+                        required
+                    >
+                    <label for="kosullar">
+                        <a href="#" style="color: rgb(255, 223, 152); text-decoration: none;">Kullanım Koşulları</a>'nı kabul ediyorum
+                    </label>
+                </div>
+
+                <button type="submit" class="form-button">Kaydı Tamamla</button>
+
+                <div class="form-link">
+                    Zaten hesabınız mı var? <a href="#">Giriş Yapın</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // Form submit handler
+        document.getElementById('markaForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // FRONTEND DOĞRULAMA
+            const sirketAdi = document.getElementById('sirketAdi').value.trim();
+            const markaAdi = document.getElementById('markaAdi').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const sifre = document.getElementById('sifre').value;
+            const sifreTekrar = document.getElementById('sifreTekrar').value;
+            const sorumluAd = document.getElementById('sorumluAd').value.trim();
+            const sorumluSoyad = document.getElementById('sorumluSoyad').value.trim();
+            const sorumluPozisyon = document.getElementById('sorumluPozisyon').value.trim();
+            const sorumluTelefon = document.getElementById('sorumluTelefon').value.trim();
+            const kosullar = document.getElementById('kosullar').checked;
+
+            // Zorunlu alanlar kontrolü
+            if (!sirketAdi || !markaAdi || !email || !sifre || !sifreTekrar || !sorumluAd || !sorumluSoyad || !sorumluPozisyon || !sorumluTelefon) {
+                alert('❌ Lütfen tüm zorunlu alanları doldurunuz!');
+                return;
+            }
+
+            // Email formatı kontrolü
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('❌ Lütfen geçerli bir e-posta adresi giriniz!');
+                return;
+            }
+
+            // Telefon formatı kontrolü
+            const telefonRegex = /^[0-9\s\-\+\(\)]{10,}$/;
+            if (!telefonRegex.test(sorumluTelefon)) {
+                alert('❌ Lütfen geçerli bir telefon numarası giriniz!');
+                return;
+            }
+
+            // Şifre uzunluğu kontrolü
+            if (sifre.length < 6) {
+                alert('❌ Şifre minimum 6 karakter olmalıdır!');
+                return;
+            }
+
+            // Şifre eşleşme kontrolü
+            if (sifre !== sifreTekrar) {
+                alert('❌ Şifreler eşleşmiyor!');
+                return;
+            }
+
+            // Kullanım koşulları kontrolü
+            if (!kosullar) {
+                alert('❌ Kullanım koşullarını kabul etmelisiniz!');
+                return;
+            }
+
+            // Ön uç doğrulaması başarıysa arka uca gönder
+            try {
+                const response = await fetch('/api/kayit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        tumKayit: 'marka',
+                        sirketAdi,
+                        markaAdi,
+                        email,
+                        sifre,
+                        sifreTekrar,
+                        sorumluAd,
+                        sorumluSoyad,
+                        sorumluPozisyon,
+                        sorumluTelefon,
+                        kosullar
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert(result.message);
+                    window.location.href = result.redirectUrl || '/marka-anasayfa';
+                } else {
+                    alert('❌ ' + result.message);
+                }
+            } catch (error) {
+                console.error('Form gönderme hatası:', error);
+                alert('❌ Bir hata oluştu. Lütfen tekrar deneyin.');
+            }
+        });
+    </script>
+</body>
+</html>

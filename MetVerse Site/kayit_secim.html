@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Seçim - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+
+    <!-- Kayıt Seçim Section -->
+    <section class="section-choice">
+        <div class="choice-container">
+            <div class="choice-header">
+                <h1>Tarafınızı <span class="highlight">Seçin</span></h1>
+                <p>Hangi kategoride katılmak istiyorsunuz?</p>
+            </div>
+
+            <div class="choice-grid">
+                <!-- Marka Kartı -->
+                <a href="/marka-kayit" class="choice-card-link">
+                    <div class="choice-card">
+                        <div class="choice-icon">🏢</div>
+                        <h2>Marka Olarak Katıl</h2>
+                        <p>Markanız için influencer bulun, işbirliği yapın ve kampanyalarınızı yönetin.</p>
+                    </div>
+                </a>
+
+                <!-- Influencer Kartı -->
+                <a href="/influencer-kayit" class="choice-card-link">
+                    <div class="choice-card">
+                        <div class="choice-icon">🤳</div>
+                        <h2>Influencer Olarak Katıl</h2>
+                        <p>Markaların kampanyalarına katılın, kazanç elde edin ve etkilerinizi arttırın.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Menu Toggle Functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        const navOverlay = document.getElementById('navOverlay');
+        const body = document.body;
+
+        if (menuToggle && navMenu && navOverlay) {
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+                body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+            });
+
+            // Close menu when clicking on a link
+            const menuItems = navMenu.querySelectorAll('.nav-menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    navOverlay.classList.remove('active');
+                    body.style.overflow = 'auto';
+                });
+            });
+
+            // Close menu when clicking on overlay
+            navOverlay.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+                navOverlay.classList.remove('active');
+                body.style.overflow = 'auto';
+            });
+
+            // Scroll event for header background color change
+            window.addEventListener('scroll', () => {
+                const nav = document.querySelector('nav');
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

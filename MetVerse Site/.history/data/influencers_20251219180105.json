@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1765825018687,
+    "ad": "Irmak",
+    "soyad": "Süvari",
+    "email": "irmak.suvari14@gmail.com",
+    "telefon": "+905320590179",
+    "sifre": "$2b$10$fSbcTBqz4YxzWGgBCZYyReW2/i2xv3WrnxZU3m.9u71sTxr8PNPo.",
+    "kosullarKabul": 1,
+    "createdAt": "2025-12-15T18:56:58.687Z",
+    "updatedAt": "2025-12-15T18:56:58.687Z"
+  },
+  {
+    "id": 1734253847127,
+    "ad": "Aylin",
+    "soyad": "Şeref",
+    "email": "aylin.seref@example.com",
+    "telefon": "+90 543 234 5678",
+    "sifre": "$2b$10$pF8FYcYM1SNIqewKg42Pfen3FirfYKCrvHulcjlpwwNNuttBzyMoO",
+    "kosullarKabul": 1,
+    "createdAt": "2025-12-15T14:20:30.127Z",
+    "updatedAt": "2025-12-15T14:20:30.127Z"
+  },
+  {
+    "id": 1734253847128,
+    "ad": "Emre",
+    "soyad": "Tekin",
+    "email": "emre.tekin@example.com",
+    "telefon": "+90 555 876 5432",
+    "sifre": "$2b$10$pF8FYcYM1SNIqewKg42Pfen3FirfYKCrvHulcjlpwwNNuttBzyMoO",
+    "kosullarKabul": 1,
+    "createdAt": "2025-12-15T15:45:12.128Z",
+    "updatedAt": "2025-12-15T15:45:12.128Z"
+  }
+]

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #1a1a1a;
+            color: white;
+        }
+        #header-container {
+            border: 2px solid red;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .debug-log {
+            background: #2a2a2a;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 3px solid lime;
+            font-family: monospace;
+        }
+        #logs {
+            max-height: 400px;
+            overflow-y: auto;
+            background: #0a0a0a;
+            padding: 10px;
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Header Loading Test</h1>
+    
+    <div id="logs"></div>
+    
+    <div id="header-container" style="border: 3px solid red; min-height: 100px; background: #222;">
+        <p>Header yükleniyor...</p>
+    </div>
+
+    <main>
+        <h2>Test Sayfası</h2>
+        <p>Header aşağıda görülmeli</p>
+    </main>
+
+    <script>
+        const logsDiv = document.getElementById('logs');
+
+        function addLog(message) {
+            const log = document.createElement('div');
+            log.className = 'debug-log';
+            log.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logsDiv.appendChild(log);
+            logsDiv.scrollTop = logsDiv.scrollHeight;
+            console.log(message);
+        }
+
+        addLog('🟢 Test sayfası yüklendi');
+        addLog('🔍 header-container element:', document.getElementById('header-container'));
+
+        class HeaderManager {
+            constructor() {
+                addLog('🔷 HeaderManager constructor çalıştı');
+                this.loadHeader();
+            }
+
+            async loadHeader() {
+                addLog('📥 loadHeader() başladı');
+                try {
+                    addLog('📡 /includes/header.html fetch ediliyor...');
+                    const response = await fetch('/includes/header.html');
+                    addLog(`📡 Fetch response: ${response.status} ${response.statusText}`);
+                    
+                    if (!response.ok) {
+                        addLog(`⚠️ Header dosyası yüklenemedi: ${response.status} ${response.statusText}`);
+                        return;
+                    }
+
+                    const headerHTML = await response.text();
+                    addLog(`✅ Header HTML text yüklendi, boyut: ${headerHTML.length} bytes`);
+                    
+                    const headerContainer = document.getElementById('header-container');
+                    addLog(`🔍 header-container element: ${headerContainer ? 'BULUNDU' : 'BULUNAMADI'}`);
+                    
+                    if (headerContainer) {
+                        headerContainer.innerHTML = headerHTML;
+                        addLog('✅ Header HTML DOM\'a eklendi!');
+                    } else {
+                        addLog('❌ header-container element bulunamadı');
+                    }
+                } catch (error) {
+                    addLog(`❌ Header yükleme hatası: ${error.message}`);
+                }
+            }
+        }
+
+        addLog('🟡 HeaderManager instance oluşturuluyor...');
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                addLog('🟡 DOMContentLoaded event fired');
+                window.headerManager = new HeaderManager();
+            });
+        } else {
+            addLog('🟡 Document already loaded, HeaderManager oluşturuluyor');
+            window.headerManager = new HeaderManager();
+        }
+    </script>
+</body>
+</html>

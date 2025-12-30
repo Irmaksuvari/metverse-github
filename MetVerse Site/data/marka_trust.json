@@ -1,0 +1,128 @@
+[
+  {
+    "marka_id": 1730534400000,
+    "sirket_adi": "LokalTat Gıda",
+    "marka_sektoru": "Gıda",
+    "ortalama_memnuniyet_puani": 5.0,
+    "tamamlanan_kampanya_sayisi": 1,
+    "marka_guven_durumu": "Çok Güvenilir",
+    "aktif_kampanya_sayisi": 2
+  },
+  {
+    "marka_id": 1730620800000,
+    "sirket_adi": "VeganLeaf",
+    "marka_sektoru": "Vegan Ürünler",
+    "ortalama_memnuniyet_puani": 4.9,
+    "tamamlanan_kampanya_sayisi": 2,
+    "marka_guven_durumu": "Çok Güvenilir",
+    "aktif_kampanya_sayisi": 2
+  },
+  {
+    "marka_id": 1730707200000,
+    "sirket_adi": "PureGlow Doğal Kozmetik",
+    "marka_sektoru": "Kozmetik",
+    "ortalama_memnuniyet_puani": 4.9,
+    "tamamlanan_kampanya_sayisi": 2,
+    "marka_guven_durumu": "Çok Güvenilir",
+    "aktif_kampanya_sayisi": 2
+  },
+  {
+    "marka_id": 1730793600000,
+    "sirket_adi": "FitZone",
+    "marka_sektoru": "Spor Ürünleri",
+    "ortalama_memnuniyet_puani": 4.8,
+    "tamamlanan_kampanya_sayisi": 1,
+    "marka_guven_durumu": "Güvenilir",
+    "aktif_kampanya_sayisi": 2
+  },
+  {
+    "marka_id": 1730880000000,
+    "sirket_adi": "GreenHome",
+    "marka_sektoru": "Doğal Yaşam",
+    "ortalama_memnuniyet_puani": 4.9,
+    "tamamlanan_kampanya_sayisi": 1,
+    "marka_guven_durumu": "Çok Güvenilir",
+    "aktif_kampanya_sayisi": 2
+  },
+  {
+    "marka_id": 1730966400000,
+    "sirket_adi": "TechNest",
+    "marka_sektoru": "Teknoloji",
+    "ortalama_memnuniyet_puani": 4.3,
+    "tamamlanan_kampanya_sayisi": 1,
+    "marka_guven_durumu": "Orta",
+    "aktif_kampanya_sayisi": 2
+  },
+  {
+    "marka_id": 1731052800000,
+    "sirket_adi": "MiniRoots",
+    "marka_sektoru": "Anne-Bebek",
+    "ortalama_memnuniyet_puani": 4.6,
+    "tamamlanan_kampanya_sayisi": 0,
+    "marka_guven_durumu": "Yeni / Güvenilir",
+    "aktif_kampanya_sayisi": 2
+  },
+  {
+    "marka_id": 1731139200000,
+    "sirket_adi": "Eluzi Atölye",
+    "marka_sektoru": "El Yapımı Ürünler",
+    "ortalama_memnuniyet_puani": 4.8,
+    "tamamlanan_kampanya_sayisi": 0,
+    "marka_guven_durumu": "Yeni / Güvenilir",
+    "aktif_kampanya_sayisi": 2
+  },
+  {
+    "marka_id": 1731225600000,
+    "sirket_adi": "OrganikVera",
+    "marka_sektoru": "Kozmetik",
+    "ortalama_memnuniyet_puani": 4.9,
+    "tamamlanan_kampanya_sayisi": 1,
+    "marka_guven_durumu": "Çok Güvenilir",
+    "aktif_kampanya_sayisi": 2
+  },
+  {
+    "marka_id": 1731312000000,
+    "sirket_adi": "FitLife",
+    "marka_sektoru": "Spor Ürünleri",
+    "ortalama_memnuniyet_puani": 4.7,
+    "tamamlanan_kampanya_sayisi": 1,
+    "marka_guven_durumu": "Güvenilir",
+    "aktif_kampanya_sayisi": 2
+  },
+  {
+    "marka_id": 1731398400000,
+    "sirket_adi": "LoveSkin",
+    "marka_sektoru": "Cilt Bakımı",
+    "ortalama_memnuniyet_puani": 5.0,
+    "tamamlanan_kampanya_sayisi": 1,
+    "marka_guven_durumu": "Çok Güvenilir",
+    "aktif_kampanya_sayisi": 1
+  },
+  {
+    "marka_id": 1731484800000,
+    "sirket_adi": "KnowNova",
+    "marka_sektoru": "Teknoloji",
+    "ortalama_memnuniyet_puani": 4.3,
+    "tamamlanan_kampanya_sayisi": 0,
+    "marka_guven_durumu": "Yeni / Güvenilir",
+    "aktif_kampanya_sayisi": 1
+  },
+  {
+    "marka_id": 1731571200000,
+    "sirket_adi": "SoftWear",
+    "marka_sektoru": "Sürdürülebilir Moda",
+    "ortalama_memnuniyet_puani": 4.8,
+    "tamamlanan_kampanya_sayisi": 1,
+    "marka_guven_durumu": "Çok Güvenilir",
+    "aktif_kampanya_sayisi": 1
+  },
+  {
+    "marka_id": 1731657600000,
+    "sirket_adi": "3DPrinter",
+    "marka_sektoru": "3D Baskı Hizmeti",
+    "ortalama_memnuniyet_puani": 4.5,
+    "tamamlanan_kampanya_sayisi": 3,
+    "marka_guven_durumu": "Çok Güvenilir",
+    "aktif_kampanya_sayisi": 5
+  }
+]

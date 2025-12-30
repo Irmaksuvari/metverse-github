@@ -1,0 +1,25 @@
+{
+  "name": "metverse-site",
+  "version": "1.0.0",
+  "description": "MetVerse - Influencer & Brand Collaboration Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "metverse",
+    "influencer",
+    "brand",
+    "collaboration"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "jimp": "^1.6.0",
+    "sharp": "^0.34.5",
+    "bcrypt": "^5.1.0",
+    "jsonwebtoken": "^9.0.0"
+  }
+}

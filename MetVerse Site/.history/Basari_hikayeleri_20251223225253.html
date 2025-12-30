@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Başarı Hikayeleri - MetVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .success-section {
+            background-color: rgb(4, 0, 29);
+            background-image: radial-gradient(circle, rgba(232, 133, 202, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            padding: 120px 1rem 4rem 1rem;
+            position: relative;
+        }
+
+        .success-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.6s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .success-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #fffffffe;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .success-header h1 .highlight {
+            color: rgb(232, 133, 202);
+        }
+
+        .success-header p {
+            font-size: 1.2rem;
+            color: #B0B0B0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .success-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Zigzag Layout */
+        .success-stories {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        .success-story {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .success-story.reverse {
+            direction: rtl;
+        }
+
+        .success-story.reverse > * {
+            direction: ltr;
+        }
+
+        .story-image {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(232, 133, 202, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .story-image:hover {
+            transform: scale(1.05);
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .story-content {
+            padding: 1.5rem;
+        }
+
+        .story-content h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: rgb(232, 133, 202);
+            margin-bottom: 1rem;
+        }
+
+        .story-content p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #B0B0B0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .success-section {
+                padding: 120px 1rem 2rem 1rem;
+            }
+
+            .success-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .success-header p {
+                font-size: 1rem;
+            }
+
+            .success-story {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .success-story.reverse {
+                direction: ltr;
+            }
+
+            .story-image img {
+                height: 300px;
+            }
+
+            .story-content h3 {
+                font-size: 1.5rem;
+            }
+
+            .story-content p {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .success-section {
+                padding: 120px 1rem 1.5rem 1rem;
+            }
+
+            .success-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .success-header p {
+                font-size: 0.9rem;
+            }
+
+            .success-story {
+                gap: 1rem;
+            }
+
+            .story-image img {
+                height: 250px;
+            }
+
+            .story-content {
+                padding: 1rem;
+            }
+
+            .story-content h3 {
+                font-size: 1.2rem;
+            }
+
+            .story-content p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dinamik Header Bileşeni -->
+    <div id="header-container"></div>
+    <script src="js/header.js"></script>
+
+    <!-- Success Stories Section -->
+    <section class="success-section">
+        <div class="success-header">
+            <h1><span class="highlight">Başarı Hikayeleri</span></h1>
+            <p>Müşterilerimizin başarılarından ilham alın.</p>
+        </div>
+
+        <div class="success-container">
+            <div class="success-stories">
+                <!-- Ayşe Demir -->
+                <div class="success-story">
+                    <div class="story-image">
+                        <img src="görseller/Başarı hikayeleri/Ayşe Demir.jpeg" alt="Ayşe Demir">
+                    </div>
+                    <div class="story-content">
+                        <h3>Ayşe Demir</h3>
+                        <p>Ayşe Demir – Kurucu, PureGlow Doğal Kozmetik
+"Ben Ayşe Demir. PureGlow'u kurduğumda en çok güvendiğim şey influencer pazarlamasıydı. Ama zamanla her kampanya biraz daha hayal kırıklığına dönüştü. Raporlar vardı ama içleri boştu.
+METVERSE'ü ilk kullandığım kampanyada bir şey değişti. İlk kez 'ulaşılan kişi sayısını' ve gerçek etkileşimi net biçimde gördüm. Kampanya bittiğinde ekrana baktım ve şunu düşündüm: Bu sefer gerçekten nereye para harcadığımı biliyorum.
+O günden sonra influencer pazarlaması benim için bir risk değil, ölçülebilir bir yatırım oldu."</p>
+                    </div>
+                </div>
+
+                <!-- Elif Acar -->
+                <div class="success-story reverse">
+                    <div class="story-image">
+                        <img src="görseller/Başarı hikayeleri/Elif Acar.jpeg" alt="Elif Acar">
+                    </div>
+                    <div class="story-content">
+                        <h3>Elif Acar</h3>
+                        <p>Elif Acar – Lifestyle Influencer
+"Ben Elif Acar. Markalara mail atarken hep aynı cümleyi yazardım: 'Etkileşimim yüksek.'
+METVERSE'te ilk iş birliğimden sonra bunu yazmam gerekmedi. Profilimde her şey vardı: erişim bazlı etkileşim, tamamlanan işler, onaylı puanlar.
+İlk kez markalar bana 'anlatır mısın?' değil, 'ne zaman çalışabiliriz?' diye yazdı."</p>
+                    </div>
+                </div>
+
+                <!-- Hatice Öztürk -->
+                <div class="success-story">
+                    <div class="story-image">
+                        <img src="görseller/Başarı hikayeleri/Hatice Öztürk.jpeg" alt="Hatice Öztürk">
+                    </div>
+                    <div class="story-content">
+                        <h3>Hatice Öztürk</h3>
+                        <p>Hatice Öztürk – Sahibi, VeganLeaf
+"Ben Hatice. Ürünlerim küçük bir atölyede üretiliyor. Büyük influencer'lar bana hep uzak geldi.
+METVERSE'te mikro influencer'larla çalışmaya başladım. İçerikler samimiydi, yorumlar gerçekti. Sipariş bildirimleri artarken şunu fark ettim: Benim markam için doğru kitle, büyük kitle değilmiş.
+Bugün hâlâ büyüyorum ama kontrollü ve güvenle."</p>
+                    </div>
+                </div>
+
+                <!-- Mehmet Kaya -->
+                <div class="success-story reverse">
+                    <div class="story-image">
+                        <img src="görseller/Başarı hikayeleri/Mehmet Kaya.jpeg" alt="Mehmet Kaya">
+                    </div>
+                    <div class="story-content">
+                        <h3>Mehmet Kaya</h3>
+                        <p>Mehmet Kaya – Genel Müdür, LokalTat Gıda
+"Ben Mehmet Kaya. Daha önce influencer iş birliği yaparken her sözleşmede 'acaba ceza gelir mi?' diye düşündüm. Örtülü reklam konusu hep kafamdaydı.
+METVERSE'te ilk kampanyamda sürecin başında her şey zaten tanımlıydı. Reklam açıklamaları zorunluydu, ödeme escrow'daydı. Kampanya bitene kadar param güvendeydi.
+İlk kez influencer pazarlamasında asıl odağım hukuki risk değil, sonuçlar oldu."</p>
+                    </div>
+                </div>
+
+                <!-- Mert Yalçın -->
+                <div class="success-story">
+                    <div class="story-image">
+                        <img src="görseller/Başarı hikayeleri/Mert Yalçın.jpeg" alt="Mert Yalçın">
+                    </div>
+                    <div class="story-content">
+                        <h3>Mert Yalçın</h3>
+                        <p>Mert Yalçın – Teknoloji İçerik Üreticisi
+"Ben Mert. Büyük hesapların arasında hep görünmez hissederdim.
+METVERSE'te erişim bazlı etkileşim oranım öne çıktı. Aynı kampanyada benden daha büyük bir hesapla benzer performans gösterdiğimi gördüm.
+O an anladım: Sorun sayı değilmiş, gerçek etkiymiş."</p>
+                    </div>
+                </div>
+
+                <!-- Zeynep Arslan -->
+                <div class="success-story reverse">
+                    <div class="story-image">
+                        <img src="görseller/Başarı hikayeleri/Zeynep Arslan.jpeg" alt="Zeynep Arslan">
+                    </div>
+                    <div class="story-content">
+                        <h3>Zeynep Arslan</h3>
+                        <p>Zeynep Arslan – Mikro Influencer
+"Ben Zeynep Arslan. Daha önce bir kampanyada ödeme aylarca gecikmişti. O günden sonra her işte tedirgindim.
+METVERSE'te escrow sistemini duyduğumda rahatladım ama asıl rahatlama iş bitip ödeme otomatik yattığında oldu.
+İçeriğime odaklandım, gerisini sistem halletti."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dinamik Footer Bileşeni -->
+    <div id="footer-container"></div>
+    <script src="js/footer.js"></script>
+</body>
+</html>
